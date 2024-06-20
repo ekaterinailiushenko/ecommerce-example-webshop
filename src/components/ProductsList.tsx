@@ -1,29 +1,26 @@
 import { useState } from 'react'
 import { Modal } from './Modal'
-import axios from 'axios'
 import { FormattedPrice } from './FormattedPrice'
-import { API_URL } from '../api/products'
 import { ProductType } from '../store/useProductsStore'
-
-export type ProductDetailsType = {
-  product_id: string
-  name: string
-  price: number
-  image: string
-  description?: string
-}
+import { useProductDetailsStore } from '../store/useProductDetailsStore'
 
 export const ProductsList = ({ products }: { products: ProductType[] }) => {
   const [open, setOpen] = useState(false)
-  const [productDetails, setProductDetails] =
-    useState<ProductDetailsType | null>(null)
 
-  const handleOpenModal = async (id: string) => {
+  const { productDetails, getProductDetails } = useProductDetailsStore(
+    state => {
+      return {
+        productDetails: state.productDetails,
+        getProductDetails: state.getProductDetails,
+      }
+    }
+  )
+
+  const handleClickModal = async (id: string) => {
     setOpen(true)
 
-    const response = await axios.get(`${API_URL}/${id}/detail`)
+    getProductDetails(id)
 
-    setProductDetails(response.data)
     console.log(productDetails)
   }
 
@@ -33,13 +30,13 @@ export const ProductsList = ({ products }: { products: ProductType[] }) => {
         <p>No users found</p>
       ) : (
         <main>
-          <div className="border-4 border-orange-500 grid grid-cols-2 lg:grid-cols-6 sm:grid-cols-3 gap-2 px-8 py-10">
+          <div className="grid grid-cols-2 lg:grid-cols-6 sm:grid-cols-3 gap-2 px-8 py-10">
             {products.map((product: ProductType) => (
               <div
                 role="button"
                 tabIndex={0}
-                onClick={() => handleOpenModal(product.product_id)}
-                className="h-64 bg-white rounded flex flex-col justify-between"
+                onClick={() => handleClickModal(product.product_id)}
+                className="h-64 bg-white shadow-md rounded flex flex-col"
                 key={product.product_id}
               >
                 <h5 className="font-bold text-lg self-start pl-6 pt-6">

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { getProducts } from '../api/products'
+import { getProducts } from '../api/productApi'
 
 export type ProductType = {
   product_id: string
