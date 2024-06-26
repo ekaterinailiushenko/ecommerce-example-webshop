@@ -1,28 +1,25 @@
 import { useEffect } from 'react'
+import { Products } from '../components/Products'
 import { useProductsStore } from '../store/useProductsStore'
-import { ProductsList } from '../components/ProductsList'
 
 export const Home = () => {
-  const { loading, error, getProducts, filteredProducts } = useProductsStore(
-    state => {
-      return {
-        loading: state.isLoading,
-        error: state.isError,
-        getProducts: state.getProducts,
-        filteredProducts: state.filteredProducts,
-      }
-    }
-  )
+  const { isLoading, isError, getProducts } = useProductsStore(state => ({
+    isLoading: state.isLoading,
+    isError: state.isError,
+    getProducts: state.getProducts,
+  }))
 
   useEffect(() => {
     getProducts()
   }, [getProducts])
 
-  return (
-    <div>
-      {loading && <p>Loading...</p>}
-      {error && <p>There was an error loading the users</p>}
-      {!loading && !error && <ProductsList products={filteredProducts} />}
-    </div>
-  )
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+
+  if (isError) {
+    return <p>There was an error loading the users</p>
+  }
+
+  return <Products />
 }
