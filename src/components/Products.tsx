@@ -29,17 +29,9 @@ export const Products = () => {
   const renderProducts = () => {
     if (!products.length) {
       return (
-        <div className="bg-yellow-200">
-          <div>
-            <img
-              className="size-16"
-              src={productNotFoundLogo}
-              alt="Not Found"
-            />
-            <p className="">
-              No products found. Please try a different search.
-            </p>
-          </div>
+        <div className="h-[calc(100vh-64px)] flex flex-col items-center justify-center">
+          <img className="size-16" src={productNotFoundLogo} alt="Not Found" />
+          <p className="">No products found. Please try a different search.</p>
         </div>
       )
     }

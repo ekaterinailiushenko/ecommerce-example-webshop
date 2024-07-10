@@ -23,6 +23,7 @@ export const useProductsStore = create<ProductsStore>(set => ({
   isError: false,
   getProducts: async () => {
     set({ isLoading: true })
+    console.log('set isLoading true 1 time when home page mounts')
     try {
       const response = await getProducts()
       set({ products: response.data.products })
@@ -32,6 +33,7 @@ export const useProductsStore = create<ProductsStore>(set => ({
       set({ isError: true })
     } finally {
       set({ isLoading: false })
+      console.log('set isLoading false 2 time when products loaded')
     }
   },
   filteredProducts: [],

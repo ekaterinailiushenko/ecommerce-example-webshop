@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useProductsStore } from '../store/useProductsStore'
 import { MdClear } from 'react-icons/md'
@@ -16,7 +16,7 @@ export const Input = () => {
       isLoading: state.isLoading,
     }
   })
-  console.log(value)
+  console.log('Search Input render')
 
   // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const inputValue = e.target.value

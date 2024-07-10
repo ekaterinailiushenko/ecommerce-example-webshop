@@ -5,7 +5,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Error } from './pages/Error'
 import { Layout } from './Layout'
 import { Home } from './pages/Home'
-import { LoginRegister } from './pages/LoginRegister'
+import { SignUp } from './pages/SignUp'
+import LogIn from './pages/LogIn'
+import { Profile } from './pages/Profile'
+import { ProtectedRoute } from './components/ProtectedRoute'
 
 const router = createBrowserRouter([
   {
@@ -18,8 +21,20 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: 'signup',
+        element: <SignUp />,
+      },
+      {
         path: 'login',
-        element: <LoginRegister />,
+        element: <LogIn />,
+      },
+      {
+        path: 'profile',
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
