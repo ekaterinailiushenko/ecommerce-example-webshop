@@ -6,8 +6,6 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useAtomValue(userAtom)
   const loading = useAtomValue(loadingAtom)
 
-  console.log('User in ProtectedRoute:', user)
-
   if (loading) {
     return <div>Loading...</div>
   }
@@ -16,5 +14,5 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/login" replace />
   }
 
-  return <>{children}</>
+  return children
 }

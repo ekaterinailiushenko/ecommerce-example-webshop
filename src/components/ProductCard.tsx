@@ -1,20 +1,21 @@
-import { FormattedPrice } from "./FormattedPrice";
+import { AddToCartButton } from './AddToCartButton'
+import { FormattedPrice } from './FormattedPrice'
 
 export const ProductCard = ({ product, onOpenModal }) => (
-  <div
-    role="button"
-    tabIndex={0}
-    onClick={() => onOpenModal(product.product_id)}
-    className="h-64 bg-white shadow-md rounded flex flex-col"
-  >
-    <h5 className="font-bold text-lg self-start pl-6 pt-6">{product.name}</h5>
-    <img
-      className="object-contain w-3/5 h-3/5 self-center"
-      src={product.image}
-      alt="ProductImage"
-    />
-    <h5 className="pr-6 pb-6 self-end">
+  <div className="h-68 bg-white shadow-md rounded flex flex-col p-5">
+    <h5 className="font-bold text-lg self-start">{product.name}</h5>
+    <div className="group/item w-3/5 h-3/5 flex items-center justify-center self-center transition-all hover:scale-110">
+      <img src={product.image} alt="ProductImage" className="object-contain " />
+      <button
+        className="bg-white opacity-80 text-black text-sm font-semibold px-3 py-1 rounded group/button invisible group-hover/item:visible absolute"
+        onClick={() => onOpenModal(product.product_id)}
+      >
+        Quick view
+      </button>
+    </div>
+    <h5 className="self-end mb-4">
       <FormattedPrice price={product.price} />
     </h5>
+    <AddToCartButton />
   </div>
 )

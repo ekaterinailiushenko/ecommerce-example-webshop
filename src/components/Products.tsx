@@ -29,9 +29,9 @@ export const Products = () => {
   const renderProducts = () => {
     if (!products.length) {
       return (
-        <div className="h-[calc(100vh-64px)] flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center">
           <img className="size-16" src={productNotFoundLogo} alt="Not Found" />
-          <p className="">No products found. Please try a different search.</p>
+          <p>No products found. Please try a different search.</p>
         </div>
       )
     }

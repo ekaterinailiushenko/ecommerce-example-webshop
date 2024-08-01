@@ -1,3 +1,7 @@
+import { useAtomValue } from 'jotai'
+import { BsCartPlus } from 'react-icons/bs'
+import { userAtom } from '../store/authStore'
+
 export const Modal = ({
   open,
   onClose,
@@ -7,6 +11,8 @@ export const Modal = ({
   onClose: () => void
   children: React.ReactNode
 }) => {
+  const user = useAtomValue(userAtom)
+
   return (
     <div
       onClick={onClose}
@@ -18,7 +24,7 @@ export const Modal = ({
       <div
         onClick={e => e.stopPropagation()}
         className={`
-      bg-white rounded-2xl  p-6 transition-all
+      bg-white rounded-2xl p-6 transition-all flex flex-col  items-center
       ${open ? 'scale-100 opacity-100' : 'scale-125 opacity-0'}
     `}
       >
@@ -29,6 +35,11 @@ export const Modal = ({
           X
         </button>
         {children}
+        {user && (
+          <button>
+            <BsCartPlus className="p-1 rounded-lg text-4xl hover:bg-gray-50 hover:text-indigo-700" />
+          </button>
+        )}
       </div>
     </div>
   )
