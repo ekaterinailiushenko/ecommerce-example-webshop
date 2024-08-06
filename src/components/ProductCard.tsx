@@ -16,6 +16,6 @@ export const ProductCard = ({ product, onOpenModal }) => (
     <h5 className="self-end mb-4">
       <FormattedPrice price={product.price} />
     </h5>
-    <AddToCartButton />
+    <AddToCartButton product={product} />
   </div>
 )

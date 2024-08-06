@@ -5,10 +5,18 @@ import { useAtomValue } from 'jotai'
 import { loadingAtom, userAtom } from '../store/authStore'
 import { MdAccountCircle } from 'react-icons/md'
 import { IoIosLogIn } from 'react-icons/io'
+import { useCartStore } from '../store/useCartStore'
 
 export const Header = () => {
   const user = useAtomValue(userAtom)
   const loading = useAtomValue(loadingAtom)
+
+  const cartItems = useCartStore(state => state.cartItems)
+
+  const totalItemsInCart = cartItems.reduce(
+    (total, cartItem) => total + cartItem.quantity,
+    0
+  )
 
   return (
     <header className="flex h-16 justify-between items-center bg-header">
@@ -24,6 +32,7 @@ export const Header = () => {
           <Link to={'/profile'}>
             <MdAccountCircle color="white" fontSize="3rem" />
           </Link>
+          <p>{totalItemsInCart}</p>
         </div>
       ) : (
         <Link

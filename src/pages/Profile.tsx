@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { auth } from '../firebaseConfig'
 import { FaCheck } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { loadingAtom, userAtom } from '../store/authStore'
 import { deleteUser, signOut, updatePassword } from 'firebase/auth'
+import { useCartStore } from '../store/useCartStore'
 
 export const Profile = () => {
   const [error, setError] = useState<string | null>(null)
@@ -13,6 +14,15 @@ export const Profile = () => {
   const setLoading = useSetAtom(loadingAtom)
 
   const user = useAtomValue(userAtom)
+
+  const setUserId = useCartStore(state => state.setUserId)
+  useEffect(() => {
+    if (user) {
+      setUserId(user.uid) // Set the user ID and load the cart
+    } else {
+      setUserId(null) // Clear user ID on logout
+    }
+  }, [user, setUserId])
 
   const navigate = useNavigate()
 
