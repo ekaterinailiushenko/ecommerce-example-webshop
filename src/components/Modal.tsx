@@ -3,11 +3,11 @@ import { BsCartPlus } from 'react-icons/bs'
 import { userAtom } from '../store/authStore'
 
 export const Modal = ({
-  open,
+  isOpen,
   onClose,
   children,
 }: {
-  open: boolean
+  isOpen: boolean
   onClose: () => void
   children: React.ReactNode
 }) => {
@@ -17,15 +17,15 @@ export const Modal = ({
     <div
       onClick={onClose}
       className={`
-          fixed inset-0 flex justify-center items-center transition-colors
-          ${open ? 'visible bg-black/75' : 'invisible'}
+          fixed inset-0 flex justify-center items-center transition-colors 
+          ${isOpen ? 'visible bg-black/75' : 'invisible'}
         `}
     >
       <div
         onClick={e => e.stopPropagation()}
         className={`
-      bg-white rounded-2xl p-6 transition-all flex flex-col  items-center
-      ${open ? 'scale-100 opacity-100' : 'scale-125 opacity-0'}
+      bg-white rounded-2xl p-6 transition-all flex flex-col items-center duration-300 ease-in
+      ${isOpen ? 'scale-100 opacity-100' : 'scale-125 opacity-0'}
     `}
       >
         <button

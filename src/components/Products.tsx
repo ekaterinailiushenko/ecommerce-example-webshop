@@ -4,11 +4,12 @@ import { useProductDetailsStore } from '../store/useProductDetailsStore'
 import productNotFoundLogo from '../assets/productNotFoundLogo.png'
 import { ProductCard } from './ProductCard'
 import { Modal } from './Modal'
-import { LoadingSkeleton } from '../utilities/LoadingSkeleton'
-import { FormattedPrice } from './FormattedPrice'
+import { Skeletons } from './Skeletons'
+import { formatPrice } from '../utilities/formatPrice'
 
 export const Products = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isCartOpen, setIsCartOpen] = useState(false)
 
   const products = useProductsStore(state => state.filteredProducts)
 
@@ -36,8 +37,8 @@ export const Products = () => {
       )
     }
     return (
-      <main>
-        <div className="grid grid-cols-2 lg:grid-cols-6 sm:grid-cols-3 gap-2 px-8 py-10">
+      <main className="self-start">
+        <div className="grid grid-cols-2 lg:grid-cols-6 sm:grid-cols-3 gap-2 px-8 py-9">
           {products.map(product => (
             <ProductCard
               key={product.product_id}
@@ -53,9 +54,9 @@ export const Products = () => {
   return (
     <>
       {renderProducts()}
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {isLoading ? (
-          <LoadingSkeleton />
+          <Skeletons />
         ) : (
           <div className="text-center w-60">
             <div className="mx-auto my-4 w-52">
@@ -64,9 +65,7 @@ export const Products = () => {
               <p className="text-xs font-medium mb-4">
                 {productDetails?.description}
               </p>
-              <p>
-                <FormattedPrice price={productDetails?.price} />
-              </p>
+              <p>{formatPrice(productDetails?.price)}</p>
             </div>
           </div>
         )}

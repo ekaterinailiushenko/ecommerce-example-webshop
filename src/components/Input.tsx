@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useAtom } from 'jotai'
+import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useProductsStore } from '../store/useProductsStore'
 import { MdClear } from 'react-icons/md'
+import { searchItemAtom } from '../store/searchItemsStore'
 
 export const Input = () => {
+  const [value, setValue] = useAtom(searchItemAtom)
+
   const location = useLocation()
   const isHomePage = ['/'].includes(location.pathname)
-
-  const [value, setValue] = useState('')
-  // const inputRef = React.useRef<HTMLInputElement>(null)
 
   const { filterItems, isLoading } = useProductsStore(state => {
     return {
@@ -17,12 +18,6 @@ export const Input = () => {
     }
   })
   console.log('Search Input render')
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const inputValue = e.target.value
-  //   setValue(inputValue)
-  //   filterItems(inputValue)
-  // }
 
   useEffect(() => {
     if (!isHomePage) {

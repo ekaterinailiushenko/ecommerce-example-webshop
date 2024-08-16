@@ -5,8 +5,7 @@ export const Layout = () => {
   return (
     <div className="min-h-screen bg-main flex flex-col">
       <Header />
-      {/* <main className="h-[calc(100vh-64px)] flex items-center justify-center"> */}
-      <main className="flex items-center justify-center">
+      <main className="flex h-[calc(100vh-64px)] justify-center items-center">
         <Outlet />
       </main>
     </div>

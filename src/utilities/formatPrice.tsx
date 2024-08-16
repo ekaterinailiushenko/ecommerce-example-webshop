@@ -1,7 +1,8 @@
-export const formatPrice = (price: string | undefined) => {
-  if (price?.length === 1) return `0,0${price}`
-  if (price?.length === 2) return `0,${price}`
-  const integerPart = price?.slice(0, -2)
-  const decimalPart = price?.slice(-2)
-  return `${integerPart},${decimalPart}`
+export const formatPrice = (price: number | undefined) => {
+  if (price === undefined) return '0,00'
+
+  return new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(price / 100)
 }

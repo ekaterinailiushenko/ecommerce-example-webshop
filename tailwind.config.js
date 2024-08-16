@@ -8,6 +8,9 @@ export default {
         main: '#f7fafc',
         searchbar: '#eb2f35',
       },
+      minHeight: {
+        68: '17rem',
+      },
     },
   },
   plugins: [],

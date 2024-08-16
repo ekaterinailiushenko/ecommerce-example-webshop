@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { ProductType } from './useProductsStore'
 
-type CartProduct = ProductType & { quantity: number }
+export type CartProduct = ProductType & { quantity: number }
 
 type CartStore = {
   userId: string | null
@@ -97,7 +97,7 @@ export const useCartStore = create(
           }
         },
         setUserId: userId => {
-          set({ userId })
+          set({ userId, cartItems: [] }) // Clear the cart and set the user ID
           get().loadCartForUser() // Load the cart for the new user
         },
         clearCart: () => {
