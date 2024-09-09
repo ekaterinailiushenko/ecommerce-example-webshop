@@ -1,16 +1,15 @@
 import { Input } from './Input'
-import { useSetAtom } from 'jotai'
 import { NavMenu } from './NavMenu'
 import { Link } from 'react-router-dom'
 import picnicHeaderLogo from '../assets/picnicHeaderLogo.png'
-import { searchItemAtom } from '../store/searchItemsStore'
+import { useProductsStore } from '../store/useProductsStore'
 
 export const Header = () => {
-  const setValue = useSetAtom(searchItemAtom)
+  const clearSearchInput = useProductsStore(state => state.setSearchItem)
 
   return (
-    <header className="flex h-16 justify-between items-center bg-header">
-      <Link to={`/`} onClick={() => setValue('')}>
+    <header className="flex justify-between items-center bg-header">
+      <Link to={`/`} onClick={() => clearSearchInput('')}>
         <img className="size-16" src={picnicHeaderLogo} alt="Logo" />
       </Link>
       <Input />

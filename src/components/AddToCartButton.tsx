@@ -1,35 +1,155 @@
 import { BsCart2 } from 'react-icons/bs'
+import { useEffect, useState } from 'react'
+import { RiDeleteBin6Line } from 'react-icons/ri'
 import { useCartStore } from '../store/useCartStore'
+import { formatPrice } from '../utilities/formatPrice'
 import { ProductType } from '../store/useProductsStore'
-import { useAtomValue } from 'jotai'
-import { userAtom } from '../store/authStore'
-import { AddedToCartOverlay } from './AddedToCartOverlay'
+import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 
-export const AddToCartButton = ({ product }: { product: ProductType }) => {
-  const addItemToCart = useCartStore(state => state.addItemToCart)
-  const user = useAtomValue(userAtom)
+type Props = {
+  product: ProductType
+  isItemRemoving?: {
+    id: string | null
+    confirmed: boolean
+  }
+  setRemovingItem?: React.Dispatch<
+    React.SetStateAction<{
+      id: string | null
+      confirmed: boolean
+    }>
+  >
+}
 
-  const handleAddItemToCardClick = () => {
-    user ? addItemToCart(product) : alert('Please log in to add items to cart')
+export const AddToCartButton = ({
+  product,
+  isItemRemoving = { id: null, confirmed: false },
+  setRemovingItem,
+}: Props) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+
+  const {
+    cartItems,
+    addItemToCart,
+    increaseQuantity,
+    decreaseQuantity,
+    changeQuantity,
+    removeItemFromCart,
+  } = useCartStore(state => ({
+    cartItems: state.cartItems,
+    addItemToCart: state.addItemToCart,
+    increaseQuantity: state.increaseQuantity,
+    decreaseQuantity: state.decreaseQuantity,
+    changeQuantity: state.changeQuantity,
+    removeItemFromCart: state.removeItemFromCart,
+  }))
+
+  const isItemInCart = cartItems.find(
+    cartItem => cartItem.product_id === product.product_id
+  )
+
+  const [isQuantityChanged, setIsQuantityChanged] = useState(
+    isItemInCart?.quantity || 1
+  )
+
+  useEffect(() => {
+    if (isItemInCart) {
+      setIsQuantityChanged(isItemInCart.quantity)
+    }
+  }, [isItemInCart])
+
+  const handleProgressBarComplete = () => {
+    if (isItemRemoving.id === product.product_id && isItemRemoving.confirmed) {
+      removeItemFromCart(product.product_id)
+      setRemovingItem?.({ id: null, confirmed: false })
+    }
   }
 
-  return (
-    <>
+  const renderButtonContent = () => {
+    if (
+      isItemInCart &&
+      isItemRemoving &&
+      isItemInCart.product_id === isItemRemoving.id
+    ) {
+      return (
+        <button
+          onClick={() => setRemovingItem?.({ id: null, confirmed: false })}
+          className="flex items-center justify-center w-full h-full hover:bg-green-400 rounded-md transition"
+        >
+          <div
+            className="absolute top-0 left-0 h-full bg-green-600 rounded-md"
+            style={{
+              animation: `fillProgressBar ${5000}ms linear forwards`,
+            }}
+            onAnimationEnd={handleProgressBarComplete}
+          />
+          <p className="text-white font-bold z-50">Undo</p>
+        </button>
+      )
+    }
+    if (isItemInCart) {
+      return (
+        <div className="flex justify-between items-center w-full h-full">
+          <button onClick={() => decreaseQuantity(product.product_id)}>
+            <div className="flex items-center opacity-70 hover:opacity-100 transition">
+              {isItemInCart.quantity > 1 ? (
+                <AiOutlineMinus className="text-lg mx-2" />
+              ) : (
+                <RiDeleteBin6Line className="text-lg mx-2" />
+              )}
+
+              <div className="h-9 border-l border-green-300 opacity-30"></div>
+            </div>
+          </button>
+          <button
+            className="flex flex-col items-center justify-center leading-none w-full h-full"
+            onClick={() => setIsPopupOpen(!isPopupOpen)}
+          >
+            <p className="font-bold tracking-tight">{isItemInCart.quantity}</p>
+            <p className="tracking-tight text-green-300 text-xxs">
+              {formatPrice(isItemInCart.price * isItemInCart.quantity)}
+            </p>
+          </button>
+          <button onClick={() => increaseQuantity(product.product_id)}>
+            <div className="flex items-center opacity-70 hover:opacity-100 transition">
+              <div className="h-9 border-l border-green-300 opacity-20"></div>
+              <AiOutlinePlus className="text-lg mx-2" />
+            </div>
+          </button>
+        </div>
+      )
+    }
+    return (
       <button
-        className="shadow bg-green-500 hover:bg-green-400 text-white text-xs py-2 rounded-md flex justify-center gap-1"
-        onClick={handleAddItemToCardClick}
+        className="flex gap-1 w-full h-full items-center justify-center"
+        onClick={() => addItemToCart(product)}
       >
         <BsCart2 className="text-sm" />
         Add to cart
       </button>
-      <AddedToCartOverlay>
-        <div className="p-4">
-          <p className="text-gray-800 dark:text-neutral-400">
-            Some text as placeholder. In real life you can have the elements you
-            have chosen. Like, text, images, lists, etc.
-          </p>
+    )
+  }
+
+  return (
+    <div className="shadow bg-green-500 text-white text-xs h-10 rounded-md relative">
+      {renderButtonContent()}
+      {isPopupOpen && (
+        <div className="absolute -top-16 bg-white border border-green-500 rounded-lg p-2 text-center w-full flex flex-col">
+          <p className="text-gray-400">Change quantity</p>
+          <input
+            autoFocus
+            type="number"
+            value={isQuantityChanged}
+            onChange={e => setIsQuantityChanged(Number(e.target.value))}
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                setIsPopupOpen(false)
+                changeQuantity(Number(isQuantityChanged), product.product_id)
+              }
+            }}
+            className="text-black font-bold text-lg text-center outline-none [&::-webkit-inner-spin-button]:appearance-none"
+          />
         </div>
-      </AddedToCartOverlay>
-    </>
+      )}
+    </div>
   )
 }

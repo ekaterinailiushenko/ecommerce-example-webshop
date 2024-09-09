@@ -8,35 +8,43 @@ export type ProductType = {
   image: string
 }
 
-type ProductsStore = {
+type State = {
   products: ProductType[]
   isLoading: boolean
   isError: boolean
-  getProducts: () => Promise<void>
+  searchItem: string
   filteredProducts: ProductType[]
+}
+
+type Action = {
+  getProducts: () => Promise<void>
+  setSearchItem: (term: string) => void
   filterProducts: (searchTerm: string) => void
 }
 
-export const useProductsStore = create<ProductsStore>(set => ({
+export const useProductsStore = create<State & Action>(set => ({
   products: [],
   isLoading: false,
   isError: false,
+  searchItem: '',
+  filteredProducts: [],
   getProducts: async () => {
     set({ isLoading: true })
-    console.log('set isLoading true 1 time when home page mounts')
+
     try {
       const response = await getProducts()
       set({ products: response.data.products })
       set({ filteredProducts: response.data.products })
     } catch (err) {
-      console.log('Error fetching products:', err)
+      console.error('Error fetching products:', err)
       set({ isError: true })
     } finally {
       set({ isLoading: false })
-      console.log('set isLoading false 2 time when products loaded')
     }
   },
-  filteredProducts: [],
+  setSearchItem: (item: string) => {
+    set({ searchItem: item })
+  },
   filterProducts: (searchTerm: string) =>
     set(state => ({
       filteredProducts: state.products.filter(product =>

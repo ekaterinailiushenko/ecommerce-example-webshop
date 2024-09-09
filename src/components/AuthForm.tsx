@@ -1,29 +1,30 @@
 import { useState } from 'react'
-import { useAtomValue } from 'jotai'
 import { Link, Navigate } from 'react-router-dom'
-import { loadingAtom, userAtom } from '../store/authStore'
+import { useAuthStore } from '../store/useAuthStore'
 
 type AuthFormProps = {
   formPlaceholder: string
-  onSubmit: (email: string, password: string, confirmPassword?: string) => void
+  onSubmit: (email: string, password: string, confirmPassword: string) => void
   buttonText: string
   isSignup: boolean
-  error: string | null
+  onInputFocus: () => void
 }
 export const AuthForm = ({
   formPlaceholder,
   onSubmit,
   buttonText,
   isSignup,
-  error,
+  onInputFocus,
 }: AuthFormProps) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
 
-  const loading = useAtomValue(loadingAtom)
-
-  const user = useAtomValue(userAtom)
+  const { user, loading, error } = useAuthStore(state => ({
+    user: state.user,
+    loading: state.loading,
+    error: state.error,
+  }))
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -54,6 +55,7 @@ export const AuthForm = ({
             id="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
+            onFocus={onInputFocus}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
@@ -70,6 +72,7 @@ export const AuthForm = ({
             id="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            onFocus={onInputFocus}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
@@ -87,12 +90,17 @@ export const AuthForm = ({
               id="confirmPassword"
               value={confirmPassword}
               onChange={e => setConfirmPassword(e.target.value)}
+              onFocus={onInputFocus}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
         )}
-        {error && <div className="text-red-500 text-sm">{error}</div>}
+        <div className="flex items-center h-6">
+          {error && (
+            <div className="text-red-500 text-sm leading-tight">{error}</div>
+          )}
+        </div>
         <div>
           <button
             type="submit"

@@ -1,10 +1,11 @@
-import { useAtomValue } from 'jotai'
 import { Navigate } from 'react-router-dom'
-import { loadingAtom, userAtom } from '../store/authStore'
+import { useAuthStore } from '../store/useAuthStore'
 
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const user = useAtomValue(userAtom)
-  const loading = useAtomValue(loadingAtom)
+  const { user, loading } = useAuthStore(state => ({
+    user: state.user,
+    loading: state.loading,
+  }))
 
   if (loading) {
     return <div>Loading...</div>

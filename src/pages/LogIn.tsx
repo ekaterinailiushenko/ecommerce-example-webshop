@@ -1,52 +1,29 @@
-import { useState } from 'react'
-import { useSetAtom } from 'jotai'
-import { auth } from '../firebaseConfig'
-import { useNavigate } from 'react-router-dom'
-import { loadingAtom } from '../store/authStore'
 import { AuthForm } from '../components/AuthForm'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useCartStore } from '../store/useCartStore'
+import { useAuthStore } from '../store/useAuthStore'
 
 export const LogIn = () => {
-  const [error, setError] = useState<string | null>(null)
-
-  const setLoading = useSetAtom(loadingAtom)
-
-  const navigate = useNavigate()
-
-  const setUserId = useCartStore(state => state.setUserId)
+  const { login, setError } = useAuthStore(state => ({
+    login: state.login,
+    setError: state.setError,
+  }))
 
   const handleLoginSubmit = async (email: string, password: string) => {
-    console.log('log in clicked')
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      )
-      alert('User logged in successfully!')
-      const user = userCredential.user
-      setUserId(user.uid)
-      navigate('/profile')
-    } catch (error) {
-      console.log('log in clicked error')
-      if (error.code === 'auth/invalid-credential') {
-        setError('Invalid email or password')
-      } else {
-        setError(error.message)
-      }
-    } finally {
-      setLoading(false)
-    }
+    await login(email, password)
+  }
+
+  const handleInputFocus = () => {
+    setError('')
   }
 
   return (
-    <AuthForm
-      formPlaceholder="Log In"
-      onSubmit={handleLoginSubmit}
-      buttonText="Log In"
-      isSignup={false}
-      error={error}
-    />
+    <div className="flex h-[calc(100vh-64px)] justify-center items-center">
+      <AuthForm
+        formPlaceholder="Log In"
+        onSubmit={handleLoginSubmit}
+        buttonText="Log In"
+        isSignup={false}
+        onInputFocus={handleInputFocus}
+      />
+    </div>
   )
 }

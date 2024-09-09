@@ -4,12 +4,16 @@ import { ProductType } from './useProductsStore'
 
 export type CartProduct = ProductType & { quantity: number }
 
-type CartStore = {
+type State = {
   userId: string | null
   cartItems: CartProduct[]
+}
+
+type Action = {
   addItemToCart: (item: ProductType) => void
   increaseQuantity: (productId: string) => void
   decreaseQuantity: (productId: string) => void
+  changeQuantity: (quantity: number, productId: string) => void
   removeItemFromCart: (productId: string) => void
   setUserId: (userId: string | null) => void
   clearCart: () => void
@@ -17,7 +21,7 @@ type CartStore = {
 }
 
 export const useCartStore = create(
-  persist<CartStore>(
+  persist<State & Action>(
     (set, get) => {
       const saveCartToStorage = () => {
         const userId = get().userId
@@ -42,7 +46,7 @@ export const useCartStore = create(
 
             set({ cartItems: [...get().cartItems] })
           } else {
-            set({ cartItems: [...get().cartItems, { ...item, quantity: 1 }] })
+            set({ cartItems: [{ ...item, quantity: 1 }, ...get().cartItems] })
           }
 
           saveCartToStorage()
@@ -79,6 +83,24 @@ export const useCartStore = create(
               }
               saveCartToStorage()
             }
+          }
+        },
+        changeQuantity: (quantity, productId) => {
+          const item = get().cartItems.find(
+            cartItem => cartItem.product_id === productId
+          )
+
+          if (item) {
+            if (quantity <= 0) {
+              const updatedCartItems = get().cartItems.filter(
+                cartItem => cartItem.product_id !== productId
+              )
+              set({ cartItems: updatedCartItems })
+            } else {
+              item.quantity = quantity
+              set({ cartItems: [...get().cartItems] })
+            }
+            saveCartToStorage()
           }
         },
         removeItemFromCart: productId => {
