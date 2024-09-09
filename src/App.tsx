@@ -1,22 +1,21 @@
 import './index.css'
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Error } from './pages/Error'
 import { Layout } from './Layout'
-import { Home } from './pages/Home'
-import { SignUp } from './pages/SignUp'
-import { LogIn } from './pages/LogIn'
-import { Profile } from './pages/Profile'
-import { ProtectedRoute } from './components/ProtectedRoute'
-import { useAuth } from './store/authStore'
 import { Cart } from './pages/Cart'
+import { Home } from './pages/Home'
+import { LogIn } from './pages/LogIn'
+import { SignUp } from './pages/SignUp'
+import { Profile } from './pages/Profile'
+import { Settings } from './pages/Settings'
+import { ErrorPage } from './pages/ErrorPage'
+import { useAuth } from './store/useAuthStore'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <Error />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -37,27 +36,24 @@ const router = createBrowserRouter([
             <Profile />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            path: 'settings',
+            element: <Settings />,
+          },
+        ],
       },
       {
         path: 'cart',
-        element: (
-          <ProtectedRoute>
-            <Cart />
-          </ProtectedRoute>
-        ),
+        element: <Cart />,
       },
     ],
   },
 ])
 
-const App = () => {
-  useAuth() // Ensure user state is updated on app load
+export const App = () => {
+  useAuth() 
 
   return <RouterProvider router={router} />
 }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)

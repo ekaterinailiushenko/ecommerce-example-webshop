@@ -11,6 +11,12 @@ export default {
       minHeight: {
         68: '17rem',
       },
+      fontSize: {
+        xxs: '0.7rem',
+      },
+      animation: {
+        'spin-slow': 'spin 5s linear infinite',
+      },
     },
   },
   plugins: [],

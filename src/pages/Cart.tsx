@@ -1,23 +1,25 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { TfiClose } from 'react-icons/tfi'
 import { formatPrice } from '../utilities/formatPrice'
-import { CartProduct, useCartStore } from '../store/useCartStore'
 import emptyCartLogo from '../assets/emptyCartLogo.png'
-import { Link } from 'react-router-dom'
+import { AddToCartButton } from '../components/AddToCartButton'
+import { CartProduct, useCartStore } from '../store/useCartStore'
 
 export const Cart = () => {
+  const [removingItem, setRemovingItem] = useState<{
+    id: string | null
+    confirmed: boolean
+  }>({ id: null, confirmed: false })
+
   const cartItems = useCartStore(state => state.cartItems)
-  const increaseQuantity = useCartStore(state => state.increaseQuantity)
-  const decreaseQuantity = useCartStore(state => state.decreaseQuantity)
   const removeItemFromCart = useCartStore(state => state.removeItemFromCart)
+  const clearCart = useCartStore(state => state.clearCart)
 
   const totalItemsInCart = cartItems.reduce(
     (total, cartItem) => total + cartItem.quantity,
     0
   )
-
-  const calculateItemTotal = (price: number, quantity: number) => {
-    return price * quantity
-  }
 
   const calculateOverallTotal = (cartItems: CartProduct[]) => {
     const total = cartItems.reduce(
@@ -35,9 +37,19 @@ export const Cart = () => {
     return formatPrice(total + deliveryCosts)
   }
 
+  const handleRemoveItemClick = (itemId: string) => {
+    setRemovingItem({ id: itemId, confirmed: true })
+    setTimeout(() => {
+      if (removingItem.id === itemId && removingItem.confirmed) {
+        removeItemFromCart(itemId)
+        setRemovingItem({ id: null, confirmed: false })
+      }
+    }, 5000)
+  }
+
   if (!cartItems.length) {
     return (
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-2 h-[calc(100vh-64px)] justify-center">
         <img src={emptyCartLogo} alt="Empty Cart" className="size-32" />
         <p className="font-bold text-2xl">Your Cart is empty.</p>
         <p className="text-md text-slate-600">
@@ -54,10 +66,18 @@ export const Cart = () => {
   }
 
   return (
-    <div className="my-5 mx-14">
-      <section className="flex gap-2 items-baseline">
-        <h1 className="text-3xl font-bold mb-4">Your Cart</h1>
-        <p className="text-slate-600">({totalItemsInCart} Items)</p>
+    <div className="py-5 px-14 min-h-[calc(100vh-64px)]">
+      <section className="flex gap-2 items-baseline justify-between">
+        <div className="flex mb-4 gap-2 items-baseline">
+          <h1 className="text-3xl font-bold">Your Cart</h1>
+          <p className="text-slate-600">({totalItemsInCart} Items)</p>
+        </div>
+        <button
+          onClick={clearCart}
+          className="bg-slate-200 px-3 py-1 flex hover:bg-slate-300 rounded"
+        >
+          Clear Cart
+        </button>
       </section>
       <section className="grid lg:grid-cols-4 gap-5">
         <div className="lg:col-span-3 flex flex-col gap-1">
@@ -68,41 +88,31 @@ export const Cart = () => {
             >
               <img
                 src={item.image}
-                className="object-contain place-self-center"
+                className={`object-contain place-self-center ${removingItem.id === item.product_id && 'opacity-50'}`}
                 alt={item.name}
               />
               <div className="lg:col-start-2 lg:col-span-4 flex flex-col justify-between">
-                <p className="font-bold text-lg">{item.name}</p>
-                <p className="text-sm text-slate-600">
+                <p
+                  className={`font-bold text-lg ${removingItem.id === item.product_id && 'opacity-50'}`}
+                >
+                  {item.name}
+                </p>
+                <p
+                  className={`text-sm text-slate-600 ${removingItem.id === item.product_id && 'opacity-50'}`}
+                >
                   Delivery: 1-3 working days
                 </p>
-                <div className="flex items-center gap-5 pb-1">
-                  <div className="flex">
-                    <button
-                      onClick={() => decreaseQuantity(item.product_id)}
-                      className="bg-slate-200 px-3 py-1 flex hover:bg-slate-300"
-                    >
-                      <p className="font-bold text-lg">-</p>
-                    </button>
-                    <p className="border border-slate-200 px-3 py-1">
-                      {item.quantity}
-                    </p>
-
-                    <button
-                      onClick={() => increaseQuantity(item.product_id)}
-                      className="bg-slate-200 px-3 py-1 flex hover:bg-slate-300"
-                    >
-                      <p className="font-bold text-lg">+</p>
-                    </button>
-                  </div>
-                  <p className="font-semibold text-lg">
-                    {formatPrice(calculateItemTotal(item.price, item.quantity))}
-                  </p>
-                </div>
+                <AddToCartButton
+                  product={item}
+                  isItemRemoving={removingItem}
+                  setRemovingItem={setRemovingItem}
+                />
               </div>
               <div className="flex justify-end items-start">
-                <button onClick={() => removeItemFromCart(item.product_id)}>
-                  <TfiClose className="text-slate-400 hover:text-slate-500 text-xl " />
+                <button onClick={() => handleRemoveItemClick(item.product_id)}>
+                  <TfiClose
+                    className={`text-slate-400 hover:text-slate-500 text-xl transition ${removingItem.id === item.product_id && 'invisible'}`}
+                  />
                 </button>
               </div>
             </section>

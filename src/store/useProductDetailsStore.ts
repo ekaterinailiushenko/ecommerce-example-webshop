@@ -9,14 +9,18 @@ export type ProductDetailsType = {
   description?: string
 }
 
-type ProductDetailsStore = {
+type State = {
   productDetails: ProductDetailsType | null
   isLoading: boolean
   isError: boolean
   getProductDetails: (id: string) => Promise<void>
 }
 
-export const useProductDetailsStore = create<ProductDetailsStore>(set => ({
+type Action = {
+  getProductDetails: (id: string) => Promise<void>
+}
+
+export const useProductDetailsStore = create<State & Action>(set => ({
   productDetails: null,
   isLoading: false,
   isError: false,
