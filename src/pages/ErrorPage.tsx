@@ -1,4 +1,5 @@
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom'
+
 import { logger } from '../utilities/logger'
 
 export const ErrorPage = () => {
