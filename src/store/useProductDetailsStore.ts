@@ -1,4 +1,6 @@
 import { create } from 'zustand'
+
+import { logger } from '../utilities/logger'
 import { getProductDetails } from '../api/productApi'
 
 export type ProductDetailsType = {
@@ -26,11 +28,12 @@ export const useProductDetailsStore = create<State & Action>(set => ({
   isError: false,
   getProductDetails: async id => {
     set({ isLoading: true })
+
     try {
       const response = await getProductDetails(id)
       set({ productDetails: response.data })
     } catch (err) {
-      console.log('Error fetching product details:', err)
+      logger.error('Error fetching product details:', err)
       set({ isError: true })
     } finally {
       set({ isLoading: false })

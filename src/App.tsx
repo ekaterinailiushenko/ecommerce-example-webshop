@@ -52,8 +52,7 @@ const router = createBrowserRouter([
 ])
 
 export const App = () => {
-  useAuth() 
+  useAuth()
 
   return <RouterProvider router={router} />
 }
-

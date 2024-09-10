@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { ProductType } from './useProductsStore'
+
+import type { ProductType } from './useProductsStore'
 
 export type CartProduct = ProductType & { quantity: number }
 

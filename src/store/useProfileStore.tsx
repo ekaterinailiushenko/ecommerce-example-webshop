@@ -1,15 +1,18 @@
 import { create } from 'zustand'
+import type { User } from 'firebase/auth'
 import { storage } from '../firebaseConfig'
 import { FirebaseError } from 'firebase/app'
-import defaultAvatar from '../assets/defaultAvatar.png'
-import { deleteUser, updatePassword, updateProfile, User } from 'firebase/auth'
-import { getFirebaseErrorMessage } from '../utilities/getFirebaseErrorMessage'
+import { deleteUser, updatePassword, updateProfile } from 'firebase/auth'
 import {
   deleteObject,
   getDownloadURL,
   ref,
   uploadBytes,
 } from 'firebase/storage'
+
+import { logger } from '../utilities/logger'
+import defaultAvatar from '../assets/defaultAvatar.png'
+import { getFirebaseErrorMessage } from '../utilities/getFirebaseErrorMessage'
 
 type State = {
   userPhoto: string
@@ -37,7 +40,7 @@ export const useProfileStore = create<State & Action>(set => ({
       await updatePassword(user, newPassword)
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error('Failed to change password', error.message)
+        logger.error('Failed to change password', error.message)
         set({ error: getFirebaseErrorMessage(error.code) })
       }
     } finally {
@@ -51,7 +54,7 @@ export const useProfileStore = create<State & Action>(set => ({
       await deleteUser(user)
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error('Failed to delete user', error.message)
+        logger.error('Failed to delete user', error.message)
         set({ error: getFirebaseErrorMessage(error.code) })
       }
     } finally {
@@ -70,7 +73,10 @@ export const useProfileStore = create<State & Action>(set => ({
       })
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error({ error: getFirebaseErrorMessage(error.code) })
+        logger.error(
+          'Failed to load profile image from storage',
+          getFirebaseErrorMessage(error.code)
+        )
         set({ error: getFirebaseErrorMessage(error.code) })
       }
     } finally {

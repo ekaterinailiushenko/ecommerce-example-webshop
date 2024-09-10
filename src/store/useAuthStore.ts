@@ -1,8 +1,7 @@
 import { create } from 'zustand'
 import { useEffect } from 'react'
-import { auth } from '../firebaseConfig'
+import type { User } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'
-import { getFirebaseErrorMessage } from '../utilities/getFirebaseErrorMessage'
 import {
   createUserWithEmailAndPassword,
   deleteUser,
@@ -10,8 +9,11 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updatePassword,
-  User,
 } from 'firebase/auth'
+
+import { auth } from '../firebaseConfig'
+import { logger } from '../utilities/logger'
+import { getFirebaseErrorMessage } from '../utilities/getFirebaseErrorMessage'
 
 type State = {
   user: User | null
@@ -40,7 +42,7 @@ export const useAuthStore = create<State & Action>(set => ({
       await signInWithEmailAndPassword(auth, email, password)
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error('Failed to log in', error.message)
+        logger.error('Failed to log in', error.message)
         set({ error: getFirebaseErrorMessage(error.code) })
       }
     } finally {
@@ -54,7 +56,7 @@ export const useAuthStore = create<State & Action>(set => ({
       await createUserWithEmailAndPassword(auth, email, password)
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error('Failed to register', error.message)
+        logger.error('Failed to register', error.message)
         set({ error: getFirebaseErrorMessage(error.code) })
       }
     } finally {
@@ -68,7 +70,7 @@ export const useAuthStore = create<State & Action>(set => ({
       await signOut(auth)
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error('Failed to log out', error.message)
+        logger.error('Failed to log out', error.message)
         set({ error: getFirebaseErrorMessage(error.code) })
       }
     } finally {
@@ -82,7 +84,7 @@ export const useAuthStore = create<State & Action>(set => ({
       await updatePassword(user, newPassword)
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error('Failed to change password', error.message)
+        logger.error('Failed to change password', error.message)
         set({ error: getFirebaseErrorMessage(error.code) })
       }
     } finally {
@@ -96,7 +98,7 @@ export const useAuthStore = create<State & Action>(set => ({
       await deleteUser(user)
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error('Failed to delete user', error.message)
+        logger.error('Failed to delete user', error.message)
         set({ error: getFirebaseErrorMessage(error.code) })
       }
     } finally {

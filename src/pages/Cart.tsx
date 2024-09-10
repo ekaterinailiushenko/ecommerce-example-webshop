@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TfiClose } from 'react-icons/tfi'
+
+import { useCartStore } from '../store/useCartStore'
 import { formatPrice } from '../utilities/formatPrice'
 import emptyCartLogo from '../assets/emptyCartLogo.png'
+import type { CartProduct } from '../store/useCartStore'
 import { AddToCartButton } from '../components/AddToCartButton'
-import { CartProduct, useCartStore } from '../store/useCartStore'
 
 export const Cart = () => {
   const [removingItem, setRemovingItem] = useState<{
@@ -53,7 +55,7 @@ export const Cart = () => {
         <img src={emptyCartLogo} alt="Empty Cart" className="size-32" />
         <p className="font-bold text-2xl">Your Cart is empty.</p>
         <p className="text-md text-slate-600">
-          Looks like you haven't added anything to your cart yet.
+          Looks like you have not added anything to your cart yet.
         </p>
         <Link
           to={`/`}

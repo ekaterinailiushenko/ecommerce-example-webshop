@@ -1,9 +1,10 @@
-import { Modal } from './Modal'
 import { useState } from 'react'
-import { LoadingSkeleton } from './LoadingSkeleton'
+
+import { Modal } from './Modal'
 import { AddToCartButton } from './AddToCartButton'
+import { LoadingSkeleton } from './LoadingSkeleton'
 import { formatPrice } from '../utilities/formatPrice'
-import { ProductType } from '../store/useProductsStore'
+import type { ProductType } from '../store/useProductsStore'
 import { useProductDetailsStore } from '../store/useProductDetailsStore'
 
 export const ProductCard = ({ product }: { product: ProductType }) => {
@@ -18,9 +19,9 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
       }
     })
 
-  const handleOpenModalClick = async (id: string) => {
+  const handleOpenModalClick = (id: string) => {
     setIsModalOpen(true)
-    getProductDetails(id)
+    void getProductDetails(id)
   }
 
   return (
