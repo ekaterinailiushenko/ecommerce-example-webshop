@@ -1,10 +1,12 @@
-import { User } from 'firebase/auth'
 import { FaCheck } from 'react-icons/fa6'
+import type { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { RiDeleteBin6Line } from 'react-icons/ri'
-import { useAuthStore } from '../store/useAuthStore'
 import { IoChevronBackOutline } from 'react-icons/io5'
+
+import { logger } from '../utilities/logger'
+import { useAuthStore } from '../store/useAuthStore'
 import { useProfileStore } from '../store/useProfileStore'
 import { UpdateImageButton } from '../components/UpdateImageButton'
 
@@ -42,16 +44,12 @@ export const Settings = () => {
   const handleNewPasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!user) {
-      console.error('User is not authenticated')
+      logger.error('User is not authenticated')
       return
     }
     await changePassword(user, newPassword)
   }
-  console.log(
-    Boolean(isProfileError),
-    userPhoto,
-    'ADD HANDLING IF PROFILE ERROR OR NO USERPHOTO TO HIDE THE DELETE IMAGE PROFILE BUTTON'
-  )
+
   const handleDeleteAccountClick = async () => {
     const confirmed = window.confirm(
       'Are you sure you want to delete your account?'
@@ -66,7 +64,7 @@ export const Settings = () => {
     if (file && user) {
       updateProfilePhoto(file, user)
     } else {
-      console.error('No file selected')
+      logger.error('No file selected')
     }
   }
 
@@ -80,7 +78,7 @@ export const Settings = () => {
   }
 
   useEffect(() => {
-    loadProfileImage(user as User)
+    void loadProfileImage(user as User)
   }, [user, loadProfileImage])
 
   return (

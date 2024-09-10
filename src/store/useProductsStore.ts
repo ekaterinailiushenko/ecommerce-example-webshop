@@ -1,4 +1,6 @@
 import { create } from 'zustand'
+
+import { logger } from '../utilities/logger'
 import { getProducts } from '../api/productApi'
 
 export type ProductType = {
@@ -36,7 +38,7 @@ export const useProductsStore = create<State & Action>(set => ({
       set({ products: response.data.products })
       set({ filteredProducts: response.data.products })
     } catch (err) {
-      console.error('Error fetching products:', err)
+      logger.error('Error fetching products:', err)
       set({ isError: true })
     } finally {
       set({ isLoading: false })

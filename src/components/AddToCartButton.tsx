@@ -1,10 +1,11 @@
 import { BsCart2 } from 'react-icons/bs'
 import { useEffect, useState } from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
+import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
+
 import { useCartStore } from '../store/useCartStore'
 import { formatPrice } from '../utilities/formatPrice'
-import { ProductType } from '../store/useProductsStore'
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
+import type { ProductType } from '../store/useProductsStore'
 
 type Props = {
   product: ProductType

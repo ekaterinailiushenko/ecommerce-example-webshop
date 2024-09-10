@@ -10,7 +10,7 @@ export const Home = () => {
   }))
 
   useEffect(() => {
-    getProducts()
+    void getProducts()
   }, [getProducts])
 
   if (isLoading) {
@@ -18,7 +18,7 @@ export const Home = () => {
   }
 
   if (isError) {
-    return <p>There was an error loading the users</p>
+    return <p>There was an error loading the products</p>
   }
 
   return <Products />
