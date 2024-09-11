@@ -1,3 +1,4 @@
+import en from '../../i18n/en.json'
 import { AuthForm } from '../../uikit'
 import { useAuthStore } from '../../stores'
 
@@ -13,7 +14,7 @@ export const SignUp = () => {
     confirmPassword: string
   ) => {
     if (confirmPassword !== password) {
-      setError('Passwords do not match')
+      setError(en.profile.changePassword.error)
       return
     }
 
@@ -27,9 +28,9 @@ export const SignUp = () => {
   return (
     <div className="flex h-[calc(100vh-64px)] justify-center items-center">
       <AuthForm
-        formPlaceholder="Sign Up"
+        formPlaceholder={en.auth.signup}
         onSubmit={handleSignupSubmit}
-        buttonText="Sign Up"
+        buttonText={en.auth.signup}
         isSignup={true}
         onInputFocus={handleInputFocus}
       />

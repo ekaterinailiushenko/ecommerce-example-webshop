@@ -1,3 +1,4 @@
+import en from '../../i18n/en.json'
 import { AuthForm } from '../../uikit'
 import { useAuthStore } from '../../stores'
 
@@ -18,9 +19,9 @@ export const LogIn = () => {
   return (
     <div className="flex h-[calc(100vh-64px)] justify-center items-center">
       <AuthForm
-        formPlaceholder="Log In"
+        formPlaceholder={en.auth.login}
         onSubmit={handleLoginSubmit}
-        buttonText="Log In"
+        buttonText={en.auth.login}
         isSignup={false}
         onInputFocus={handleInputFocus}
       />

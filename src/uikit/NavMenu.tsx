@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { MdOutlineShoppingCart, MdAccountCircle } from 'react-icons/md'
 
+import en from '../i18n/en.json'
 import { useCartStore, useAuthStore } from '../stores'
 
 export const NavMenu = () => {
@@ -17,7 +18,7 @@ export const NavMenu = () => {
   )
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>{en.global.loading}</div>
   }
 
   return (
@@ -26,7 +27,9 @@ export const NavMenu = () => {
         <Link to={user ? '/profile' : '/login'}>
           <div className="flex flex-col items-center">
             <MdAccountCircle className="text-white size-8" />
-            <p className="text-xs">{user ? 'My Profile' : 'Log In'}</p>
+            <p className="text-xs">
+              {user ? en.profile.account : en.auth.login}
+            </p>
           </div>
         </Link>
       </div>
@@ -37,7 +40,7 @@ export const NavMenu = () => {
         <Link to={'/cart'}>
           <div className="flex flex-col items-center">
             <MdOutlineShoppingCart className="text-white size-8" />
-            <p className="text-xs ">Cart</p>
+            <p className="text-xs ">{en.cart.title}</p>
           </div>
         </Link>
       </div>

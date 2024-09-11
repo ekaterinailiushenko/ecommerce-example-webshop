@@ -1,5 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom'
 
+import en from '../../i18n/en.json'
 import { logger } from '../../utilities'
 
 export const ErrorPage = () => {
@@ -10,7 +11,7 @@ export const ErrorPage = () => {
   if (isRouteErrorResponse(error)) {
     return (
       <div>
-        <h1>Oops!</h1>
+        <h1>{en.global.errorHeader}</h1>
         <h2>{error.status}</h2>
         <p>{error.statusText}</p>
         <p>{error.data}</p>

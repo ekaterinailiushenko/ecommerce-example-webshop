@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { IoChevronBackOutline } from 'react-icons/io5'
 
+import en from '../../i18n/en.json'
 import { logger } from '../../utilities'
 import { UpdateImageButton } from '../../uikit'
 import { useAuthStore, useProfileStore } from '../../stores'
@@ -50,9 +51,7 @@ export const Settings = () => {
   }
 
   const handleDeleteAccountClick = async () => {
-    const confirmed = window.confirm(
-      'Are you sure you want to delete your account?'
-    )
+    const confirmed = window.confirm(en.profile.deleteAccount.warn)
     if (confirmed) {
       await deleteUser(user as User)
     }
@@ -68,9 +67,7 @@ export const Settings = () => {
   }
 
   const handleDeleteProfileImageClick = async () => {
-    const confirmed = window.confirm(
-      'Are you sure you want to delete your profile image?'
-    )
+    const confirmed = window.confirm(en.profile.changeImage.warn)
     if (confirmed) {
       await deleteUserPhoto(user as User)
     }
@@ -89,12 +86,10 @@ export const Settings = () => {
         className="flex items-center gap-2"
       >
         <IoChevronBackOutline className="text-slate-600" />
-        <p className="text-slate-600 text-sm">
-          Return to your personal account
-        </p>
+        <p className="text-slate-600 text-sm">{en.profile.returnToAccount}</p>
       </button>
-      <h1 className="text-3xl font-semibold">My settings</h1>
-      <h2 className="text-2xl font-semibold">Personal data</h2>
+      <h1 className="text-3xl font-semibold">{en.profile.settings}</h1>
+      <h2 className="text-2xl font-semibold">{en.profile.data}</h2>
       <div className="flex items-center gap-6 outline">
         {isProfileLoading ? (
           <div className="w-16 h-16 rounded-full bg-gray-300 animate-pulse" />
@@ -114,7 +109,7 @@ export const Settings = () => {
           htmlFor="newPassword"
           className="mb-1 block text-sm font-medium text-gray-700"
         >
-          Change password
+          {en.profile.changePassword.title}
         </label>
         <div className="flex space-x-2">
           <input
@@ -130,7 +125,7 @@ export const Settings = () => {
             className="shadow-md px-3 font-medium text-white bg-green-600 rounded-md"
             disabled={loading}
           >
-            {loading ? 'Changing...' : <FaCheck />}
+            {loading ? en.global.changing : <FaCheck />}
           </button>
         </div>
       </form>
@@ -140,7 +135,7 @@ export const Settings = () => {
         onClick={handleDeleteAccountClick}
         className="shadow-md px-3 py-1 font-medium text-white bg-red-600 rounded-md"
       >
-        Delete account
+        {en.profile.deleteAccount.title}
       </button>
     </>
   )

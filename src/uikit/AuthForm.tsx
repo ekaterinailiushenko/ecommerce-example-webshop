@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 
+import en from '../i18n/en.json'
 import { useAuthStore } from '../stores'
 
 type AuthFormProps = {
@@ -32,7 +33,7 @@ export const AuthForm = ({
     onSubmit(email, password, confirmPassword)
   }
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <div>{en.global.loading}</div>
 
   if (user) {
     return <Navigate to="/profile" />
@@ -49,7 +50,7 @@ export const AuthForm = ({
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Email
+            {en.auth.email}
           </label>
           <input
             type="email"
@@ -66,7 +67,7 @@ export const AuthForm = ({
             htmlFor="password"
             className="block text-sm font-medium text-gray-700"
           >
-            Password
+            {en.auth.password}
           </label>
           <input
             type="password"
@@ -84,7 +85,7 @@ export const AuthForm = ({
               htmlFor="confirmPassword"
               className="block text-sm font-medium text-gray-700"
             >
-              Confirm Password
+              {en.auth.confirmPassword}
             </label>
             <input
               type="password"
@@ -113,11 +114,11 @@ export const AuthForm = ({
       </form>
       {isSignup ? (
         <p className="text-sm text-center mb-6">
-          Already have an account? <Link to={'/login'}>Log in</Link>
+          {en.auth.linkToLogin} <Link to={'/login'}>{en.auth.login}</Link>
         </p>
       ) : (
         <p className="text-sm text-center mb-6">
-          No account yet? <Link to={'/signup'}>Sign up</Link>
+          {en.auth.linkToSignup} <Link to={'/signup'}>{en.auth.signup}</Link>
         </p>
       )}
     </div>

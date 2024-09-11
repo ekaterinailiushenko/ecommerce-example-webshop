@@ -3,6 +3,7 @@ import { MdLogout } from 'react-icons/md'
 import { BsGearFill } from 'react-icons/bs'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
+import en from '../../i18n/en.json'
 import { useCartStore, useAuthStore } from '../../stores'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 
@@ -46,14 +47,16 @@ export const Profile = () => {
           )}
         </div>
         <div className="flex flex-col justify-between my-5">
-          <h1 className="text-3xl font-semibold">Profile</h1>
-          <p className="text-slate-600">User E-mail: {user?.email}</p>
+          <h1 className="text-3xl font-semibold">{en.profile.account}</h1>
+          <p className="text-slate-600">
+            {en.profile.email} {user?.email}
+          </p>
           <button
             className="flex items-center gap-2"
             onClick={handleLogoutClick}
           >
             <MdLogout className="text-slate-600" />
-            <p className="text-xs text-slate-600">Logout</p>
+            <p className="text-xs text-slate-600">{en.auth.logout}</p>
           </button>
         </div>
       </div>

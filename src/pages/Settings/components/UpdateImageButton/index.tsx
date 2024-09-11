@@ -1,6 +1,8 @@
 import { useRef } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 
+import en from '../../../../i18n/en.json'
+
 export const UpdateImageButton = ({
   onChange,
 }: {
@@ -23,7 +25,7 @@ export const UpdateImageButton = ({
         onClick={() => fileInput.current?.click()}
       >
         <AiOutlinePlus />
-        <p>Add Photo</p>
+        <p>{en.profile.changeImage.title}</p>
       </button>
     </div>
   )

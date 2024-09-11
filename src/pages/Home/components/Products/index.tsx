@@ -1,3 +1,4 @@
+import en from '../../../../i18n/en.json'
 import { useProductsStore } from '../../../../stores'
 import { ProductCard } from './components/ProductCard'
 import productNotFoundLogo from '../../../../assets/productNotFoundLogo.png'
@@ -10,7 +11,7 @@ export const Products = () => {
       return (
         <div className="flex flex-col items-center h-[calc(100vh-64px)] justify-center">
           <img className="size-16" src={productNotFoundLogo} alt="Not Found" />
-          <p>No products found. Please try a different search.</p>
+          <p>{en.products.notFound}</p>
         </div>
       )
     }
