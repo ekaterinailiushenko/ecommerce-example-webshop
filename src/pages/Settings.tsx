@@ -5,10 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { IoChevronBackOutline } from 'react-icons/io5'
 
-import { logger } from '../utilities/logger'
-import { useAuthStore } from '../store/useAuthStore'
-import { useProfileStore } from '../store/useProfileStore'
-import { UpdateImageButton } from '../components/UpdateImageButton'
+import { logger } from '../utilities'
+import { UpdateImageButton } from '../components'
+import { useAuthStore, useProfileStore } from '../store'
 
 export const Settings = () => {
   const [newPassword, setNewPassword] = useState('')

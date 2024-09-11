@@ -1,0 +1,7 @@
+export * from './Home'
+export * from './Cart'
+export * from './LogIn'
+export * from './SignUp'
+export * from './Profile'
+export * from './Settings'
+export * from './ErrorPage'

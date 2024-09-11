@@ -1,5 +1,5 @@
-import { AuthForm } from '../components/AuthForm'
-import { useAuthStore } from '../store/useAuthStore'
+import { useAuthStore } from '../store'
+import { AuthForm } from '../components'
 
 export const LogIn = () => {
   const { login, setError } = useAuthStore(state => ({

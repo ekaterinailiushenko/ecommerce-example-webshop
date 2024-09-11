@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TfiClose } from 'react-icons/tfi'
 
-import { useCartStore } from '../store/useCartStore'
-import { formatPrice } from '../utilities/formatPrice'
+import { useCartStore } from '../store'
+import { formatPrice } from '../utilities'
+import type { CartProduct } from '../store'
+import { AddToCartButton } from '../components'
 import emptyCartLogo from '../assets/emptyCartLogo.png'
-import type { CartProduct } from '../store/useCartStore'
-import { AddToCartButton } from '../components/AddToCartButton'
 
 export const Cart = () => {
   const [removingItem, setRemovingItem] = useState<{

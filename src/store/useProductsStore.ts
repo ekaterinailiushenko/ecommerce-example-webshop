@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { logger } from '../utilities/logger'
+import { logger } from '../utilities'
 import { getProducts } from '../api/productApi'
 
 export type ProductType = {

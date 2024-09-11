@@ -12,8 +12,7 @@ import {
 } from 'firebase/auth'
 
 import { auth } from '../firebaseConfig'
-import { logger } from '../utilities/logger'
-import { getFirebaseErrorMessage } from '../utilities/getFirebaseErrorMessage'
+import { logger, getFirebaseErrorMessage } from '../utilities'
 
 type State = {
   user: User | null

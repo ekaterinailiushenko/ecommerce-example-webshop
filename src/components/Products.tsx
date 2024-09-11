@@ -1,5 +1,5 @@
+import { useProductsStore } from '../store'
 import { ProductCard } from './ProductCard'
-import { useProductsStore } from '../store/useProductsStore'
 import productNotFoundLogo from '../assets/productNotFoundLogo.png'
 
 export const Products = () => {

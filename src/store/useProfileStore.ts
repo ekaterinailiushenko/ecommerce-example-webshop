@@ -10,9 +10,8 @@ import {
   uploadBytes,
 } from 'firebase/storage'
 
-import { logger } from '../utilities/logger'
 import defaultAvatar from '../assets/defaultAvatar.png'
-import { getFirebaseErrorMessage } from '../utilities/getFirebaseErrorMessage'
+import { logger, getFirebaseErrorMessage } from '../utilities'
 
 type State = {
   userPhoto: string

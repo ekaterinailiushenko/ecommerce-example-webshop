@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 
-export interface LogFn {
-  (message?: unknown, ...optionalParams: unknown[]): void
-}
+export type LogFn = (message?: unknown, ...optionalParams: unknown[]) => void
 
 export interface Logger {
   log: LogFn

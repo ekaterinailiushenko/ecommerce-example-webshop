@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 
-import { useCartStore } from '../store/useCartStore'
-import { formatPrice } from '../utilities/formatPrice'
-import type { ProductType } from '../store/useProductsStore'
+import { useCartStore } from '../store'
+import { formatPrice } from '../utilities'
+import type { ProductType } from '../store'
 
 type Props = {
   product: ProductType

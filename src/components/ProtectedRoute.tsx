@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom'
-import { useAuthStore } from '../store/useAuthStore'
+
+import { useAuthStore } from '../store'
 
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuthStore(state => ({
