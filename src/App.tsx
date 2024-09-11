@@ -1,15 +1,17 @@
-import './index.css'
-import { Layout } from './Layout'
-import { Cart } from './pages/Cart'
-import { Home } from './pages/Home'
-import { LogIn } from './pages/LogIn'
-import { SignUp } from './pages/SignUp'
-import { Profile } from './pages/Profile'
-import { Settings } from './pages/Settings'
-import { ErrorPage } from './pages/ErrorPage'
-import { useAuth } from './store/useAuthStore'
-import { ProtectedRoute } from './components/ProtectedRoute'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
+import {
+  Cart,
+  Home,
+  LogIn,
+  SignUp,
+  Profile,
+  Settings,
+  ErrorPage,
+} from './pages'
+import './index.css'
+import { useAuth } from './stores'
+import { Layout, ProtectedRoute } from './uikit'
 
 const router = createBrowserRouter([
   {

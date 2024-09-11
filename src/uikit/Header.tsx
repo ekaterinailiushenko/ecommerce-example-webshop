@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom'
+
 import { Input } from './Input'
 import { NavMenu } from './NavMenu'
-import { Link } from 'react-router-dom'
+import { useProductsStore } from '../stores'
 import picnicHeaderLogo from '../assets/picnicHeaderLogo.png'
-import { useProductsStore } from '../store/useProductsStore'
 
 export const Header = () => {
   const clearSearchInput = useProductsStore(state => state.setSearchItem)

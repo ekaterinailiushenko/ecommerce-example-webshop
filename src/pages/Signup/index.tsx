@@ -1,5 +1,5 @@
-import { AuthForm } from '../components/AuthForm'
-import { useAuthStore } from '../store/useAuthStore'
+import { AuthForm } from '../../uikit'
+import { useAuthStore } from '../../stores'
 
 export const SignUp = () => {
   const { signup, setError } = useAuthStore(state => ({

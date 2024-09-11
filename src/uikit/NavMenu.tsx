@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useCartStore } from '../store/useCartStore'
-import { useAuthStore } from '../store/useAuthStore'
 import { MdOutlineShoppingCart, MdAccountCircle } from 'react-icons/md'
+
+import { useCartStore, useAuthStore } from '../stores'
 
 export const NavMenu = () => {
   const { user, loading } = useAuthStore(state => ({

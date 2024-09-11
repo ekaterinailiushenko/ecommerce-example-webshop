@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { MdLogout } from 'react-icons/md'
 import { BsGearFill } from 'react-icons/bs'
-import { useCartStore } from '../store/useCartStore'
-import { useAuthStore } from '../store/useAuthStore'
-import defaultAvatar from '../assets/defaultAvatar.png'
 import { Link, Outlet, useLocation } from 'react-router-dom'
+
+import { useCartStore, useAuthStore } from '../../stores'
+import defaultAvatar from '../../assets/defaultAvatar.png'
 
 export const Profile = () => {
   const { user, logout } = useAuthStore(state => ({

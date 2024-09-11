@@ -1,6 +1,6 @@
-import { ProductCard } from './ProductCard'
-import { useProductsStore } from '../store/useProductsStore'
-import productNotFoundLogo from '../assets/productNotFoundLogo.png'
+import { useProductsStore } from '../../../../stores'
+import { ProductCard } from './components/ProductCard'
+import productNotFoundLogo from '../../../../assets/productNotFoundLogo.png'
 
 export const Products = () => {
   const products = useProductsStore(state => state.filteredProducts)

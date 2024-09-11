@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { MdClear } from 'react-icons/md'
 import { useLocation } from 'react-router-dom'
-import { useProductsStore } from '../store/useProductsStore'
+
+import { useProductsStore } from '../stores'
 
 export const Input = () => {
   const { filterItems, searchItem, setSearchItem, isLoading } =
