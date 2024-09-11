@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 
-import { useAuthStore } from '../store'
+import { useAuthStore } from '../stores'
 
 type AuthFormProps = {
   formPlaceholder: string

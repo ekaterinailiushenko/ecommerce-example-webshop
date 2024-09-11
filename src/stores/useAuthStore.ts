@@ -1,15 +1,15 @@
-import { create } from 'zustand'
-import { useEffect } from 'react'
-import type { User } from 'firebase/auth'
-import { FirebaseError } from 'firebase/app'
 import {
-  createUserWithEmailAndPassword,
+  signOut,
+  type User,
   deleteUser,
+  updatePassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signOut,
-  updatePassword,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth'
+import { create } from 'zustand'
+import { useEffect } from 'react'
+import { FirebaseError } from 'firebase/app'
 
 import { auth } from '../firebaseConfig'
 import { logger, getFirebaseErrorMessage } from '../utilities'

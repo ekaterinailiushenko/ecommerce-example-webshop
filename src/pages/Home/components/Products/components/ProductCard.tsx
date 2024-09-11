@@ -1,11 +1,10 @@
 import { useState } from 'react'
 
-import { Modal } from './Modal'
-import { formatPrice } from '../utilities'
-import type { ProductType } from '../store'
-import { useProductDetailsStore } from '../store'
-import { LoadingSkeleton } from './LoadingSkeleton'
-import { AddToCartButton } from './AddToCartButton'
+import { Modal } from '../../../../../uikit/Modal'
+import { formatPrice } from '../../../../../utilities'
+import { LoadingSkeleton } from '../../../../../uikit/LoadingSkeleton'
+import { AddToCartButton } from '../../../../../uikit/AddToCartButton'
+import { type ProductType, useProductDetailsStore } from '../../../../../stores'
 
 export const ProductCard = ({ product }: { product: ProductType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)

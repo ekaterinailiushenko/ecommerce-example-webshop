@@ -1,8 +1,12 @@
 import { create } from 'zustand'
-import type { User } from 'firebase/auth'
 import { storage } from '../firebaseConfig'
 import { FirebaseError } from 'firebase/app'
-import { deleteUser, updatePassword, updateProfile } from 'firebase/auth'
+import {
+  deleteUser,
+  updatePassword,
+  updateProfile,
+  type User,
+} from 'firebase/auth'
 import {
   deleteObject,
   getDownloadURL,

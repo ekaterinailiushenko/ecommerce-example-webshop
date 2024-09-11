@@ -1,9 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import './index.css'
-import { Layout } from './Layout'
-import { useAuth } from './store'
-import { ProtectedRoute } from './components'
 import {
   Cart,
   Home,
@@ -13,6 +9,9 @@ import {
   Settings,
   ErrorPage,
 } from './pages'
+import './index.css'
+import { useAuth } from './stores'
+import { Layout, ProtectedRoute } from './uikit'
 
 const router = createBrowserRouter([
   {

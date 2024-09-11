@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
-import { Products } from '../components'
-import { useProductsStore } from '../store'
+import { Products } from './components'
+import { useProductsStore } from '../../stores'
 
 export const Home = () => {
   const { isLoading, isError, getProducts } = useProductsStore(state => ({

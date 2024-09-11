@@ -3,8 +3,8 @@ import { MdLogout } from 'react-icons/md'
 import { BsGearFill } from 'react-icons/bs'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
-import { useCartStore, useAuthStore } from '../store'
-import defaultAvatar from '../assets/defaultAvatar.png'
+import { useCartStore, useAuthStore } from '../../stores'
+import defaultAvatar from '../../assets/defaultAvatar.png'
 
 export const Profile = () => {
   const { user, logout } = useAuthStore(state => ({

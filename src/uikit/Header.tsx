@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 import { Input } from './Input'
 import { NavMenu } from './NavMenu'
-import { useProductsStore } from '../store'
+import { useProductsStore } from '../stores'
 import picnicHeaderLogo from '../assets/picnicHeaderLogo.png'
 
 export const Header = () => {
