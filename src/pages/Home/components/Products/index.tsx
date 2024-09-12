@@ -10,8 +10,12 @@ export const Products = () => {
     if (!products.length) {
       return (
         <div className="flex flex-col items-center h-[calc(100vh-64px)] justify-center">
-          <img className="size-16" src={productNotFoundLogo} alt="Not Found" />
-          <p>{en.products.notFound}</p>
+          <img
+            className="size-16"
+            src={productNotFoundLogo}
+            alt={en.products.errors.notFound.altText}
+          />
+          <p>{en.products.errors.notFound.title}</p>
         </div>
       )
     }

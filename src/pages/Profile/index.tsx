@@ -38,7 +38,7 @@ export const Profile = () => {
           <img
             src={defaultAvatar}
             className="rounded-full w-32"
-            alt="Profile"
+            alt={en.profile.profileImageAltText}
           />
           {isProfilePage && (
             <Link to={'settings'}>
@@ -56,7 +56,9 @@ export const Profile = () => {
             onClick={handleLogoutClick}
           >
             <MdLogout className="text-slate-600" />
-            <p className="text-xs text-slate-600">{en.profile.buttons.logout.title}</p>
+            <p className="text-xs text-slate-600">
+              {en.profile.buttons.logout.title}
+            </p>
           </button>
         </div>
       </div>

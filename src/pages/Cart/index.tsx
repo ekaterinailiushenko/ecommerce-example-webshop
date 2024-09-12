@@ -52,7 +52,11 @@ export const Cart = () => {
   if (!cartItems.length) {
     return (
       <div className="flex flex-col items-center gap-2 h-[calc(100vh-64px)] justify-center">
-        <img src={emptyCartLogo} alt="Empty Cart" className="size-32" />
+        <img
+          src={emptyCartLogo}
+          alt={en.cart.emptyCart.altText}
+          className="size-32"
+        />
         <p className="font-bold text-2xl">{en.cart.emptyCart.mainMessage}</p>
         <p className="text-md text-slate-600">
           {en.cart.emptyCart.nextMessage}

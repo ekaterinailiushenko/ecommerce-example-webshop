@@ -6,6 +6,7 @@
   },
   "header": {
     "inputPlaceholder": "Search by name...",
+    "logoAltText": "Picnic",
     "navMenu": {
       "linkToLogin": "Login",
       "linkToCart": "Cart",
@@ -24,6 +25,7 @@
       "buyNow": { "title": "Buy Now" }
     },
     "emptyCart": {
+      "altText": "Empty Cart",
       "mainMessage": "Your Cart is empty.",
       "nextMessage": "Looks like you have not added anything to your cart yet.",
       "linkToMainPage": "Start Shopping"
@@ -37,8 +39,13 @@
     "yourItems": "Your Item(s)"
   },
   "products": {
-    "loadError": "There was an error loading the products",
-    "notFound": "No products found. Please try a different search.",
+    "errors": {
+      "loadError": "There was an error loading the products",
+      "notFound": {
+        "title": "No products found. Please try a different search.",
+        "altText": "Not Found"
+      }
+    },
     "quickView": "Quick View",
     "modal": {
       "description": "Product Description",
@@ -79,6 +86,7 @@
   "profile": {
     "title": "My profile",
     "email": "User E-mail:",
+    "profileImageAltText": "Profile Image",
     "buttons": {
       "logout": { "title": "Log out" },
       "deleteAccount": {

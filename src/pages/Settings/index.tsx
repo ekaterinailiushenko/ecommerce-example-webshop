@@ -94,7 +94,11 @@ export const Settings = () => {
         {isProfileLoading ? (
           <div className="w-16 h-16 rounded-full bg-gray-300 animate-pulse" />
         ) : (
-          <img className="rounded-full w-16 h-16" src={userPhoto} alt="User" />
+          <img
+            className="rounded-full w-16 h-16"
+            src={userPhoto}
+            alt={en.profile.profileImageAltText}
+          />
         )}
         <UpdateImageButton onChange={handleUploadImageChange} />
         <button

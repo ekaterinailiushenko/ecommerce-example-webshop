@@ -31,7 +31,7 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
         <div className="group/item w-3/5 h-3/5 flex items-center justify-center self-center transition-all hover:scale-110 duration-700 ">
           <img
             src={product.image}
-            alt="ProductImage"
+            alt={product.name}
             className="object-contain"
           />
           <button
@@ -52,7 +52,11 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
         ) : (
           <div className="grid grid-cols-2 h-full gap-4">
             <div className="flex items-center justify-center">
-              <img className="h-40" alt="Product" src={productDetails?.image} />
+              <img
+                className="h-40"
+                alt={productDetails?.name}
+                src={productDetails?.image}
+              />
             </div>
             <div className="flex flex-col justify-between">
               <div>

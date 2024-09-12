@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import en from '../i18n/en.json'
 import { Input } from './Input'
 import { NavMenu } from './NavMenu'
 import { useProductsStore } from '../stores'
@@ -11,7 +12,11 @@ export const Header = () => {
   return (
     <header className="flex justify-between items-center bg-header">
       <Link to={`/`} onClick={() => clearSearchInput('')}>
-        <img className="size-16" src={picnicHeaderLogo} alt="Logo" />
+        <img
+          className="size-16"
+          src={picnicHeaderLogo}
+          alt={en.header.logoAltText}
+        />
       </Link>
       <Input />
       <NavMenu />
