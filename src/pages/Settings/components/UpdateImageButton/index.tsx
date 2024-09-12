@@ -25,7 +25,7 @@ export const UpdateImageButton = ({
         onClick={() => fileInput.current?.click()}
       >
         <AiOutlinePlus />
-        <p>{en.profile.changeImage.title}</p>
+        <p>{en.profile.buttons.changeImage.title}</p>
       </button>
     </div>
   )

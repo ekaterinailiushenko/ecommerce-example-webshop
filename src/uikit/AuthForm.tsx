@@ -50,7 +50,7 @@ export const AuthForm = ({
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            {en.auth.email}
+            {en.auth.form.email}
           </label>
           <input
             type="email"
@@ -67,7 +67,7 @@ export const AuthForm = ({
             htmlFor="password"
             className="block text-sm font-medium text-gray-700"
           >
-            {en.auth.password}
+            {en.auth.form.password}
           </label>
           <input
             type="password"
@@ -85,7 +85,7 @@ export const AuthForm = ({
               htmlFor="confirmPassword"
               className="block text-sm font-medium text-gray-700"
             >
-              {en.auth.confirmPassword}
+              {en.auth.form.confirmPassword}
             </label>
             <input
               type="password"
@@ -114,11 +114,13 @@ export const AuthForm = ({
       </form>
       {isSignup ? (
         <p className="text-sm text-center mb-6">
-          {en.auth.linkToLogin} <Link to={'/login'}>{en.auth.login}</Link>
+          {en.auth.form.linkToLogin}{' '}
+          <Link to={'/login'}>{en.auth.login.title}</Link>
         </p>
       ) : (
         <p className="text-sm text-center mb-6">
-          {en.auth.linkToSignup} <Link to={'/signup'}>{en.auth.signup}</Link>
+          {en.auth.form.linkToSignup}{' '}
+          <Link to={'/signup'}>{en.auth.signup.title}</Link>
         </p>
       )}
     </div>

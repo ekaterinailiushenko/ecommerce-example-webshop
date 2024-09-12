@@ -53,13 +53,17 @@ export const Cart = () => {
     return (
       <div className="flex flex-col items-center gap-2 h-[calc(100vh-64px)] justify-center">
         <img src={emptyCartLogo} alt="Empty Cart" className="size-32" />
-        <p className="font-bold text-2xl">{en.cart.emptyCartMainMessage}</p>
-        <p className="text-md text-slate-600">{en.cart.emptyCartNextMessage}</p>
+        <p className="font-bold text-2xl">{en.cart.emptyCart.mainMessage}</p>
+        <p className="text-md text-slate-600">
+          {en.cart.emptyCart.nextMessage}
+        </p>
         <Link
           to={`/`}
           className="shadow bg-green-500 hover:bg-green-400 text-white text-xs py-2 rounded-md flex justify-center gap-1 w-64 mt-2"
         >
-          <p className="text-sm font-bold">{en.cart.startShopping}</p>
+          <p className="text-sm font-bold">
+            {en.cart.emptyCart.linkToMainPage}
+          </p>
         </Link>
       </div>
     )
@@ -69,7 +73,7 @@ export const Cart = () => {
     <div className="py-5 px-14 min-h-[calc(100vh-64px)]">
       <section className="flex gap-2 items-baseline justify-between">
         <div className="flex mb-4 gap-2 items-baseline">
-          <h1 className="text-3xl font-bold">{en.cart.yourCart}</h1>
+          <h1 className="text-3xl font-bold">{en.cart.title}</h1>
           <p className="text-slate-600">
             ({totalItemsInCart} {en.cart.productItems})
           </p>
@@ -78,7 +82,7 @@ export const Cart = () => {
           onClick={clearCart}
           className="bg-slate-200 px-3 py-1 flex hover:bg-slate-300 rounded"
         >
-          {en.cart.clearCart}
+          {en.cart.buttons.clearCart.title}
         </button>
       </section>
       <section className="grid lg:grid-cols-4 gap-5">
@@ -149,7 +153,7 @@ export const Cart = () => {
             <p className="font-bold">{calculateTotalWithDeliveryCosts()}</p>
           </div>
           <button className="mt-4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 rounded-md w-full shadow">
-            {en.cart.buyNow}
+            {en.cart.buttons.buyNow.title}
           </button>
         </section>
       </section>

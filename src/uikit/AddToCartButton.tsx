@@ -84,7 +84,7 @@ export const AddToCartButton = ({
             onAnimationEnd={handleProgressBarComplete}
           />
           <p className="text-white font-bold z-50">
-            {en.cart.undoRemoveFromCart}
+            {en.cart.buttons.undoRemoveFromCart.title}
           </p>
         </button>
       )
@@ -127,7 +127,7 @@ export const AddToCartButton = ({
         onClick={() => addItemToCart(product)}
       >
         <BsCart2 className="text-sm" />
-        {en.cart.addToCart}
+        {en.cart.buttons.addToCart.title}
       </button>
     )
   }
@@ -137,7 +137,9 @@ export const AddToCartButton = ({
       {renderButtonContent()}
       {isPopupOpen && (
         <div className="absolute -top-16 bg-white border border-green-500 rounded-lg p-2 text-center w-full flex flex-col">
-          <p className="text-gray-400">{en.cart.changeQuantity}</p>
+          <p className="text-gray-400">
+            {en.cart.buttons.addToCart.changeQuantityPopup}
+          </p>
           <input
             autoFocus
             type="number"

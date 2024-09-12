@@ -37,7 +37,7 @@ export const Input = () => {
             type="text"
             value={searchItem}
             onChange={e => setSearchItem(e.target.value)}
-            placeholder={en.inputPlaceholder}
+            placeholder={en.header.inputPlaceholder}
             className="md:w-96 bg-searchbar p-2 pl-4 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
           />
           {searchItem && (

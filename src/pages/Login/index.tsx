@@ -19,9 +19,9 @@ export const LogIn = () => {
   return (
     <div className="flex h-[calc(100vh-64px)] justify-center items-center">
       <AuthForm
-        formPlaceholder={en.auth.login}
+        formPlaceholder={en.auth.login.title}
         onSubmit={handleLoginSubmit}
-        buttonText={en.auth.login}
+        buttonText={en.auth.login.button}
         isSignup={false}
         onInputFocus={handleInputFocus}
       />

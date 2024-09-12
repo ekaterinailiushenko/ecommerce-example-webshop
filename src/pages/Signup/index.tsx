@@ -14,7 +14,7 @@ export const SignUp = () => {
     confirmPassword: string
   ) => {
     if (confirmPassword !== password) {
-      setError(en.profile.changePassword.error)
+      setError(en.auth.signup.passwordsNotEqual)
       return
     }
 
@@ -28,9 +28,9 @@ export const SignUp = () => {
   return (
     <div className="flex h-[calc(100vh-64px)] justify-center items-center">
       <AuthForm
-        formPlaceholder={en.auth.signup}
+        formPlaceholder={en.auth.signup.title}
         onSubmit={handleSignupSubmit}
-        buttonText={en.auth.signup}
+        buttonText={en.auth.signup.button}
         isSignup={true}
         onInputFocus={handleInputFocus}
       />

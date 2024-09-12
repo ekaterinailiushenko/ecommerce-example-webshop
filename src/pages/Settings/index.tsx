@@ -51,7 +51,7 @@ export const Settings = () => {
   }
 
   const handleDeleteAccountClick = async () => {
-    const confirmed = window.confirm(en.profile.deleteAccount.warn)
+    const confirmed = window.confirm(en.profile.buttons.deleteAccount.warn)
     if (confirmed) {
       await deleteUser(user as User)
     }
@@ -67,7 +67,7 @@ export const Settings = () => {
   }
 
   const handleDeleteProfileImageClick = async () => {
-    const confirmed = window.confirm(en.profile.changeImage.warn)
+    const confirmed = window.confirm(en.profile.buttons.changeImage.warn)
     if (confirmed) {
       await deleteUserPhoto(user as User)
     }
@@ -109,7 +109,7 @@ export const Settings = () => {
           htmlFor="newPassword"
           className="mb-1 block text-sm font-medium text-gray-700"
         >
-          {en.profile.changePassword.title}
+          {en.profile.buttons.changePassword.title}
         </label>
         <div className="flex space-x-2">
           <input
@@ -135,7 +135,7 @@ export const Settings = () => {
         onClick={handleDeleteAccountClick}
         className="shadow-md px-3 py-1 font-medium text-white bg-red-600 rounded-md"
       >
-        {en.profile.deleteAccount.title}
+        {en.profile.buttons.deleteAccount.title}
       </button>
     </>
   )

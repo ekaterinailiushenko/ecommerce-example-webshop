@@ -47,7 +47,7 @@ export const Profile = () => {
           )}
         </div>
         <div className="flex flex-col justify-between my-5">
-          <h1 className="text-3xl font-semibold">{en.profile.account}</h1>
+          <h1 className="text-3xl font-semibold">{en.profile.title}</h1>
           <p className="text-slate-600">
             {en.profile.email} {user?.email}
           </p>
@@ -56,7 +56,7 @@ export const Profile = () => {
             onClick={handleLogoutClick}
           >
             <MdLogout className="text-slate-600" />
-            <p className="text-xs text-slate-600">{en.auth.logout}</p>
+            <p className="text-xs text-slate-600">{en.profile.buttons.logout.title}</p>
           </button>
         </div>
       </div>

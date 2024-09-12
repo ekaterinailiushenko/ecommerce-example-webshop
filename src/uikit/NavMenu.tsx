@@ -28,7 +28,9 @@ export const NavMenu = () => {
           <div className="flex flex-col items-center">
             <MdAccountCircle className="text-white size-8" />
             <p className="text-xs">
-              {user ? en.profile.account : en.auth.login}
+              {user
+                ? en.header.navMenu.linkToProfile
+                : en.header.navMenu.linkToLogin}
             </p>
           </div>
         </Link>
@@ -40,7 +42,7 @@ export const NavMenu = () => {
         <Link to={'/cart'}>
           <div className="flex flex-col items-center">
             <MdOutlineShoppingCart className="text-white size-8" />
-            <p className="text-xs ">{en.cart.title}</p>
+            <p className="text-xs ">{en.header.navMenu.linkToCart}</p>
           </div>
         </Link>
       </div>
