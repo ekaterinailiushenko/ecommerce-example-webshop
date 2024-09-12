@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 
+import en from '../i18n/en.json'
 import { formatPrice } from '../utilities'
 import { useCartStore, type ProductType } from '../stores'
 
@@ -82,7 +83,9 @@ export const AddToCartButton = ({
             }}
             onAnimationEnd={handleProgressBarComplete}
           />
-          <p className="text-white font-bold z-50">Undo</p>
+          <p className="text-white font-bold z-50">
+            {en.cart.buttons.undoRemoveFromCart.title}
+          </p>
         </button>
       )
     }
@@ -124,7 +127,7 @@ export const AddToCartButton = ({
         onClick={() => addItemToCart(product)}
       >
         <BsCart2 className="text-sm" />
-        Add to cart
+        {en.cart.buttons.addToCart.title}
       </button>
     )
   }
@@ -134,7 +137,9 @@ export const AddToCartButton = ({
       {renderButtonContent()}
       {isPopupOpen && (
         <div className="absolute -top-16 bg-white border border-green-500 rounded-lg p-2 text-center w-full flex flex-col">
-          <p className="text-gray-400">Change quantity</p>
+          <p className="text-gray-400">
+            {en.cart.buttons.addToCart.changeQuantityPopup}
+          </p>
           <input
             autoFocus
             type="number"

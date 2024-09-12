@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 
+import en from '../../i18n/en.json'
 import { Products } from './components'
 import { useProductsStore } from '../../stores'
 
@@ -15,11 +16,11 @@ export const Home = () => {
   }, [getProducts])
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <p>{en.global.loading}</p>
   }
 
   if (isError) {
-    return <p>There was an error loading the products</p>
+    return <p>{en.products.loadError}</p>
   }
 
   return <Products />

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import en from '../../../../../i18n/en.json'
 import { Modal } from '../../../../../uikit/Modal'
 import { formatPrice } from '../../../../../utilities'
 import { LoadingSkeleton } from '../../../../../uikit/LoadingSkeleton'
@@ -30,14 +31,14 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
         <div className="group/item w-3/5 h-3/5 flex items-center justify-center self-center transition-all hover:scale-110 duration-700 ">
           <img
             src={product.image}
-            alt="ProductImage"
+            alt={product.name}
             className="object-contain"
           />
           <button
             className="bg-white opacity-80 text-black text-sm font-semibold px-3 py-1 rounded group/button invisible group-hover/item:visible absolute"
             onClick={() => handleOpenModalClick(product.product_id)}
           >
-            Quick view
+            {en.products.quickView}
           </button>
         </div>
         <h5 className="self-end mb-4 font-semibold">
@@ -51,7 +52,11 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
         ) : (
           <div className="grid grid-cols-2 h-full gap-4">
             <div className="flex items-center justify-center">
-              <img className="h-40" alt="Product" src={productDetails?.image} />
+              <img
+                className="h-40"
+                alt={productDetails?.name}
+                src={productDetails?.image}
+              />
             </div>
             <div className="flex flex-col justify-between">
               <div>
@@ -64,56 +69,34 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
             </div>
             <div className="col-span-2 overflow-y-auto">
               <p className="font-semibold text-gray-500 text-base">
-                Product Description
+                {en.products.modal.description}
               </p>
               <p className="text-sm mb-3">{productDetails?.description}</p>
               <p className="font-semibold text-gray-500 text-base">
-                Storage Instructions
+                {en.products.modal.storageInstructions}
               </p>
               <p className="text-sm mb-3">
                 To maintain freshness, store{' '}
-                <span className="lowercase ">{productDetails?.name}</span> in a
+                <span className="lowercase">{productDetails?.name}</span> in a
                 cool, dry place. For best results, keep refrigerated and consume
                 within a few days of purchase.
               </p>
               <p className="font-semibold text-gray-500 text-base">
-                Usage Suggestions
+                {en.products.modal.usageSuggestions.title}
               </p>
               <ul className="list-disc list-inside text-sm mb-3">
-                <li>
-                  Perfect for Salads: Add a fresh, crisp texture to your
-                  favorite salad mix.
-                </li>
-                <li>
-                  Great for Cooking: Enhances the flavor of your soups, stews,
-                  and stir-fries.
-                </li>
-                <li>
-                  Healthy Snacking: Enjoy as a fresh, low-calorie snack any time
-                  of the day.
-                </li>
+                <li>{en.products.modal.usageSuggestions.bullet1}</li>
+                <li>{en.products.modal.usageSuggestions.bullet2}</li>
+                <li>{en.products.modal.usageSuggestions.bullet3}</li>
               </ul>
               <p className="font-semibold text-gray-500 text-base">
-                Key Features
+                {en.products.modal.features.title}
               </p>
               <ul className="list-disc list-inside text-sm mb-3">
-                <li>
-                  Freshness Guaranteed: Harvested at the peak of ripeness to
-                  ensure the best flavor and texture.
-                </li>
-                <li>
-                  Nutrient-Rich: Packed with vitamins, minerals, and
-                  antioxidants that contribute to your overall well-being.
-                </li>
-                <li>
-                  Versatile Ingredient: Ideal for a variety of dishes, from
-                  hearty salads and soups to delicious main courses and side
-                  dishes.
-                </li>
-                <li>
-                  Ethically Sourced: Responsibly grown with a focus on
-                  sustainability and fair trade practices.
-                </li>
+                <li>{en.products.modal.features.bullet1}</li>
+                <li>{en.products.modal.features.bullet2}</li>
+                <li>{en.products.modal.features.bullet3}</li>
+                <li>{en.products.modal.features.bullet4}</li>
               </ul>
             </div>
           </div>

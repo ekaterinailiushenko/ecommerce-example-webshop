@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom'
 
+import en from '../i18n/en.json'
 import { useAuthStore } from '../stores'
 
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -9,7 +10,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   }))
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>{en.global.loading}</div>
   }
 
   if (!user) {

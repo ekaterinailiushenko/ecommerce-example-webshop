@@ -1,30 +1,32 @@
+import en from '../i18n/en.json'
+
 export const getFirebaseErrorMessage = (authCode: string) => {
   switch (authCode) {
     case 'auth/invalid-password':
-      return 'Password provided is not corrected'
+      return en.firebaseError.invalidPassword
 
     case 'auth/invalid-email':
-      return 'Email provided is invalid'
+      return en.firebaseError.invalidEmail
 
     case 'auth/requires-recent-login':
-      return 'You need to log in again before changing your password or deleting your account'
+      return en.firebaseError.recentLoginRequired
 
     case 'auth/invalid-credential':
-      return 'Email or password provided is invalid'
+      return en.firebaseError.invalidCredential
 
     case 'auth/email-already-in-use':
-      return 'The provided email is already in use by an existing user. Each user must have a unique email.'
+      return en.firebaseError.userAlreadyExist
 
     case 'auth/too-many-requests':
-      return 'Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.'
+      return en.firebaseError.tooManyRequests
 
     case 'auth/weak-password':
-      return 'Password should be at least 6 characters'
+      return en.firebaseError.weakPassword
 
     case 'storage/object-not-found':
-      return 'No object exists at the desired reference.'
+      return en.firebaseError.objectNotFound
 
     default:
-      return 'Something went wrong'
+      return en.firebaseError.unknownError
   }
 }

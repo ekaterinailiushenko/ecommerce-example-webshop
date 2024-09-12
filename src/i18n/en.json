@@ -1,0 +1,119 @@
+{
+  "global": {
+    "loading": "Loading...",
+    "changing": "Changing...",
+    "errorHeader": "Oops!"
+  },
+  "header": {
+    "inputPlaceholder": "Search by name...",
+    "logoAltText": "Picnic",
+    "navMenu": {
+      "linkToLogin": "Login",
+      "linkToCart": "Cart",
+      "linkToProfile": "Profile"
+    }
+  },
+  "cart": {
+    "title": "Your Cart",
+    "buttons": {
+      "addToCart": {
+        "title": "Add to Cart",
+        "changeQuantityPopup": "Change Quantity"
+      },
+      "clearCart": { "title": "Clear Cart" },
+      "undoRemoveFromCart": { "title": "Undo" },
+      "buyNow": { "title": "Buy Now" }
+    },
+    "emptyCart": {
+      "altText": "Empty Cart",
+      "mainMessage": "Your Cart is empty.",
+      "nextMessage": "Looks like you have not added anything to your cart yet.",
+      "linkToMainPage": "Start Shopping"
+    },
+    "deliveryTime": "Delivery: 1-3 working days",
+    "summary": "Summary",
+    "productItems": "Items",
+    "deliveryCosts": "Delivery costs",
+    "total": "Total",
+    "inclVAT": "incl. VAT",
+    "yourItems": "Your Item(s)"
+  },
+  "products": {
+    "errors": {
+      "loadError": "There was an error loading the products",
+      "notFound": {
+        "title": "No products found. Please try a different search.",
+        "altText": "Not Found"
+      }
+    },
+    "quickView": "Quick View",
+    "modal": {
+      "description": "Product Description",
+      "storageInstructions": "Storage Instructions",
+      "usageSuggestions": {
+        "title": "Usage Suggestions",
+        "bullet1": "Perfect for Salads: Add a fresh, crisp texture to your favorite salad mix.",
+        "bullet2": "Great for Cooking: Enhances the flavor of your soups, stews,and stir-fries.",
+        "bullet3": "Healthy Snacking: Enjoy as a fresh, low-calorie snack any timeof the day."
+      },
+      "features": {
+        "title": "Key Features",
+        "bullet1": "Freshness Guaranteed: Harvested at the peak of ripeness toensure the best flavor and texture.",
+        "bullet2": "Nutrient-Rich: Packed with vitamins, minerals, andantioxidants that contribute to your overall well-being.",
+        "bullet3": "Versatile Ingredient: Ideal for a variety of dishes, fromhearty salads and soups to delicious main courses and sidedishes.",
+        "bullet4": "Ethically Sourced: Responsibly grown with a focus onsustainability and fair trade practices."
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Log in",
+      "button": "Log in"
+    },
+    "signup": {
+      "title": "Sign up",
+      "button": "Sign up",
+      "passwordsNotEqual": "Passwords do not match"
+    },
+    "form": {
+      "email": "E-mail",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "linkToSignup": "No account yet?",
+      "linkToLogin": "Already have an account?"
+    }
+  },
+  "profile": {
+    "title": "My profile",
+    "email": "User E-mail:",
+    "profileImageAltText": "Profile Image",
+    "buttons": {
+      "logout": { "title": "Log out" },
+      "deleteAccount": {
+        "title": "Delete account",
+        "warn": "Are you sure you want to delete your account?"
+      },
+      "changeImage": {
+        "title": "Add Photo",
+        "warn": "Are you sure you want to delete your profile image?"
+      },
+      "changePassword": {
+        "title": "changePassword"
+      }
+    },
+    "returnToAccount": "Return to your personal account",
+    "settings": "My settings",
+    "data": "Personal data"
+  },
+  "firebaseError": {
+    "invalidPassword": "Password provided is not corrected",
+    "invalidEmail": "Email provided is invalid",
+    "recentLoginRequired": "You need to log in again before changing your password or deleting your account",
+    "invalidCredential": "Email or password provided is invalid",
+    "userAlreadyExist": "The provided email is already in use by an existing user. Each user must have a unique email.",
+    "tooManyRequests": "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.",
+    "weakPassword": "Password should be at least 6 characters",
+    "objectNotFound": "No object exists at the desired reference.",
+    "unknownError": "Something went wrong. Please try again later."
+  }
+}

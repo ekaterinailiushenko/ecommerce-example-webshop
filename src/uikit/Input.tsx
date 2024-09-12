@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { MdClear } from 'react-icons/md'
 import { useLocation } from 'react-router-dom'
 
+import en from '../i18n/en.json'
 import { useProductsStore } from '../stores'
 
 export const Input = () => {
@@ -36,7 +37,7 @@ export const Input = () => {
             type="text"
             value={searchItem}
             onChange={e => setSearchItem(e.target.value)}
-            placeholder="Search by name..."
+            placeholder={en.header.inputPlaceholder}
             className="md:w-96 bg-searchbar p-2 pl-4 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
           />
           {searchItem && (
