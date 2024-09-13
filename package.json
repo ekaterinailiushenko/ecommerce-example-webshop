@@ -2,6 +2,7 @@
   "name": "picnic-app",
   "private": true,
   "version": "1.0.1",
+  "homepage": "https://Kosholadka.github.io/picnic-app/",
   "type": "module",
   "scripts": {
     "dev": "vite",
