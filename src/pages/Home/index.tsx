@@ -20,7 +20,7 @@ export const Home = () => {
   }
 
   if (isError) {
-    return <p>{en.products.loadError}</p>
+    return <p>{en.products.errors.loadError}</p>
   }
 
   return <Products />
