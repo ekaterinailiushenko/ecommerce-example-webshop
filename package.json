@@ -4,6 +4,11 @@
   "version": "1.0.1",
   "homepage": "https://Kosholadka.github.io/picnic-app/",
   "type": "module",
+  "overrides": {
+    "vite": {
+      "rollup": "npm:@rollup/wasm-node"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
