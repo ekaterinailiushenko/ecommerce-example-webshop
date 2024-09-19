@@ -13,6 +13,9 @@
       "linkToProfile": "Profile"
     }
   },
+  "footer": {
+    "buildVersion": "Version:"
+  },
   "cart": {
     "title": "Your Cart",
     "buttons": {
