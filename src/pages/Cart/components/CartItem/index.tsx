@@ -19,12 +19,15 @@ export const CartItem = () => {
   const handleRemoveItemClick = (itemId: string) => {
     setIsItemBeingRemoved({ id: itemId, confirmed: true })
 
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (isItemBeingRemoved.id === itemId && isItemBeingRemoved.confirmed) {
         removeItemFromCart(itemId)
+
         setIsItemBeingRemoved({ id: null, confirmed: false })
       }
     }, 5000)
+
+    return () => clearTimeout(timer)
   }
 
   return (
