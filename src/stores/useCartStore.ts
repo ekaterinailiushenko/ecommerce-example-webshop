@@ -8,9 +8,13 @@ export type CartProduct = ProductType & { quantity: number }
 type State = {
   userId: string | null
   cartItems: CartProduct[]
+  deliveryCosts: number
 }
 
 type Action = {
+  calculateItemsInCart: () => number
+  calculateTotal: () => number
+  calculateTotalWithDelivery: () => number
   addItemToCart: (item: ProductType) => void
   increaseQuantity: (productId: string) => void
   decreaseQuantity: (productId: string) => void
@@ -32,9 +36,29 @@ export const useCartStore = create(
         }
       }
 
+      const deliveryCosts = 555
+
+      const calculateItemsInCart = () =>
+        get().cartItems.reduce(
+          (total, cartItem) => total + cartItem.quantity,
+          0
+        )
+
+      const calculateTotal = () =>
+        get().cartItems.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        )
+
+      const calculateTotalWithDelivery = () => calculateTotal() + deliveryCosts
+
       return {
         cartItems: [],
         userId: null,
+        deliveryCosts,
+        calculateItemsInCart,
+        calculateTotal,
+        calculateTotalWithDelivery,
         addItemToCart: item => {
           const itemExists = get().cartItems.find(
             cartItem => cartItem.product_id === item.product_id
