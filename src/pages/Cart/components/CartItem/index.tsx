@@ -6,7 +6,7 @@ import { useCartStore } from '../../../../stores'
 import { AddToCartButton } from '../../../../uikit'
 
 export const CartItem = () => {
-  const [removingItem, setRemovingItem] = useState<{
+  const [isItemBeingRemoved, setIsItemBeingRemoved] = useState<{
     id: string | null
     confirmed: boolean
   }>({ id: null, confirmed: false })
@@ -17,11 +17,12 @@ export const CartItem = () => {
   }))
 
   const handleRemoveItemClick = (itemId: string) => {
-    setRemovingItem({ id: itemId, confirmed: true })
+    setIsItemBeingRemoved({ id: itemId, confirmed: true })
+
     setTimeout(() => {
-      if (removingItem.id === itemId && removingItem.confirmed) {
+      if (isItemBeingRemoved.id === itemId && isItemBeingRemoved.confirmed) {
         removeItemFromCart(itemId)
-        setRemovingItem({ id: null, confirmed: false })
+        setIsItemBeingRemoved({ id: null, confirmed: false })
       }
     }, 5000)
   }
@@ -35,30 +36,30 @@ export const CartItem = () => {
         >
           <img
             src={item.image}
-            className={`object-contain place-self-center ${removingItem.id === item.product_id && 'opacity-50'}`}
+            className={`object-contain place-self-center ${isItemBeingRemoved.id === item.product_id && 'opacity-50'}`}
             alt={item.name}
           />
           <div className="lg:col-start-2 lg:col-span-4 flex flex-col justify-between">
             <p
-              className={`font-bold text-lg ${removingItem.id === item.product_id && 'opacity-50'}`}
+              className={`font-bold text-lg ${isItemBeingRemoved.id === item.product_id && 'opacity-50'}`}
             >
               {item.name}
             </p>
             <p
-              className={`text-sm text-slate-600 ${removingItem.id === item.product_id && 'opacity-50'}`}
+              className={`text-sm text-slate-600 ${isItemBeingRemoved.id === item.product_id && 'opacity-50'}`}
             >
               {en.cart.deliveryTime}
             </p>
             <AddToCartButton
               product={item}
-              isItemRemoving={removingItem}
-              setRemovingItem={setRemovingItem}
+              isItemRemoving={isItemBeingRemoved}
+              setRemovingItem={setIsItemBeingRemoved}
             />
           </div>
           <div className="flex justify-end items-start">
             <button onClick={() => handleRemoveItemClick(item.product_id)}>
               <TfiClose
-                className={`text-slate-400 hover:text-slate-500 text-xl transition ${removingItem.id === item.product_id && 'invisible'}`}
+                className={`text-slate-400 hover:text-slate-500 text-xl transition ${isItemBeingRemoved.id === item.product_id && 'invisible'}`}
               />
             </button>
           </div>
