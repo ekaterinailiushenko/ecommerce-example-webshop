@@ -42,7 +42,6 @@ const saveCartToCookies = (cart: CartInternal) => {
   Cookies.set('cart-items', JSON.stringify(cart), { expires: 7 })
 }
 
-// Helper function to load the cart from cookies
 const loadCartFromCookies = () => {
   const cartData = Cookies.get('cart-items')
   if (cartData) {
