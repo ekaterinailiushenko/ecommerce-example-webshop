@@ -3,11 +3,12 @@ import { useState } from 'react'
 import en from '../../../../../i18n/en.json'
 import { Modal } from '../../../../../uikit/Modal'
 import { formatPrice } from '../../../../../utilities'
+import type { Product } from '../../../../../api/types'
+import { CartButton } from '../../../../../uikit/CartButton'
+import { useProductDetailsStore } from '../../../../../stores'
 import { LoadingSkeleton } from '../../../../../uikit/LoadingSkeleton'
-import { AddToCartButton } from '../../../../../uikit/AddToCartButton'
-import { type ProductType, useProductDetailsStore } from '../../../../../stores'
 
-export const ProductCard = ({ product }: { product: ProductType }) => {
+export const ProductCard = ({ product }: { product: Product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { isLoading, productDetails, getProductDetails } =
@@ -44,7 +45,7 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
         <h5 className="self-end mb-4 font-semibold">
           {formatPrice(product.price)}
         </h5>
-        <AddToCartButton product={product} />
+        <CartButton product={product} />
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {isLoading ? (
@@ -65,7 +66,7 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
                   {formatPrice(productDetails?.price)}
                 </p>
               </div>
-              <AddToCartButton product={product} />
+              <CartButton product={product} />
             </div>
             <div className="col-span-2 overflow-y-auto">
               <p className="font-semibold text-gray-500 text-base">

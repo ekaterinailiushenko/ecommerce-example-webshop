@@ -2,17 +2,10 @@ import { create } from 'zustand'
 
 import { logger } from '../utilities'
 import { getProductDetails } from '../api/productApi'
-
-export type ProductDetailsType = {
-  product_id: string
-  name: string
-  price: number
-  image: string
-  description?: string
-}
+import type { ProductDetails } from '../api/types'
 
 type State = {
-  productDetails: ProductDetailsType | null
+  productDetails: ProductDetails | null
   isLoading: boolean
   isError: boolean
   getProductDetails: (id: string) => Promise<void>
@@ -31,7 +24,7 @@ export const useProductDetailsStore = create<State & Action>(set => ({
 
     try {
       const response = await getProductDetails(id)
-      set({ productDetails: response.data })
+      set({ productDetails: response })
     } catch (err) {
       logger.error('Error fetching product details:', err)
       set({ isError: true })

@@ -1,9 +1,9 @@
-import axios from 'axios'
+import { getProductsResponse, getProductDetailsResponse } from '../mock'
 
 export const API_URL =
   'https://s3-eu-west-1.amazonaws.com/developer-application-test/cart'
 
-export const getProducts = () => axios.get(`${API_URL}/list`)
+export const getProducts = () => Promise.resolve(getProductsResponse)
 
 export const getProductDetails = (id: string) =>
-  axios.get(`${API_URL}/${id}/detail`)
+  Promise.resolve(getProductDetailsResponse.find(i => i.product_id === id))
