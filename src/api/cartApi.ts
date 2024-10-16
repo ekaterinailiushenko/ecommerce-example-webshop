@@ -7,7 +7,6 @@ import { getProductsResponse, resetGetProductsResponse } from '../mock'
 interface CartInternal extends Cart {
   _productsSet: Map<Product['product_id'], Product>
 }
-
 const cart: CartInternal = {
   _productsSet: new Map(),
   get products() {
@@ -38,24 +37,24 @@ const cart: CartInternal = {
     return this.totalPrice + this.deliveryCosts
   },
 }
-const saveCartToCookies = (cart: CartInternal) => {
-  Cookies.set('cart-items', JSON.stringify(cart), { expires: 7 })
+const saveCartToCookies = (userId: string, cart: CartInternal) => {
+  Cookies.set(`cart-items-${userId}`, JSON.stringify(cart), { expires: 7 })
 }
 
-const loadCartFromCookies = () => {
-  const cartData = Cookies.get('cart-items')
-  if (cartData) {
+const loadCartFromCookies = (userId: string) => {
+  const cartFromCookies = Cookies.get(`cart-items-${userId}`)
+  if (cartFromCookies) {
     try {
-      const parsedCart = JSON.parse(cartData) as Cart
+      const parsedCartFromCookies = JSON.parse(cartFromCookies) as Cart
       cart._productsSet = new Map(
-        parsedCart.products.map(cookieProduct => {
-          const productInResponse = getProductsResponse.find(
+        parsedCartFromCookies.products.map(cookieProduct => {
+          const productInDB = getProductsResponse.find(
             product => product.product_id === cookieProduct.product_id
           )
 
-          if (productInResponse) {
-            productInResponse.amountInTheCart = cookieProduct.amountInTheCart
-            return [productInResponse.product_id, productInResponse]
+          if (productInDB) {
+            productInDB.amountInTheCart = cookieProduct.amountInTheCart
+            return [productInDB.product_id, productInDB]
           }
 
           return [cookieProduct.product_id, cookieProduct]
@@ -67,54 +66,66 @@ const loadCartFromCookies = () => {
   }
 }
 
-loadCartFromCookies()
-
 export const cartApi = {
-  getCartSummary: () => Promise.resolve(cart),
-  addProductToCart: (productId: Product['product_id']) => {
-    const product = getProductsResponse.find(
+  getCartSummary: (userId: string) => {
+    loadCartFromCookies(userId)
+    return Promise.resolve(cart)
+  },
+  addProductToCart: (userId: string, productId: Product['product_id']) => {
+    const productInDB = getProductsResponse.find(
       product => product.product_id === productId
     )!
-
-    product.amountInTheCart++
 
     const productInProductsSet = cart._productsSet.get(productId)
 
     if (productInProductsSet) {
       productInProductsSet.amountInTheCart++
     } else {
-      cart._productsSet.set(product.product_id, { ...product })
+      cart._productsSet.set(productInDB.product_id, {
+        ...productInDB,
+        amountInTheCart: 1,
+      })
     }
 
-    saveCartToCookies(cart)
+    productInDB.amountInTheCart =
+      cart._productsSet.get(productId)?.amountInTheCart || 1
+
+    saveCartToCookies(userId, cart)
+
     return Promise.resolve(cart)
   },
   deleteProductFromCart: (
+    userId: string,
     productId: Product['product_id'],
     removeAll: boolean = false
   ) => {
-    const product = getProductsResponse.find(
+    const productInDB = getProductsResponse.find(
       product => product.product_id === productId
     )!
 
     const productInProductsSet = cart._productsSet.get(productId)
 
-    if (removeAll || (productInProductsSet && product.amountInTheCart === 1)) {
-      product.amountInTheCart = 0
+    if (
+      removeAll ||
+      (productInProductsSet && productInDB.amountInTheCart === 1)
+    ) {
+      productInDB.amountInTheCart = 0
       cart._productsSet.delete(productId)
-    } else if (productInProductsSet && product.amountInTheCart > 1) {
+    } else if (productInProductsSet && productInDB.amountInTheCart > 1) {
       productInProductsSet.amountInTheCart--
-      product.amountInTheCart = productInProductsSet.amountInTheCart
+      productInDB.amountInTheCart = productInProductsSet.amountInTheCart
     }
 
-    saveCartToCookies(cart)
+    saveCartToCookies(userId, cart)
+
     return Promise.resolve(cart)
   },
-  clearCart: () => {
+  clearCart: (userId: string) => {
     cart._productsSet.clear()
     resetGetProductsResponse()
 
-    Cookies.remove('cart-items')
+    Cookies.remove(`cart-items-${userId}`)
+
     return Promise.resolve(cart)
   },
 }

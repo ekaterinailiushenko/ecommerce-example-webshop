@@ -10,23 +10,30 @@ import { CartContext } from './context'
 import { logger } from '../../utilities'
 import { cartApi } from '../../api/cartApi'
 import type { Cart, Product } from '../../api/types'
+import { useAuthStore } from '../../stores'
 
 export const CartContextProvider = ({ children }: { children: ReactNode }) => {
   const [cartSummary, setCartSummary] = useState<Cart | undefined>()
 
+  const { user } = useAuthStore(state => ({ user: state.user }))
+
   const handleGetCart = useCallback(async () => {
+    if (!user) return
+
     try {
-      const cart = await cartApi.getCartSummary()
+      const cart = await cartApi.getCartSummary(user.uid)
       setCartSummary(cart)
     } catch (exception) {
       logger.error(`Error in CartContextProvider.handleGetCart -> ${exception}`)
     }
-  }, [])
+  }, [user])
 
   const handleAddProductToCart = useCallback(
     async (productId: Product['product_id']) => {
+      if (!user) return
+
       try {
-        const updatedCart = await cartApi.addProductToCart(productId)
+        const updatedCart = await cartApi.addProductToCart(user.uid, productId)
         setCartSummary({ ...updatedCart })
       } catch (exception) {
         logger.error(
@@ -34,13 +41,16 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
         )
       }
     },
-    []
+    [user]
   )
 
   const handleDeleteProductFromCart = useCallback(
     async (productId: Product['product_id'], removeAll?: boolean) => {
+      if (!user) return
+
       try {
         const updatedCart = await cartApi.deleteProductFromCart(
+          user.uid,
           productId,
           removeAll
         )
@@ -51,23 +61,27 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
         )
       }
     },
-    []
+    [user]
   )
 
   const handleClearCart = useCallback(async () => {
+    if (!user) return
+
     try {
-      const updatedCart = await cartApi.clearCart()
+      const updatedCart = await cartApi.clearCart(user.uid)
       setCartSummary({ ...updatedCart })
     } catch (exception) {
       logger.error(
         `Error in CartContextProvider.handleClearCart -> ${exception}`
       )
     }
-  }, [])
+  }, [user])
 
   useEffect(() => {
-    void handleGetCart()
-  }, [handleGetCart])
+    if (user) {
+      void handleGetCart()
+    }
+  }, [user, handleGetCart])
 
   const value = useMemo(() => {
     const obj: CartContext.Value = {
