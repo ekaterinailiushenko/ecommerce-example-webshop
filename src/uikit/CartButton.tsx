@@ -15,11 +15,11 @@ type Props = {
 
 export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
   const cartItems = useCartContext().cartSummary?.products
-  const decreaseQuantity = useCartContext().deleteProductFromCart
   const addProductToCart = useCartContext().addProductToCart
+  const decreaseQuantity = useCartContext().deleteProductFromCart
 
   const isItemInCart = cartItems?.find(
-    cartItem => cartItem.product_id === product.product_id
+    cartItem => cartItem.product_id === product.product_id,
   )
 
   const renderButtonContent = () => {
@@ -29,12 +29,7 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
           onClick={onUndo}
           className="flex items-center justify-center w-full h-full hover:bg-green-400 rounded-md transition"
         >
-          <div
-            className="absolute top-0 left-0 h-full bg-green-600 rounded-md"
-            style={{
-              animation: `fillProgressBar ${5000}ms linear forwards`,
-            }}
-          />
+          <div className="absolute top-0 left-0 h-full bg-green-600 rounded-md fill-progress-bar" />
           <p className="text-white font-bold z-50">
             {en.cart.buttons.undoRemoveFromCart.title}
           </p>
@@ -44,7 +39,9 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
     if (isItemInCart) {
       return (
         <div className="flex justify-between items-center w-full h-full">
-          <button onClick={() => decreaseQuantity(product.product_id)}>
+          <button
+            onClick={() => decreaseQuantity({ productId: product.product_id })}
+          >
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
               {isItemInCart.amountInTheCart > 1 ? (
                 <AiOutlineMinus className="text-lg mx-2" />

@@ -32,11 +32,6 @@
   }
 }
 
-.animation {
-  animation: spin;
-  animation: infinite;
-  animation: duration-[10000ms];
-  animation: ease linear;
-  animation: normal;
-  animation: fill-forwards;
+.fill-progress-bar {
+  animation: fillProgressBar 5000ms linear forwards;
 }
