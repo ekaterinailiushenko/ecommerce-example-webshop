@@ -6,10 +6,15 @@ export const CartSummary = () => {
   const { cartSummary } = useCartContext()
 
   if (!cartSummary) {
-    return <p>Loading cart data...</p>
+    return <p>{en.global.loading}</p>
   }
 
-  const { totalPrice, deliveryCosts, productsQuantity } = cartSummary
+  const {
+    totalPrice,
+    deliveryCosts,
+    totalPriceWithDeliveryCosts,
+    productsQuantity,
+  } = cartSummary
 
   return (
     <section className="bg-white p-6 rounded-lg shadow-md h-min">
@@ -36,7 +41,7 @@ export const CartSummary = () => {
           <p className="font-bold text-xl">{en.cart.total}</p>
           <p className="text-xs text-slate-600">{en.cart.inclVAT}</p>
         </div>
-        <p className="font-bold">{formatPrice(totalPrice + deliveryCosts)}</p>
+        <p className="font-bold">{formatPrice(totalPriceWithDeliveryCosts)}</p>
       </div>
       <button className="mt-4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 rounded-md w-full shadow">
         {en.cart.buttons.buyNow.title}
