@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { TfiClose } from 'react-icons/tfi'
 import { useEffect, useRef, useState } from 'react'
 
@@ -13,7 +14,7 @@ export const CartItem = ({ item }: { item: Product }) => {
 
   const [isRemoving, setIsRemoving] = useState(false)
 
-  const deleteProductFromCart = useCartContext().deleteProductFromCart
+  const { deleteProductFromCart } = useCartContext()
 
   const clearRemovalTimer = () => {
     if (removalTimerRef) {
@@ -32,7 +33,7 @@ export const CartItem = ({ item }: { item: Product }) => {
     clearRemovalTimer()
 
     removalTimerRef.current = setTimeout(async () => {
-      await deleteProductFromCart(itemId, true)
+      await deleteProductFromCart({ productId: itemId, removeAll: true })
       setIsRemoving(false)
     }, REMOVAL_DELAY)
   }
@@ -49,7 +50,10 @@ export const CartItem = ({ item }: { item: Product }) => {
     >
       <img
         src={item.image}
-        className={`object-contain place-self-center ${isRemoving ? 'opacity-50' : ''}`}
+        className={classNames(
+          'object-contain place-self-center',
+          isRemoving && 'opacity-50',
+        )}
         alt={item.name}
       />
       <div className="lg:col-start-2 lg:col-span-4 flex flex-col justify-between">

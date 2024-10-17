@@ -9,8 +9,8 @@ import {
 import { CartContext } from './context'
 import { logger } from '../../utilities'
 import { cartApi } from '../../api/cartApi'
-import type { Cart, Product } from '../../api/types'
 import { useAuthStore } from '../../stores'
+import type { Cart, Product } from '../../api/types'
 
 export const CartContextProvider = ({ children }: { children: ReactNode }) => {
   const [cartSummary, setCartSummary] = useState<Cart | undefined>()
@@ -33,35 +33,44 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
       if (!user) return
 
       try {
-        const updatedCart = await cartApi.addProductToCart(user.uid, productId)
+        const updatedCart = await cartApi.addProductToCart({
+          userId: user.uid,
+          productId,
+        })
         setCartSummary({ ...updatedCart })
       } catch (exception) {
         logger.error(
-          `Error in CartContextProvider.handleAddProductToCart -> ${exception}`
+          `Error in CartContextProvider.handleAddProductToCart -> ${exception}`,
         )
       }
     },
-    [user]
+    [user],
   )
 
   const handleDeleteProductFromCart = useCallback(
-    async (productId: Product['product_id'], removeAll?: boolean) => {
+    async ({
+      productId,
+      removeAll,
+    }: {
+      productId: Product['product_id']
+      removeAll?: boolean
+    }) => {
       if (!user) return
 
       try {
-        const updatedCart = await cartApi.deleteProductFromCart(
-          user.uid,
+        const updatedCart = await cartApi.deleteProductFromCart({
+          userId: user.uid,
           productId,
-          removeAll
-        )
+          removeAll,
+        })
         setCartSummary({ ...updatedCart })
       } catch (exception) {
         logger.error(
-          `Error in CartContextProvider.handleDeleteProductFromCart -> ${exception}`
+          `Error in CartContextProvider.handleDeleteProductFromCart -> ${exception}`,
         )
       }
     },
-    [user]
+    [user],
   )
 
   const handleClearCart = useCallback(async () => {
@@ -72,7 +81,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
       setCartSummary({ ...updatedCart })
     } catch (exception) {
       logger.error(
-        `Error in CartContextProvider.handleClearCart -> ${exception}`
+        `Error in CartContextProvider.handleClearCart -> ${exception}`,
       )
     }
   }, [user])
