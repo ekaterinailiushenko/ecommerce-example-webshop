@@ -1,13 +1,16 @@
-import type { Cart, Product } from '../api/types'
+import type { Cart, Product } from '../../../../api/types'
 
 export interface CartInternal extends Cart {
   _productsMap: Map<Product['product_id'], Product>
 }
 
-const ORDER_AMOUNT_FOR_FREE_DELIVERY = 10000
 const DELIVERY_COSTS = 555
+const ORDER_AMOUNT_FOR_FREE_DELIVERY = 10000
 
-export const cart: CartInternal = {
+/**
+ * Internal for backend simulator (only for BE simulator internal usage) live (loaded from persistance) cart instance
+ */
+export const cartInternal: CartInternal = {
   _productsMap: new Map(),
   get products() {
     return [...this._productsMap.values()]
@@ -15,7 +18,7 @@ export const cart: CartInternal = {
   get totalPrice() {
     return this.products.reduce(
       (currentPrice, product) =>
-        currentPrice + product.price * product.amountInTheCart,
+        currentPrice + product.pricePerProduct * product.amountInCart,
       0,
     )
   },
@@ -29,7 +32,7 @@ export const cart: CartInternal = {
   get productsQuantity() {
     return this.products.reduce(
       (totalAmountInTheCart, product) =>
-        totalAmountInTheCart + product.amountInTheCart,
+        totalAmountInTheCart + product.amountInCart,
       0,
     )
   },
