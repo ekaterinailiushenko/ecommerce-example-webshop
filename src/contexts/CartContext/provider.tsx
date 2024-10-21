@@ -37,7 +37,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
           userId: user.uid,
           productId,
         })
-        setCartSummary({ ...updatedCart })
+        setCartSummary(updatedCart)
       } catch (exception) {
         logger.error(
           `Error in CartContextProvider.handleAddProductToCart -> ${exception}`,
@@ -63,7 +63,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
           productId,
           removeAll,
         })
-        setCartSummary({ ...updatedCart })
+        setCartSummary(updatedCart)
       } catch (exception) {
         logger.error(
           `Error in CartContextProvider.handleDeleteProductFromCart -> ${exception}`,
@@ -78,7 +78,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       const updatedCart = await cartApi.clearCart(user.uid)
-      setCartSummary({ ...updatedCart })
+      setCartSummary(updatedCart)
     } catch (exception) {
       logger.error(
         `Error in CartContextProvider.handleClearCart -> ${exception}`,

@@ -43,7 +43,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           </button>
         </div>
         <h5 className="self-end mb-4 font-semibold">
-          {formatPrice(product.price)}
+          {formatPrice(product.pricePerProduct)}
         </h5>
         <CartButton product={product} />
       </div>

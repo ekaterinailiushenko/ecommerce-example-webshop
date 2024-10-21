@@ -43,7 +43,7 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
             onClick={() => decreaseQuantity({ productId: product.product_id })}
           >
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
-              {isItemInCart.amountInTheCart > 1 ? (
+              {isItemInCart.amountInCart > 1 ? (
                 <AiOutlineMinus className="text-lg mx-2" />
               ) : (
                 <RiDeleteBin6Line className="text-lg mx-2" />
@@ -54,10 +54,10 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
           </button>
           <div className="flex flex-col items-center justify-center leading-none w-full h-full">
             <p className="font-bold tracking-tight">
-              {isItemInCart.amountInTheCart}
+              {isItemInCart.amountInCart}
             </p>
             <p className="tracking-tight text-green-300 text-xxs">
-              {formatPrice(isItemInCart.price * isItemInCart.amountInTheCart)}
+              {formatPrice(isItemInCart.priceForAmountInCart)}
             </p>
           </div>
           <button onClick={() => addProductToCart(product.product_id)}>

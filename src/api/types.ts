@@ -1,9 +1,10 @@
 export interface Product {
   product_id: string
   name: string
-  price: number
+  pricePerProduct: number
   image: string
-  amountInTheCart: number
+  amountInCart: number
+  priceForAmountInCart: number
 }
 
 export interface ProductDetails {
