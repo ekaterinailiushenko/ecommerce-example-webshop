@@ -1,9 +1,9 @@
 import Cookies from 'js-cookie'
 
 import type { Cart } from '../../../../api/types'
+import { safeJsonParse } from '../../../../utilities'
 import { cartInternal, type CartInternal } from './index'
 import { getProductsResponse } from '../../../getProductsResponse'
-import { safeJsonParse } from '../../../../utilities/safeJsonParse'
 
 const COOKIE_EXPIRATION_DAYS = 7
 
