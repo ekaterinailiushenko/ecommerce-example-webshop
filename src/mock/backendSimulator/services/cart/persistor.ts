@@ -5,6 +5,8 @@ import { cartInternal, type CartInternal } from './index'
 import { getProductsResponse } from '../../../getProductsResponse'
 import { safeJsonParse } from '../../../../utilities/safeJsonParse'
 
+const COOKIE_EXPIRATION_DAYS = 7
+
 const saveCartToCookies = ({
   userId,
   cartInternal,
@@ -13,7 +15,7 @@ const saveCartToCookies = ({
   cartInternal: CartInternal
 }) => {
   Cookies.set(`cart-items-${userId}`, JSON.stringify(cartInternal), {
-    expires: 7,
+    expires: COOKIE_EXPIRATION_DAYS,
   })
 }
 
