@@ -2,8 +2,7 @@ import en from '../../../../i18n/en.json'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
 
 export const CartHeader = () => {
-  const clearCart = useCartContext().clearCart
-  const productsQuantity = useCartContext().cartSummary?.productsQuantity
+  const { clearCart, cartSummary: { productsQuantity } = {} } = useCartContext()
 
   return (
     <section className="flex gap-2 items-baseline justify-between">

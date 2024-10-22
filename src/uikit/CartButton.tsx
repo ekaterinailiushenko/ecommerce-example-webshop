@@ -14,11 +14,13 @@ type Props = {
 }
 
 export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
-  const cartItems = useCartContext().cartSummary?.products
-  const addProductToCart = useCartContext().addProductToCart
-  const decreaseQuantity = useCartContext().deleteProductFromCart
+  const {
+    addProductToCart,
+    deleteProductFromCart: decreaseQuantity,
+    cartSummary: { products: cartItems } = {},
+  } = useCartContext()
 
-  const isItemInCart = cartItems?.find(
+  const itemInCart = cartItems?.find(
     cartItem => cartItem.product_id === product.product_id,
   )
 
@@ -36,14 +38,14 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
         </button>
       )
     }
-    if (isItemInCart) {
+    if (itemInCart) {
       return (
         <div className="flex justify-between items-center w-full h-full">
           <button
             onClick={() => decreaseQuantity({ productId: product.product_id })}
           >
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
-              {isItemInCart.amountInCart > 1 ? (
+              {itemInCart.amountInCart > 1 ? (
                 <AiOutlineMinus className="text-lg mx-2" />
               ) : (
                 <RiDeleteBin6Line className="text-lg mx-2" />
@@ -54,10 +56,10 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
           </button>
           <div className="flex flex-col items-center justify-center leading-none w-full h-full">
             <p className="font-bold tracking-tight">
-              {isItemInCart.amountInCart}
+              {itemInCart.amountInCart}
             </p>
             <p className="tracking-tight text-green-300 text-xxs">
-              {formatPrice(isItemInCart.priceForAmountInCart)}
+              {formatPrice(itemInCart.priceForAmountInCart)}
             </p>
           </div>
           <button onClick={() => addProductToCart(product.product_id)}>
