@@ -4,7 +4,7 @@ import en from '../../../../i18n/en.json'
 import emptyCartLogo from '../../../../assets/emptyCartLogo.png'
 
 export const EmptyCart = () => (
-  <div className="flex flex-col items-center gap-2 h-[calc(100vh-64px)] justify-center">
+  <div className="flex flex-col flex-1 items-center gap-2 justify-center">
     <img
       src={emptyCartLogo}
       alt={en.cart.emptyCart.altText}

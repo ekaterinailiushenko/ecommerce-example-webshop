@@ -9,7 +9,7 @@ export const Cart = () => {
   }
 
   return (
-    <div className="py-5 px-14 min-h-[calc(100vh-64px)]">
+    <div className="py-5 px-14">
       <CartHeader />
       <section className="grid lg:grid-cols-4 gap-5">
         <div className="lg:col-span-3 flex flex-col gap-1">

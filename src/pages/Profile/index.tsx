@@ -20,7 +20,7 @@ export const Profile = () => {
   }
 
   return (
-    <div className="h-[calc(100vh-64px)] py-5 px-14">
+    <div className="py-5 px-14">
       <div className="flex gap-5">
         <div className="relative flex">
           <img
