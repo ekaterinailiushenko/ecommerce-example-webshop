@@ -6,6 +6,7 @@ import en from '../../../../i18n/en.json'
 import { CartButton } from '../../../../uikit'
 import type { Product } from '../../../../api/types'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
+import { logger } from '../../../../utilities'
 
 const REMOVAL_DELAY = 5000
 
@@ -33,8 +34,12 @@ export const CartItem = ({ item }: { item: Product }) => {
     clearRemovalTimer()
 
     removalTimerRef.current = setTimeout(async () => {
-      await deleteProductFromCart({ productId: itemId, removeAll: true })
-      setIsRemoving(false)
+      try {
+        await deleteProductFromCart({ productId: itemId, removeAll: true })
+        setIsRemoving(false)
+      } catch (error) {
+        logger.error('Error deleting product from cart:', error)
+      }
     }, REMOVAL_DELAY)
   }
 
@@ -57,11 +62,19 @@ export const CartItem = ({ item }: { item: Product }) => {
         alt={item.name}
       />
       <div className="lg:col-start-2 lg:col-span-4 flex flex-col justify-between">
-        <p className={`font-bold text-lg ${isRemoving ? 'opacity-50' : ''}`}>
+        <p
+          className={classNames(
+            'font-bold text-lg',
+            isRemoving && 'opacity-50',
+          )}
+        >
           {item.name}
         </p>
         <p
-          className={`text-sm text-slate-600 ${isRemoving ? 'opacity-50' : ''}`}
+          className={classNames(
+            'text-sm text-slate-600',
+            isRemoving && 'opacity-50',
+          )}
         >
           {en.cart.deliveryTime}
         </p>
@@ -77,7 +90,10 @@ export const CartItem = ({ item }: { item: Product }) => {
           disabled={isRemoving}
         >
           <TfiClose
-            className={`text-slate-400 hover:text-slate-500 text-xl transition ${isRemoving ? 'invisible' : ''}`}
+            className={classNames(
+              'text-slate-400 hover:text-slate-500 text-xl transition',
+              isRemoving && 'invisible',
+            )}
           />
         </button>
       </div>
