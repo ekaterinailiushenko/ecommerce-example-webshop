@@ -23,8 +23,8 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
     try {
       const cart = await cartApi.getCartSummary(user.uid)
       setCartSummary(cart)
-    } catch (exception) {
-      logger.error(`Error in CartContextProvider.handleGetCart -> ${exception}`)
+    } catch (error) {
+      logger.error(`Error in CartContextProvider.handleGetCart -> ${error}`)
     }
   }, [user])
 
@@ -38,9 +38,9 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
           productId,
         })
         setCartSummary(updatedCart)
-      } catch (exception) {
+      } catch (error) {
         logger.error(
-          `Error in CartContextProvider.handleAddProductToCart -> ${exception}`,
+          `Error in CartContextProvider.handleAddProductToCart -> ${error}`,
         )
       }
     },
@@ -64,9 +64,9 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
           removeAll,
         })
         setCartSummary(updatedCart)
-      } catch (exception) {
+      } catch (error) {
         logger.error(
-          `Error in CartContextProvider.handleDeleteProductFromCart -> ${exception}`,
+          `Error in CartContextProvider.handleDeleteProductFromCart -> ${error}`,
         )
       }
     },
@@ -79,16 +79,16 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
     try {
       const updatedCart = await cartApi.clearCart(user.uid)
       setCartSummary(updatedCart)
-    } catch (exception) {
-      logger.error(
-        `Error in CartContextProvider.handleClearCart -> ${exception}`,
-      )
+    } catch (error) {
+      logger.error(`Error in CartContextProvider.handleClearCart -> ${error}`)
     }
   }, [user])
 
   useEffect(() => {
     if (user) {
       void handleGetCart()
+    } else {
+      setCartSummary(undefined)
     }
   }, [user, handleGetCart])
 
