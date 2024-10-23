@@ -17,7 +17,7 @@ export const LogIn = () => {
   }
 
   return (
-    <div className="flex h-[calc(100vh-64px)] justify-center items-center">
+    <div className="flex flex-col flex-1 justify-center items-center">
       <AuthForm
         formPlaceholder={en.auth.login.title}
         onSubmit={handleLoginSubmit}

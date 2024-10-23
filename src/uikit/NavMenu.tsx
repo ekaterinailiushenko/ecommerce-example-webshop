@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import { MdOutlineShoppingCart, MdAccountCircle } from 'react-icons/md'
 
 import en from '../i18n/en.json'
-import { useCartStore, useAuthStore } from '../stores'
+import { useAuthStore } from '../stores'
+import { useCartContext } from '../contexts/CartContext/hook'
 
 export const NavMenu = () => {
   const { user, loading } = useAuthStore(state => ({
@@ -10,12 +11,7 @@ export const NavMenu = () => {
     loading: state.loading,
   }))
 
-  const cartItems = useCartStore(state => state.cartItems)
-
-  const totalItemsInCart = cartItems.reduce(
-    (total, cartItem) => total + cartItem.quantity,
-    0
-  )
+  const totalItemsInCart = useCartContext().cartSummary?.productsQuantity
 
   if (loading) {
     return <div>{en.global.loading}</div>

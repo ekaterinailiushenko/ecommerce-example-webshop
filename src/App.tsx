@@ -12,6 +12,7 @@ import {
 import './index.css'
 import { useAuth } from './stores'
 import { Layout, ProtectedRoute } from './uikit'
+import { CartContextProvider } from './contexts/CartContext/provider'
 
 const router = createBrowserRouter(
   [
@@ -61,5 +62,9 @@ const router = createBrowserRouter(
 export const App = () => {
   useAuth()
 
-  return <RouterProvider router={router} />
+  return (
+    <CartContextProvider>
+      <RouterProvider router={router} />
+    </CartContextProvider>
+  )
 }

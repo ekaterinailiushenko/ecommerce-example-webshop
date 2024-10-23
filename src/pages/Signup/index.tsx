@@ -11,7 +11,7 @@ export const SignUp = () => {
   const handleSignupSubmit = async (
     email: string,
     password: string,
-    confirmPassword: string
+    confirmPassword: string,
   ) => {
     if (confirmPassword !== password) {
       setError(en.auth.signup.passwordsNotEqual)
@@ -26,7 +26,7 @@ export const SignUp = () => {
   }
 
   return (
-    <div className="flex h-[calc(100vh-64px)] justify-center items-center">
+    <div className="flex flex-col flex-1 justify-center items-center">
       <AuthForm
         formPlaceholder={en.auth.signup.title}
         onSubmit={handleSignupSubmit}
