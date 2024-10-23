@@ -36,9 +36,10 @@ export const CartItem = ({ item }: { item: Product }) => {
     removalTimerRef.current = setTimeout(async () => {
       try {
         await deleteProductFromCart({ productId: itemId, removeAll: true })
-        setIsRemoving(false)
       } catch (error) {
         logger.error('Error deleting product from cart:', error)
+      } finally {
+        setIsRemoving(false)
       }
     }, REMOVAL_DELAY)
   }
