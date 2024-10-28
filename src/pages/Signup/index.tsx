@@ -1,12 +1,9 @@
 import en from '../../i18n/en.json'
 import { AuthForm } from '../../uikit'
-import { useAuthStore } from '../../stores'
+import { useAuthContext } from '../../contexts/AuthContext/hook'
 
 export const SignUp = () => {
-  const { signup, setError } = useAuthStore(state => ({
-    signup: state.signup,
-    setError: state.setError,
-  }))
+  const { signup, setError } = useAuthContext()
 
   const handleSignupSubmit = async (
     email: string,

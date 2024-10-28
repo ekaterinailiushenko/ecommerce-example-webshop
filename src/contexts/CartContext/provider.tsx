@@ -9,13 +9,13 @@ import {
 import { CartContext } from './context'
 import { logger } from '../../utilities'
 import { cartApi } from '../../api/cartApi'
-import { useAuthStore } from '../../stores'
 import type { Cart, Product } from '../../api/types'
+import { useAuthContext } from '../AuthContext/hook'
 
 export const CartContextProvider = ({ children }: { children: ReactNode }) => {
   const [cartSummary, setCartSummary] = useState<Cart | undefined>()
 
-  const { user } = useAuthStore(state => ({ user: state.user }))
+  const { user } = useAuthContext()
 
   const handleGetCart = useCallback(async () => {
     if (!user) return

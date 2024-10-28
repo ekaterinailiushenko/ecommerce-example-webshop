@@ -2,14 +2,11 @@ import { Link } from 'react-router-dom'
 import { MdOutlineShoppingCart, MdAccountCircle } from 'react-icons/md'
 
 import en from '../i18n/en.json'
-import { useAuthStore } from '../stores'
 import { useCartContext } from '../contexts/CartContext/hook'
+import { useAuthContext } from '../contexts/AuthContext/hook'
 
 export const NavMenu = () => {
-  const { user, loading } = useAuthStore(state => ({
-    user: state.user,
-    loading: state.loading,
-  }))
+  const { user, loading } = useAuthContext()
 
   const totalItemsInCart = useCartContext().cartSummary?.productsQuantity
 

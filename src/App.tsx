@@ -10,9 +10,9 @@ import {
   ErrorPage,
 } from './pages'
 import './index.css'
-import { useAuth } from './stores'
 import { Layout, ProtectedRoute } from './uikit'
 import { CartContextProvider } from './contexts/CartContext/provider'
+import { AuthContextProvider } from './contexts/AuthContext/provider'
 
 const router = createBrowserRouter(
   [
@@ -56,15 +56,15 @@ const router = createBrowserRouter(
   ],
   {
     basename: '/picnic-app',
-  }
+  },
 )
 
 export const App = () => {
-  useAuth()
-
   return (
-    <CartContextProvider>
-      <RouterProvider router={router} />
-    </CartContextProvider>
+    <AuthContextProvider>
+      <CartContextProvider>
+        <RouterProvider router={router} />
+      </CartContextProvider>
+    </AuthContextProvider>
   )
 }

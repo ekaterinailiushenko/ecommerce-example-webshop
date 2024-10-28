@@ -8,20 +8,13 @@ import { IoChevronBackOutline } from 'react-icons/io5'
 import en from '../../i18n/en.json'
 import { logger } from '../../utilities'
 import { UpdateImageButton } from '../../uikit'
-import { useAuthStore, useProfileStore } from '../../stores'
+import { useProfileStore } from '../../stores'
+import { useAuthContext } from '../../contexts/AuthContext/hook'
 
 export const Settings = () => {
   const [newPassword, setNewPassword] = useState('')
 
-  const { user, error, loading, changePassword, deleteUser } = useAuthStore(
-    state => ({
-      user: state.user,
-      error: state.error,
-      loading: state.loading,
-      changePassword: state.changePassword,
-      deleteUser: state.deleteUser,
-    })
-  )
+  const { user, error, loading, changePassword, deleteUser } = useAuthContext()
 
   const {
     isProfileLoading,
