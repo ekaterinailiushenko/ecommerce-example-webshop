@@ -8,7 +8,8 @@ import { IoChevronBackOutline } from 'react-icons/io5'
 import en from '../../i18n/en.json'
 import { logger } from '../../utilities'
 import { UpdateImageButton } from '../../uikit'
-import { useAuthStore, useProfileStore } from '../../stores'
+import { useAuthStore } from '../../stores'
+import { useProfileContext } from '../../contexts/ProfileContext/hook'
 
 export const Settings = () => {
   const [newPassword, setNewPassword] = useState('')
@@ -20,24 +21,17 @@ export const Settings = () => {
       loading: state.loading,
       changePassword: state.changePassword,
       deleteUser: state.deleteUser,
-    })
+    }),
   )
 
   const {
-    isProfileLoading,
-    isProfileError,
+    loading: isLoading,
+    error: isError,
     userPhoto,
     updateProfilePhoto,
     loadProfileImage,
     deleteUserPhoto,
-  } = useProfileStore(state => ({
-    isProfileLoading: state.loading,
-    isProfileError: state.error,
-    userPhoto: state.userPhoto,
-    updateProfilePhoto: state.updateProfilePhoto,
-    loadProfileImage: state.loadProfileImage,
-    deleteUserPhoto: state.deleteUserPhoto,
-  }))
+  } = useProfileContext()
 
   const navigate = useNavigate()
 
@@ -47,20 +41,35 @@ export const Settings = () => {
       logger.error('User is not authenticated')
       return
     }
-    await changePassword(user, newPassword)
+
+    try {
+      await changePassword(user, newPassword)
+    } catch (error) {
+      logger.error('Failed to change password', error)
+    }
   }
 
   const handleDeleteAccountClick = async () => {
     const confirmed = window.confirm(en.profile.buttons.deleteAccount.warn)
     if (confirmed) {
-      await deleteUser(user as User)
+      try {
+        await deleteUser(user as User)
+      } catch (error) {
+        logger.error('Failed to delete user', error)
+      }
     }
   }
 
-  const handleUploadImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImageChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = e.target.files?.[0]
     if (file && user) {
-      updateProfilePhoto(file, user)
+      try {
+        await updateProfilePhoto(file, user)
+      } catch (error) {
+        logger.error('Failed to update profile photo', error)
+      }
     } else {
       logger.error('No file selected')
     }
@@ -69,7 +78,11 @@ export const Settings = () => {
   const handleDeleteProfileImageClick = async () => {
     const confirmed = window.confirm(en.profile.buttons.changeImage.warn)
     if (confirmed) {
-      await deleteUserPhoto(user as User)
+      try {
+        await deleteUserPhoto(user as User)
+      } catch (error) {
+        logger.error('Failed to delete profile photo', error)
+      }
     }
   }
 
@@ -91,7 +104,7 @@ export const Settings = () => {
       <h1 className="text-3xl font-semibold">{en.profile.settings}</h1>
       <h2 className="text-2xl font-semibold">{en.profile.data}</h2>
       <div className="flex items-center gap-6 outline">
-        {isProfileLoading ? (
+        {isLoading ? (
           <div className="w-16 h-16 rounded-full bg-gray-300 animate-pulse" />
         ) : (
           <img
@@ -103,7 +116,7 @@ export const Settings = () => {
         <UpdateImageButton onChange={handleUploadImageChange} />
         <button
           onClick={handleDeleteProfileImageClick}
-          className={isProfileError ? 'invisible' : ''}
+          className={isError ? 'invisible' : ''}
         >
           <RiDeleteBin6Line />
         </button>
