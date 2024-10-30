@@ -13,6 +13,7 @@ import './index.css'
 import { Layout, ProtectedRoute } from './uikit'
 import { CartContextProvider } from './contexts/CartContext/provider'
 import { AuthContextProvider } from './contexts/AuthContext/provider'
+import { ProfileContextProvider } from './contexts/ProfileContext/provider'
 
 const router = createBrowserRouter(
   [
@@ -37,7 +38,9 @@ const router = createBrowserRouter(
           path: 'profile',
           element: (
             <ProtectedRoute>
-              <Profile />
+              <ProfileContextProvider>
+                <Profile />
+              </ProfileContextProvider>
             </ProtectedRoute>
           ),
           children: [

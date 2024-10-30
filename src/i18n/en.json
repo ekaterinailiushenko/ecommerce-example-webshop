@@ -113,7 +113,14 @@
     },
     "returnToAccount": "Return to your personal account",
     "settings": "My settings",
-    "data": "Personal data"
+    "data": "Personal data",
+    "errors": {
+      "deleteUser": "Failed to delete account. Please try again later.",
+      "changePassword": "Failed to change password. Please try again later.",
+      "deleteUserPhoto": "Failed to delete profile photo. Please try again later.",
+      "loadUserPhoto": "Failed to load profile photo. Please try again later.",
+      "updateUserPhoto": "Failed to update profile photo. Please try again later."
+    }
   },
   "firebaseError": {
     "invalidPassword": "Password provided is not corrected",

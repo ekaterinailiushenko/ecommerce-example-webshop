@@ -1,4 +1,4 @@
-import type { User } from 'firebase/auth'
+import classNames from 'classnames'
 import { FaCheck } from 'react-icons/fa6'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -8,8 +8,8 @@ import { IoChevronBackOutline } from 'react-icons/io5'
 import en from '../../i18n/en.json'
 import { logger } from '../../utilities'
 import { UpdateImageButton } from '../../uikit'
-import { useProfileStore } from '../../stores'
 import { useAuthContext } from '../../contexts/AuthContext/hook'
+import { useProfileContext } from '../../contexts/ProfileContext/hook'
 
 export const Settings = () => {
   const [newPassword, setNewPassword] = useState('')
@@ -17,27 +17,21 @@ export const Settings = () => {
   const { user, error, loading, changePassword, deleteUser } = useAuthContext()
 
   const {
-    isProfileLoading,
-    isProfileError,
+    loading: isLoading,
+    error: isError,
     userPhoto,
-    updateProfilePhoto,
+    updateProfileImage,
     loadProfileImage,
-    deleteUserPhoto,
-  } = useProfileStore(state => ({
-    isProfileLoading: state.loading,
-    isProfileError: state.error,
-    userPhoto: state.userPhoto,
-    updateProfilePhoto: state.updateProfilePhoto,
-    loadProfileImage: state.loadProfileImage,
-    deleteUserPhoto: state.deleteUserPhoto,
-  }))
+    deleteProfileImage,
+  } = useProfileContext()
 
   const navigate = useNavigate()
 
   const handleNewPasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
     if (!user) {
-      logger.error('User is not authenticated')
+      logger.error('User is undefined')
       return
     }
     await changePassword({ user, newPassword })
@@ -45,29 +39,59 @@ export const Settings = () => {
 
   const handleDeleteAccountClick = async () => {
     const confirmed = window.confirm(en.profile.buttons.deleteAccount.warn)
-    if (confirmed) {
-      await deleteUser(user as User)
+
+    if (!user) {
+      logger.error('User is undefined')
+      return
     }
+
+    if (!confirmed) {
+      return
+    }
+
+    await deleteUser(user)
   }
 
-  const handleUploadImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImageChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = e.target.files?.[0]
-    if (file && user) {
-      updateProfilePhoto(file, user)
-    } else {
-      logger.error('No file selected')
+
+    if (!user) {
+      logger.error('User is undefined')
+      return
     }
+
+    if (!file) {
+      logger.error('No file selected')
+      return
+    }
+
+    await updateProfileImage({ file, user })
   }
 
   const handleDeleteProfileImageClick = async () => {
     const confirmed = window.confirm(en.profile.buttons.changeImage.warn)
-    if (confirmed) {
-      await deleteUserPhoto(user as User)
+
+    if (!user) {
+      logger.error('User is undefined')
+      return
     }
+
+    if (!confirmed) {
+      return
+    }
+
+    await deleteProfileImage(user)
   }
 
   useEffect(() => {
-    void loadProfileImage(user as User)
+    if (!user) {
+      logger.error('User is undefined')
+      return
+    }
+
+    void loadProfileImage(user)
   }, [user, loadProfileImage])
 
   return (
@@ -84,7 +108,7 @@ export const Settings = () => {
       <h1 className="text-3xl font-semibold">{en.profile.settings}</h1>
       <h2 className="text-2xl font-semibold">{en.profile.data}</h2>
       <div className="flex items-center gap-6 outline">
-        {isProfileLoading ? (
+        {isLoading ? (
           <div className="w-16 h-16 rounded-full bg-gray-300 animate-pulse" />
         ) : (
           <img
@@ -96,7 +120,7 @@ export const Settings = () => {
         <UpdateImageButton onChange={handleUploadImageChange} />
         <button
           onClick={handleDeleteProfileImageClick}
-          className={isProfileError ? 'invisible' : ''}
+          className={classNames(isError && 'invisible')}
         >
           <RiDeleteBin6Line />
         </button>
