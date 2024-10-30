@@ -10,8 +10,8 @@ export namespace AuthContext {
     changePassword: (user: User, newPassword: string) => Promise<void>
     deleteUser: (user: User) => Promise<void>
 
-    user?: User | null
-    error?: string | null
+    user?: User
+    error?: string
     loading: boolean
   }
 }

@@ -16,6 +16,7 @@ export namespace CartContext {
     }) => Promise<void>
 
     cartSummary?: Cart
+    loading: boolean
   }
 }
 

@@ -11,30 +11,30 @@ import { logger } from '../../utilities'
 import { cartApi } from '../../api/cartApi'
 import type { Cart, Product } from '../../api/types'
 import { useAuthContext } from '../AuthContext/hook'
+import { Events, PubSub } from '../../utilities/pubSub'
 
 export const CartContextProvider = ({ children }: { children: ReactNode }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [cartSummary, setCartSummary] = useState<Cart | undefined>()
 
   const { user } = useAuthContext()
 
   const handleGetCart = useCallback(async () => {
-    if (!user) return
-
     try {
-      const cart = await cartApi.getCartSummary(user.uid)
+      const cart = await cartApi.getCartSummary(user?.uid)
       setCartSummary(cart)
     } catch (error) {
       logger.error(`Error in CartContextProvider.handleGetCart -> ${error}`)
+    } finally {
+      setIsLoading(false)
     }
   }, [user])
 
   const handleAddProductToCart = useCallback(
     async (productId: Product['product_id']) => {
-      if (!user) return
-
       try {
         const updatedCart = await cartApi.addProductToCart({
-          userId: user.uid,
+          userId: user?.uid,
           productId,
         })
         setCartSummary(updatedCart)
@@ -42,6 +42,8 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
         logger.error(
           `Error in CartContextProvider.handleAddProductToCart -> ${error}`,
         )
+      } finally {
+        setIsLoading(false)
       }
     },
     [user],
@@ -55,11 +57,9 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
       productId: Product['product_id']
       removeAll?: boolean
     }) => {
-      if (!user) return
-
       try {
         const updatedCart = await cartApi.deleteProductFromCart({
-          userId: user.uid,
+          userId: user?.uid,
           productId,
           removeAll,
         })
@@ -68,33 +68,40 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
         logger.error(
           `Error in CartContextProvider.handleDeleteProductFromCart -> ${error}`,
         )
+      } finally {
+        setIsLoading(false)
       }
     },
     [user],
   )
 
   const handleClearCart = useCallback(async () => {
-    if (!user) return
-
     try {
-      const updatedCart = await cartApi.clearCart(user.uid)
+      const updatedCart = await cartApi.clearCart(user?.uid)
       setCartSummary(updatedCart)
     } catch (error) {
       logger.error(`Error in CartContextProvider.handleClearCart -> ${error}`)
+    } finally {
+      setIsLoading(false)
     }
   }, [user])
 
   useEffect(() => {
-    if (user) {
-      void handleGetCart()
-    } else {
-      setCartSummary(undefined)
-    }
-  }, [user, handleGetCart])
+    void handleGetCart()
+  }, [handleGetCart])
+
+  useEffect(() => {
+    const unsubscribe = PubSub.subscribe(Events.USER_LOGGED_IN, () => {
+      void handleClearCart()
+    })
+
+    return unsubscribe
+  }, [handleClearCart])
 
   const value = useMemo(() => {
     const obj: CartContext.Value = {
       cartSummary,
+      loading: isLoading,
       getCart: handleGetCart,
       clearCart: handleClearCart,
       addProductToCart: handleAddProductToCart,
@@ -103,6 +110,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
 
     return obj
   }, [
+    isLoading,
     cartSummary,
     handleGetCart,
     handleClearCart,

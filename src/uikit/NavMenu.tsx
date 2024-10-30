@@ -8,7 +8,7 @@ import { useAuthContext } from '../contexts/AuthContext/hook'
 export const NavMenu = () => {
   const { user, loading } = useAuthContext()
 
-  const totalItemsInCart = useCartContext().cartSummary?.productsQuantity
+  const totalItemsInCart = useCartContext().cartSummary?.productsQuantity || 0
 
   if (loading) {
     return <div>{en.global.loading}</div>
@@ -30,7 +30,7 @@ export const NavMenu = () => {
       </div>
       <div className="flex flex-col items-center relative hover:text-white hover:underline transition">
         <div className="absolute -right-1.5 -top-1.5 rounded-full h-4 w-4 bg-green-500 text-white flex justify-center items-center">
-          <p className="text-xs">{user ? totalItemsInCart : 0}</p>
+          <p className="text-xs">{totalItemsInCart}</p>
         </div>
         <Link to={'/cart'}>
           <div className="flex flex-col items-center">
