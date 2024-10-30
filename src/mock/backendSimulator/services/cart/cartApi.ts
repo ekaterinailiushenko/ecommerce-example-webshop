@@ -6,22 +6,23 @@ import {
 } from '../../../getProductsResponse'
 import { cartInternal } from './index'
 import { cartPersistor } from './persistor'
+import { STATIC_GUEST_USER_ID } from './constants'
 import type { Product } from '../../../../api/types'
 
 /**
  * Exported to the outside world methods to work with internal cart
  */
 export const cartApi = {
-  getCartSummary: (userId: string) => {
+  getCartSummary: (userId: string = STATIC_GUEST_USER_ID) => {
     cartPersistor.load(userId)
 
     return Promise.resolve({ ...cartInternal })
   },
   addProductToCart: ({
-    userId,
+    userId = STATIC_GUEST_USER_ID,
     productId,
   }: {
-    userId: string
+    userId?: string
     productId: Product['product_id']
   }) => {
     const productInDB = getProductsResponse.find(
@@ -49,11 +50,11 @@ export const cartApi = {
     return Promise.resolve({ ...cartInternal })
   },
   deleteProductFromCart: ({
-    userId,
+    userId = STATIC_GUEST_USER_ID,
     productId,
     removeAll = false,
   }: {
-    userId: string
+    userId?: string
     productId: Product['product_id']
     removeAll?: boolean
   }) => {
@@ -81,11 +82,13 @@ export const cartApi = {
 
     return Promise.resolve({ ...cartInternal })
   },
-  clearCart: (userId: string) => {
+  clearCart: (userId: string = STATIC_GUEST_USER_ID) => {
     cartInternal._productsMap.clear()
     resetGetProductsResponse()
 
     Cookies.remove(`cart-items-${userId}`)
+
+    cartPersistor.save({ userId, cartInternal })
 
     return Promise.resolve({ ...cartInternal })
   },
