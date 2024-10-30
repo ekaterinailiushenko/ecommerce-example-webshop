@@ -31,10 +31,7 @@ export const ProfileContextProvider = ({
         throw new Error('User is undefined')
       }
 
-      const fileRef = ref(
-        storage,
-        `profilePics/${user?.uid}/profilePicture.png`,
-      )
+      const fileRef = ref(storage, `profilePics/${user.uid}/profilePicture.png`)
 
       await deleteObject(fileRef)
 
@@ -61,10 +58,7 @@ export const ProfileContextProvider = ({
         throw new Error('User is undefined')
       }
 
-      const fileRef = ref(
-        storage,
-        `profilePics/${user?.uid}/profilePicture.png`,
-      )
+      const fileRef = ref(storage, `profilePics/${user.uid}/profilePicture.png`)
 
       const photoURL = await getDownloadURL(fileRef)
 
@@ -94,7 +88,7 @@ export const ProfileContextProvider = ({
 
         const fileRef = ref(
           storage,
-          `profilePics/${user?.uid}/profilePicture.png`,
+          `profilePics/${user.uid}/profilePicture.png`,
         )
 
         await uploadBytes(fileRef, file)

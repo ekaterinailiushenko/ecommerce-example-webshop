@@ -5,16 +5,11 @@ export namespace ProfileContext {
   export interface Value {
     loading: boolean
     userPhoto: string
-    error?: string | null
     deleteProfileImage: (user: User) => Promise<void>
     loadProfileImage: (user: User) => Promise<void>
-    updateProfileImage: ({
-      file,
-      user,
-    }: {
-      file: File
-      user: User
-    }) => Promise<void>
+    updateProfileImage: (args: { file: File; user: User }) => Promise<void>
+
+    error?: string | null
   }
 }
 
