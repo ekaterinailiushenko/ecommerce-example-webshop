@@ -13,9 +13,17 @@ import type { Cart, Product } from '../../api/types'
 import { useAuthContext } from '../AuthContext/hook'
 import { Events, PubSub } from '../../utilities/pubSub'
 
+const initialCartSummary: Cart = {
+  products: [],
+  totalPrice: 0,
+  deliveryCosts: 0,
+  productsQuantity: 0,
+  totalPriceWithDeliveryCosts: 0,
+}
+
 export const CartContextProvider = ({ children }: { children: ReactNode }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [cartSummary, setCartSummary] = useState<Cart | undefined>()
+  const [isLoading, setIsLoading] = useState(true)
+  const [cartSummary, setCartSummary] = useState<Cart>(initialCartSummary)
 
   const { user } = useAuthContext()
 

@@ -8,7 +8,7 @@ import { useAuthContext } from '../contexts/AuthContext/hook'
 export const NavMenu = () => {
   const { user, loading } = useAuthContext()
 
-  const totalItemsInCart = useCartContext().cartSummary?.productsQuantity
+  const totalItemsInCart = useCartContext().cartSummary.productsQuantity
 
   if (loading) {
     return <div>{en.global.loading}</div>

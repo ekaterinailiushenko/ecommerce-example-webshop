@@ -5,28 +5,10 @@ export namespace AuthContext {
   export interface Value {
     loading: boolean
     setError: (updatedError: string) => void
-    login: ({
-      email,
-      password,
-    }: {
-      email: string
-      password: string
-    }) => Promise<void>
-    signup: ({
-      email,
-      password,
-    }: {
-      email: string
-      password: string
-    }) => Promise<void>
+    login: (args: { email: string; password: string }) => Promise<void>
+    signup: (args: { email: string; password: string }) => Promise<void>
     logout: () => Promise<void>
-    changePassword: ({
-      user,
-      newPassword,
-    }: {
-      user: User
-      newPassword: string
-    }) => Promise<void>
+    changePassword: (args: { user: User; newPassword: string }) => Promise<void>
     deleteUser: (user: User) => Promise<void>
 
     user?: User
