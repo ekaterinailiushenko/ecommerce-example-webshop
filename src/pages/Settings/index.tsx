@@ -1,4 +1,4 @@
-import type { User } from 'firebase/auth'
+import classNames from 'classnames'
 import { FaCheck } from 'react-icons/fa6'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -28,66 +28,79 @@ export const Settings = () => {
     loading: isLoading,
     error: isError,
     userPhoto,
-    updateProfilePhoto,
+    updateProfileImage,
     loadProfileImage,
-    deleteUserPhoto,
+    deleteProfileImage,
   } = useProfileContext()
 
   const navigate = useNavigate()
 
   const handleNewPasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
     if (!user) {
-      logger.error('User is not authenticated')
+      logger.error('User is undefined')
       return
     }
 
-    try {
-      await changePassword(user, newPassword)
-    } catch (error) {
-      logger.error('Failed to change password', error)
-    }
+    await changePassword(user, newPassword)
   }
 
   const handleDeleteAccountClick = async () => {
     const confirmed = window.confirm(en.profile.buttons.deleteAccount.warn)
-    if (confirmed) {
-      try {
-        await deleteUser(user as User)
-      } catch (error) {
-        logger.error('Failed to delete user', error)
-      }
+
+    if (!user) {
+      logger.error('User is undefined')
+      return
     }
+
+    if (!confirmed) {
+      return
+    }
+
+    await deleteUser(user)
   }
 
   const handleUploadImageChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = e.target.files?.[0]
-    if (file && user) {
-      try {
-        await updateProfilePhoto(file, user)
-      } catch (error) {
-        logger.error('Failed to update profile photo', error)
-      }
-    } else {
-      logger.error('No file selected')
+
+    if (!user) {
+      logger.error('User is undefined')
+      return
     }
+
+    if (!file) {
+      logger.error('No file selected')
+      return
+    }
+
+    await updateProfileImage({ file, user })
   }
 
   const handleDeleteProfileImageClick = async () => {
     const confirmed = window.confirm(en.profile.buttons.changeImage.warn)
-    if (confirmed) {
-      try {
-        await deleteUserPhoto(user as User)
-      } catch (error) {
-        logger.error('Failed to delete profile photo', error)
-      }
+
+    if (!user) {
+      logger.error('User is undefined')
+      return
     }
+
+    if (!confirmed) {
+      return
+    }
+
+    await deleteProfileImage(user)
   }
 
   useEffect(() => {
-    void loadProfileImage(user as User)
+    if (!user) {
+      logger.error('User is undefined')
+      return
+    }
+
+    void loadProfileImage(user)
   }, [user, loadProfileImage])
 
   return (
@@ -116,7 +129,7 @@ export const Settings = () => {
         <UpdateImageButton onChange={handleUploadImageChange} />
         <button
           onClick={handleDeleteProfileImageClick}
-          className={isError ? 'invisible' : ''}
+          className={classNames(isError && 'invisible')}
         >
           <RiDeleteBin6Line />
         </button>

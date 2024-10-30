@@ -1,16 +1,11 @@
 import {
-  type User,
-  deleteUser,
-  updateProfile,
-  updatePassword,
-} from 'firebase/auth'
-import {
   ref,
   uploadBytes,
   deleteObject,
   getDownloadURL,
 } from 'firebase/storage'
 import { FirebaseError } from 'firebase/app'
+import { type User, updateProfile } from 'firebase/auth'
 import { useCallback, useMemo, useState, type ReactNode } from 'react'
 
 import en from '../../i18n/en.json'
@@ -28,51 +23,14 @@ export const ProfileContextProvider = ({
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [userPhoto, setUserPhoto] = useState(defaultAvatar)
 
-  const handleDeleteUser = useCallback(async (user: User) => {
+  const handleDeleteProfileImage = useCallback(async (user: User) => {
     setError(null)
 
     try {
-      await deleteUser(user)
-    } catch (error) {
-      logger.error('Failed to delete user', JSON.stringify(error))
-
-      const errorMessage =
-        error instanceof FirebaseError
-          ? getFirebaseErrorMessage(error.code)
-          : en.profile.errors.deleteUser
-
-      setError(errorMessage)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
-
-  const handleChangePassword = useCallback(
-    async (user: User, newPassword: string) => {
-      setError(null)
-
-      try {
-        await updatePassword(user, newPassword)
-      } catch (error) {
-        logger.error('Failed to change user password', JSON.stringify(error))
-
-        const errorMessage =
-          error instanceof FirebaseError
-            ? getFirebaseErrorMessage(error.code)
-            : en.profile.errors.changePassword
-
-        setError(errorMessage)
-      } finally {
-        setIsLoading(false)
+      if (!user) {
+        throw new Error('User is undefined')
       }
-    },
-    [],
-  )
 
-  const handleDeleteUserPhoto = useCallback(async (user: User) => {
-    setError(null)
-
-    try {
       const fileRef = ref(
         storage,
         `profilePics/${user?.uid}/profilePicture.png`,
@@ -99,6 +57,10 @@ export const ProfileContextProvider = ({
     setError(null)
 
     try {
+      if (!user) {
+        throw new Error('User is undefined')
+      }
+
       const fileRef = ref(
         storage,
         `profilePics/${user?.uid}/profilePicture.png`,
@@ -121,11 +83,15 @@ export const ProfileContextProvider = ({
     }
   }, [])
 
-  const handleUpdateProfilePhoto = useCallback(
-    async (file: File, user: User) => {
+  const handleUpdateProfileImage = useCallback(
+    async ({ file, user }: { file: File; user: User }) => {
       setError(null)
 
       try {
+        if (!user) {
+          throw new Error('User is undefined')
+        }
+
         const fileRef = ref(
           storage,
           `profilePics/${user?.uid}/profilePicture.png`,
@@ -159,22 +125,18 @@ export const ProfileContextProvider = ({
       error,
       userPhoto,
       loading: isLoading,
-      deleteUser: handleDeleteUser,
-      changePassword: handleChangePassword,
-      deleteUserPhoto: handleDeleteUserPhoto,
+      deleteProfileImage: handleDeleteProfileImage,
       loadProfileImage: handleLoadProfileImage,
-      updateProfilePhoto: handleUpdateProfilePhoto,
+      updateProfileImage: handleUpdateProfileImage,
     }
     return obj
   }, [
     error,
     userPhoto,
     isLoading,
-    handleDeleteUser,
-    handleChangePassword,
-    handleDeleteUserPhoto,
     handleLoadProfileImage,
-    handleUpdateProfilePhoto,
+    handleUpdateProfileImage,
+    handleDeleteProfileImage,
   ])
 
   return (
