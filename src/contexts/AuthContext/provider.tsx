@@ -23,56 +23,59 @@ export const AuthContextProvider = ({
 }) => {
   const [user, setUser] = useState<User>()
   const [error, setError] = useState<string>()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const handleSetError = useCallback((updatedError: string) => {
     setError(updatedError)
   }, [])
 
-  const handleLogin = useCallback(async (email: string, password: string) => {
-    setError('')
-    setIsLoading(true)
+  const handleLogin = useCallback(
+    async ({ email, password }: { email: string; password: string }) => {
+      setError('')
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password)
-      PubSub.publish(Events.USER_LOGGED_IN)
-    } catch (error) {
-      logger.error('Failed to log in', JSON.stringify(error))
+      try {
+        await signInWithEmailAndPassword(auth, email, password)
+        PubSub.publish(Events.USER_LOGGED_IN)
+      } catch (error) {
+        logger.error('Failed to log in', JSON.stringify(error))
 
-      const errorMessage =
-        error instanceof FirebaseError
-          ? getFirebaseErrorMessage(error.code)
-          : en.auth.errors.login
+        const errorMessage =
+          error instanceof FirebaseError
+            ? getFirebaseErrorMessage(error.code)
+            : en.auth.errors.login
 
-      setError(errorMessage)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
+        setError(errorMessage)
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [],
+  )
 
-  const handleSignup = useCallback(async (email: string, password: string) => {
-    setError('')
-    setIsLoading(true)
+  const handleSignup = useCallback(
+    async ({ email, password }: { email: string; password: string }) => {
+      setError('')
 
-    try {
-      await createUserWithEmailAndPassword(auth, email, password)
-    } catch (error) {
-      logger.error('Failed to sign up', JSON.stringify(error))
+      try {
+        await createUserWithEmailAndPassword(auth, email, password)
+      } catch (error) {
+        logger.error('Failed to sign up', JSON.stringify(error))
 
-      const errorMessage =
-        error instanceof FirebaseError
-          ? getFirebaseErrorMessage(error.code)
-          : en.auth.errors.signup
+        const errorMessage =
+          error instanceof FirebaseError
+            ? getFirebaseErrorMessage(error.code)
+            : en.auth.errors.signup
 
-      setError(errorMessage)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
+        setError(errorMessage)
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [],
+  )
 
   const handleLogout = useCallback(async () => {
     setError('')
-    setIsLoading(true)
 
     try {
       await signOut(auth)
@@ -91,8 +94,7 @@ export const AuthContextProvider = ({
   }, [])
 
   const handleChangePassword = useCallback(
-    async (user: User, newPassword: string) => {
-      setIsLoading(true)
+    async ({ user, newPassword }: { user: User; newPassword: string }) => {
       setError('')
 
       try {
@@ -115,7 +117,6 @@ export const AuthContextProvider = ({
 
   const handleDeleteUser = useCallback(async (user: User) => {
     setError('')
-    setIsLoading(true)
 
     try {
       await deleteUser(user)

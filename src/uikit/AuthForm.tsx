@@ -6,7 +6,15 @@ import { useAuthContext } from '../contexts/AuthContext/hook'
 
 type AuthFormProps = {
   formPlaceholder: string
-  onSubmit: (email: string, password: string, confirmPassword: string) => void
+  onSubmit: ({
+    email,
+    password,
+    confirmPassword,
+  }: {
+    email: string
+    password: string
+    confirmPassword: string
+  }) => void
   buttonText: string
   isSignup: boolean
   onInputFocus: () => void
@@ -26,7 +34,7 @@ export const AuthForm = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit(email, password, confirmPassword)
+    onSubmit({ email, password, confirmPassword })
   }
 
   if (loading) return <div>{en.global.loading}</div>

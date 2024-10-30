@@ -40,7 +40,7 @@ export const Settings = () => {
       logger.error('User is not authenticated')
       return
     }
-    await changePassword(user, newPassword)
+    await changePassword({ user, newPassword })
   }
 
   const handleDeleteAccountClick = async () => {

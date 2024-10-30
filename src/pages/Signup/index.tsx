@@ -5,17 +5,21 @@ import { useAuthContext } from '../../contexts/AuthContext/hook'
 export const SignUp = () => {
   const { signup, setError } = useAuthContext()
 
-  const handleSignupSubmit = async (
-    email: string,
-    password: string,
-    confirmPassword: string,
-  ) => {
+  const handleSignupSubmit = async ({
+    email,
+    password,
+    confirmPassword,
+  }: {
+    email: string
+    password: string
+    confirmPassword: string
+  }) => {
     if (confirmPassword !== password) {
       setError(en.auth.signup.passwordsNotEqual)
       return
     }
 
-    await signup(email, password)
+    await signup({ email, password })
   }
 
   const handleInputFocus = () => {
