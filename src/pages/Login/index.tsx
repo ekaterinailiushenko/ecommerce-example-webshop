@@ -1,15 +1,18 @@
 import en from '../../i18n/en.json'
 import { AuthForm } from '../../uikit'
-import { useAuthStore } from '../../stores'
+import { useAuthContext } from '../../contexts/AuthContext/hook'
 
 export const LogIn = () => {
-  const { login, setError } = useAuthStore(state => ({
-    login: state.login,
-    setError: state.setError,
-  }))
+  const { login, setError } = useAuthContext()
 
-  const handleLoginSubmit = async (email: string, password: string) => {
-    await login(email, password)
+  const handleLoginSubmit = async ({
+    email,
+    password,
+  }: {
+    email: string
+    password: string
+  }) => {
+    await login({ email, password })
   }
 
   const handleInputFocus = () => {

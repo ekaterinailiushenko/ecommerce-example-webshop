@@ -3,14 +3,11 @@ import { BsGearFill } from 'react-icons/bs'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
 import en from '../../i18n/en.json'
-import { useAuthStore } from '../../stores'
 import defaultAvatar from '../../assets/defaultAvatar.png'
+import { useAuthContext } from '../../contexts/AuthContext/hook'
 
 export const Profile = () => {
-  const { user, logout } = useAuthStore(state => ({
-    user: state.user,
-    logout: state.logout,
-  }))
+  const { user, logout } = useAuthContext()
 
   const location = useLocation()
   const isProfilePage = ['/profile'].includes(location.pathname)

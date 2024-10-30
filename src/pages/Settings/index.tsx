@@ -8,21 +8,13 @@ import { IoChevronBackOutline } from 'react-icons/io5'
 import en from '../../i18n/en.json'
 import { logger } from '../../utilities'
 import { UpdateImageButton } from '../../uikit'
-import { useAuthStore } from '../../stores'
+import { useAuthContext } from '../../contexts/AuthContext/hook'
 import { useProfileContext } from '../../contexts/ProfileContext/hook'
 
 export const Settings = () => {
   const [newPassword, setNewPassword] = useState('')
 
-  const { user, error, loading, changePassword, deleteUser } = useAuthStore(
-    state => ({
-      user: state.user,
-      error: state.error,
-      loading: state.loading,
-      changePassword: state.changePassword,
-      deleteUser: state.deleteUser,
-    }),
-  )
+  const { user, error, loading, changePassword, deleteUser } = useAuthContext()
 
   const {
     loading: isLoading,
@@ -42,8 +34,7 @@ export const Settings = () => {
       logger.error('User is undefined')
       return
     }
-
-    await changePassword(user, newPassword)
+    await changePassword({ user, newPassword })
   }
 
   const handleDeleteAccountClick = async () => {

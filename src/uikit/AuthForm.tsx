@@ -2,11 +2,19 @@ import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 
 import en from '../i18n/en.json'
-import { useAuthStore } from '../stores'
+import { useAuthContext } from '../contexts/AuthContext/hook'
 
 type AuthFormProps = {
   formPlaceholder: string
-  onSubmit: (email: string, password: string, confirmPassword: string) => void
+  onSubmit: ({
+    email,
+    password,
+    confirmPassword,
+  }: {
+    email: string
+    password: string
+    confirmPassword: string
+  }) => void
   buttonText: string
   isSignup: boolean
   onInputFocus: () => void
@@ -22,15 +30,11 @@ export const AuthForm = ({
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
 
-  const { user, loading, error } = useAuthStore(state => ({
-    user: state.user,
-    loading: state.loading,
-    error: state.error,
-  }))
+  const { user, loading, error } = useAuthContext()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit(email, password, confirmPassword)
+    onSubmit({ email, password, confirmPassword })
   }
 
   if (loading) return <div>{en.global.loading}</div>
