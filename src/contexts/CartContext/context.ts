@@ -4,18 +4,15 @@ import type { Cart, Product } from '../../api/types'
 
 export namespace CartContext {
   export interface Value {
+    loading: boolean
+    cartSummary: Cart
     getCart: () => Promise<void>
     clearCart: () => Promise<void>
-    addProductToCart: (productId: Product['product_id']) => Promise<void>
-    deleteProductFromCart: ({
-      productId,
-      removeAll,
-    }: {
-      productId: Product['product_id']
+    deleteProductFromCart: (args: {
       removeAll?: boolean
+      productId: Product['product_id']
     }) => Promise<void>
-
-    cartSummary?: Cart
+    addProductToCart: (productId: Product['product_id']) => Promise<void>
   }
 }
 

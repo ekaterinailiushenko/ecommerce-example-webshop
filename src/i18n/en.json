@@ -84,6 +84,13 @@
       "confirmPassword": "Confirm Password",
       "linkToSignup": "No account yet?",
       "linkToLogin": "Already have an account?"
+    },
+    "errors": {
+      "login": "Failed to log in",
+      "signup": "Failed to sign up",
+      "logout": "Failed to log out",
+      "changePassword": "Failed to change password",
+      "deleteUser": "Failed to delete account"
     }
   },
   "profile": {
