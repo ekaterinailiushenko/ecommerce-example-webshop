@@ -11,7 +11,7 @@ import { useProductContext } from '../../../../../contexts/ProductContext/hook'
 export const ProductCard = ({ product }: { product: Product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const { isLoading, productDetails, getProductDetails } = useProductContext()
+  const { isProductDetailsLoading, productDetails, getProductDetails } = useProductContext()
 
   const handleOpenModalClick = (id: string) => {
     setIsModalOpen(true)
@@ -23,11 +23,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
       <div className="min-h-68 bg-white shadow-md rounded flex flex-col p-5">
         <h5 className="font-semibold text-lg self-start">{product.name}</h5>
         <div className="group/item w-3/5 h-3/5 flex items-center justify-center self-center transition-all hover:scale-110 duration-700 ">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="object-contain"
-          />
+          <img src={product.image} alt={product.name} className="object-contain" />
           <button
             className="bg-white opacity-80 text-black text-sm font-semibold px-3 py-1 rounded group/button invisible group-hover/item:visible absolute"
             onClick={() => handleOpenModalClick(product.product_id)}
@@ -35,29 +31,21 @@ export const ProductCard = ({ product }: { product: Product }) => {
             {en.products.quickView}
           </button>
         </div>
-        <h5 className="self-end mb-4 font-semibold">
-          {formatPrice(product.pricePerProduct)}
-        </h5>
+        <h5 className="self-end mb-4 font-semibold">{formatPrice(product.pricePerProduct)}</h5>
         <CartButton product={product} />
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        {isLoading ? (
+        {isProductDetailsLoading ? (
           <LoadingSkeleton />
         ) : (
           <div className="grid grid-cols-2 h-full gap-4">
             <div className="flex items-center justify-center">
-              <img
-                className="h-40"
-                alt={productDetails?.name}
-                src={productDetails?.image}
-              />
+              <img className="h-40" alt={productDetails?.name} src={productDetails?.image} />
             </div>
             <div className="flex flex-col justify-between">
               <div>
                 <h3 className="text-xl font-bold">{productDetails?.name}</h3>
-                <p className="text-2xl font-bold">
-                  {formatPrice(productDetails?.price)}
-                </p>
+                <p className="text-2xl font-bold">{formatPrice(productDetails?.price)}</p>
               </div>
               <CartButton product={product} />
             </div>
@@ -71,9 +59,8 @@ export const ProductCard = ({ product }: { product: Product }) => {
               </p>
               <p className="text-sm mb-3">
                 To maintain freshness, store{' '}
-                <span className="lowercase">{productDetails?.name}</span> in a
-                cool, dry place. For best results, keep refrigerated and consume
-                within a few days of purchase.
+                <span className="lowercase">{productDetails?.name}</span> in a cool, dry place. For
+                best results, keep refrigerated and consume within a few days of purchase.
               </p>
               <p className="font-semibold text-gray-500 text-base">
                 {en.products.modal.usageSuggestions.title}
