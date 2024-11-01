@@ -1,10 +1,10 @@
 import { backendSimulator } from '../mock/backendSimulator'
 
 /**
- * Frontend-side cart methods to work with backend's cart service
+ * Frontend-side cart methods to work with backend's product service
  */
 export const productApi = {
   getProducts: backendSimulator.productApi.getProducts,
-  getProductsDetails: backendSimulator.productApi.getProductsDetails,
+  getProductDetails: backendSimulator.productApi.getProductDetails,
   getFilteredProducts: backendSimulator.productApi.getFilteredProducts,
 }

@@ -2,22 +2,30 @@ import type { Product, ProductDetails } from '../../../../api/types'
 
 export interface ProductsInternal {
   _products: Product[]
+  get products(): Product[]
   _productDetails: ProductDetails[]
-  getProducts(): Product[]
-  getProductDetails(): ProductDetails[]
+  get productDetails(): ProductDetails[]
+  getFilteredProducts(searchItem: string): Product[]
 }
 
 /**
- * Internal for backend simulator (only for BE simulator internal usage) live (loaded from persistance) cart instance
+ * Internal for backend simulator (only for BE simulator internal usage) products
  */
 
 export const productsInternal: ProductsInternal = {
   _products: [],
-  _productDetails: [],
-  getProducts() {
+  get products() {
     return [...this._products]
   },
-  getProductDetails() {
+  _productDetails: [],
+  get productDetails() {
     return [...this._productDetails]
+  },
+  getFilteredProducts(searchItem: string) {
+    const filteredProducts = this._products.filter(product =>
+      product.name.toLowerCase().includes(searchItem.toLowerCase()),
+    )
+
+    return [...filteredProducts]
   },
 }

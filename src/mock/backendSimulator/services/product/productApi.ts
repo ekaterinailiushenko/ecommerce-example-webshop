@@ -3,26 +3,22 @@ import { getProductsResponse } from '../../../getProductsResponse'
 import { getProductDetailsResponse } from '../../../getProductDetailsResponse'
 
 /**
- * Exported to the outside world methods to work with internal cart
+ * Exported to the outside world methods to work with internal products
  */
 export const productApi = {
   getProducts: () => {
     productsInternal._products = getProductsResponse
 
-    const products = productsInternal.getProducts()
+    const products = productsInternal.products
 
     return Promise.resolve(products)
   },
   getFilteredProducts: (searchItem: string) => {
-    productsInternal._products = getProductsResponse
-
-    const filteredProducts = productsInternal
-      .getProducts()
-      .filter(product => product.name.toLowerCase().includes(searchItem.toLowerCase()))
+    const filteredProducts = productsInternal.getFilteredProducts(searchItem)
 
     return Promise.resolve(filteredProducts)
   },
-  getProductsDetails: (id: string) => {
+  getProductDetails: (id: string) => {
     productsInternal._productDetails = getProductDetailsResponse
 
     const productDetails = productsInternal._productDetails.find(i => i.product_id === id)
