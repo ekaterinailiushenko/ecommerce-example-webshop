@@ -8,8 +8,8 @@ export namespace ProductContext {
     isLoading: boolean
     products: Product[]
     getProducts: () => Promise<void>
-    filterProducts: (searchItem: string) => void
     getProductDetails: (id: string) => Promise<void>
+    filterProducts: (searchItem: string) => Promise<void>
 
     productDetails?: ProductDetails
   }

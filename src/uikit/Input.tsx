@@ -20,7 +20,7 @@ export const Input = () => {
   }, [isHomePage])
 
   useEffect(() => {
-    filterProducts(searchItem)
+    void filterProducts(searchItem)
   }, [searchItem, filterProducts])
 
   return (
