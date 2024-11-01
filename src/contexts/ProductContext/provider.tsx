@@ -1,4 +1,4 @@
-import { type ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import { type ReactNode, useCallback, useMemo, useState } from 'react'
 
 import { logger } from '../../utilities'
 import { ProductContext } from './context'
@@ -7,7 +7,6 @@ import type { Product, ProductDetails } from '../../api/types'
 
 export const ProductContextProvider = ({ children }: { children: ReactNode }) => {
   const [isError, setIsError] = useState(false)
-  const [searchItem, setSearchItem] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [products, setProducts] = useState<Product[]>([])
   const [productDetails, setProductDetails] = useState<ProductDetails>()
@@ -31,7 +30,7 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
   const handleFilterProducts = useCallback(async (searchItem: string) => {
     setIsError(false)
     setIsLoading(true)
-
+    
     try {
       const filteredProducts = await productApi.getFilteredProducts(searchItem)
       setProducts(filteredProducts)
@@ -58,24 +57,14 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
     }
   }, [])
 
-  const handleSetSearchItem = useCallback((updatedSearchItem: string) => {
-    setSearchItem(updatedSearchItem)
-  }, [])
-
-  useEffect(() => {
-    void handleFilterProducts(searchItem)
-  }, [searchItem, handleFilterProducts])
-
   const value = useMemo(() => {
     const obj: ProductContext.Value = {
       isError,
       products,
       isLoading,
-      searchItem,
       productDetails,
       isProductDetailsLoading,
       getProducts: handleGetProducts,
-      setSearchItem: handleSetSearchItem,
       filterProducts: handleFilterProducts,
       getProductDetails: handleGetProductDetails,
     }
@@ -84,10 +73,8 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
     isError,
     products,
     isLoading,
-    searchItem,
     productDetails,
     handleGetProducts,
-    handleSetSearchItem,
     handleFilterProducts,
     isProductDetailsLoading,
     handleGetProductDetails,
