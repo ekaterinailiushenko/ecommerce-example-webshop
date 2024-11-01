@@ -7,12 +7,13 @@ import type { Product, ProductDetails } from '../../api/types'
 
 export const ProductContextProvider = ({ children }: { children: ReactNode }) => {
   const [isError, setIsError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [products, setProducts] = useState<Product[]>([])
   const [productDetails, setProductDetails] = useState<ProductDetails>()
 
   const handleGetProducts = useCallback(async () => {
     setIsError(false)
+    setIsLoading(true)
 
     try {
       const products = await productApi.getProducts()
@@ -27,6 +28,7 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
 
   const handleFilterProducts = useCallback(async (searchItem: string) => {
     setIsError(false)
+    setIsLoading(true)
 
     try {
       const filteredProducts = await productApi.getFilteredProducts(searchItem)
@@ -41,9 +43,10 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
 
   const handleGetProductDetails = useCallback(async (id: string) => {
     setIsError(false)
+    setIsLoading(true)
 
     try {
-      const productDetails = await productApi.getProductsDetails(id)
+      const productDetails = await productApi.getProductDetails(id)
       setProductDetails(productDetails)
     } catch (error) {
       logger.error(`Error in ProductContextProvider.handleGetProductDetails -> ${error}`)
