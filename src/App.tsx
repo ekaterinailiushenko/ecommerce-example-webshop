@@ -14,6 +14,7 @@ import { Layout, ProtectedRoute } from './uikit'
 import { CartContextProvider } from './contexts/CartContext/provider'
 import { AuthContextProvider } from './contexts/AuthContext/provider'
 import { ProfileContextProvider } from './contexts/ProfileContext/provider'
+import { ProductContextProvider } from './contexts/ProductContext/provider'
 
 const router = createBrowserRouter(
   [
@@ -65,9 +66,11 @@ const router = createBrowserRouter(
 export const App = () => {
   return (
     <AuthContextProvider>
-      <CartContextProvider>
-        <RouterProvider router={router} />
-      </CartContextProvider>
+      <ProductContextProvider>
+        <CartContextProvider>
+          <RouterProvider router={router} />
+        </CartContextProvider>
+      </ProductContextProvider>
     </AuthContextProvider>
   )
 }

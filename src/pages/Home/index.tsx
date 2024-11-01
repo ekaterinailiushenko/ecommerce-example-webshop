@@ -2,14 +2,10 @@ import { useEffect } from 'react'
 
 import en from '../../i18n/en.json'
 import { Products } from './components'
-import { useProductsStore } from '../../stores'
+import { useProductContext } from '../../contexts/ProductContext/hook'
 
 export const Home = () => {
-  const { isLoading, isError, getProducts } = useProductsStore(state => ({
-    isLoading: state.isLoading,
-    isError: state.isError,
-    getProducts: state.getProducts,
-  }))
+  const { isLoading, isError, getProducts } = useProductContext()
 
   useEffect(() => {
     void getProducts()

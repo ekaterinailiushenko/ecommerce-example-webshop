@@ -5,20 +5,13 @@ import { Modal } from '../../../../../uikit/Modal'
 import { formatPrice } from '../../../../../utilities'
 import type { Product } from '../../../../../api/types'
 import { CartButton } from '../../../../../uikit/CartButton'
-import { useProductDetailsStore } from '../../../../../stores'
 import { LoadingSkeleton } from '../../../../../uikit/LoadingSkeleton'
+import { useProductContext } from '../../../../../contexts/ProductContext/hook'
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const { isLoading, productDetails, getProductDetails } =
-    useProductDetailsStore(state => {
-      return {
-        isLoading: state.isLoading,
-        productDetails: state.productDetails,
-        getProductDetails: state.getProductDetails,
-      }
-    })
+  const { isLoading, productDetails, getProductDetails } = useProductContext()
 
   const handleOpenModalClick = (id: string) => {
     setIsModalOpen(true)
