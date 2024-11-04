@@ -1,4 +1,6 @@
+import { getProductsResponse } from '../../../getProductsResponse'
 import type { Product, ProductDetails } from '../../../../api/types'
+import { getProductDetailsResponse } from '../../../getProductDetailsResponse'
 
 export interface ProductsInternal {
   _products: Product[]
@@ -13,11 +15,11 @@ export interface ProductsInternal {
  */
 
 export const productsInternal: ProductsInternal = {
-  _products: [],
+  _products: getProductsResponse,
   get products() {
     return [...this._products]
   },
-  _productDetails: [],
+  _productDetails: getProductDetailsResponse,
   get productDetails() {
     return [...this._productDetails]
   },
