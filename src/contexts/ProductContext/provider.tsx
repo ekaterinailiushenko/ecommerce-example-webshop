@@ -7,7 +7,7 @@ import type { Product, ProductDetails } from '../../api/types'
 
 export const ProductContextProvider = ({ children }: { children: ReactNode }) => {
   const [isError, setIsError] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [products, setProducts] = useState<Product[]>([])
   const [productDetails, setProductDetails] = useState<ProductDetails>()
   const [isProductDetailsLoading, setIsProductDetailsLoading] = useState(false)
@@ -30,7 +30,7 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
   const handleFilterProducts = useCallback(async (searchItem: string) => {
     setIsError(false)
     setIsLoading(true)
-    
+
     try {
       const filteredProducts = await productApi.getFilteredProducts(searchItem)
       setProducts(filteredProducts)

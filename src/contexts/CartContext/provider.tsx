@@ -16,7 +16,7 @@ const initialCartSummary: Cart = {
 }
 
 export const CartContextProvider = ({ children }: { children: ReactNode }) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [cartSummary, setCartSummary] = useState<Cart>(initialCartSummary)
 
   const { user } = useAuthContext()
