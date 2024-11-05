@@ -1,25 +1,26 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import {
-  Cart,
-  Home,
-  LogIn,
-  SignUp,
-  Profile,
-  Settings,
-  ErrorPage,
-} from './pages'
+  BASENAME_URL,
+  CART_PAGE_URL,
+  HOME_PAGE_URL,
+  LOGIN_PAGE_URL,
+  PROFILE_PAGE_URL,
+  SETTINGS_PAGE_URL,
+  SIGNUP_PAGE_URL,
+} from './helpers/constants'
 import './index.css'
 import { Layout, ProtectedRoute } from './uikit'
 import { CartContextProvider } from './contexts/CartContext/provider'
 import { AuthContextProvider } from './contexts/AuthContext/provider'
 import { ProfileContextProvider } from './contexts/ProfileContext/provider'
 import { ProductContextProvider } from './contexts/ProductContext/provider'
+import { Cart, Home, LogIn, SignUp, Profile, Settings, ErrorPage } from './pages'
 
 const router = createBrowserRouter(
   [
     {
-      path: '/',
+      path: HOME_PAGE_URL,
       element: <Layout />,
       errorElement: <ErrorPage />,
       children: [
@@ -28,15 +29,15 @@ const router = createBrowserRouter(
           element: <Home />,
         },
         {
-          path: 'signup',
+          path: SIGNUP_PAGE_URL,
           element: <SignUp />,
         },
         {
-          path: 'login',
+          path: LOGIN_PAGE_URL,
           element: <LogIn />,
         },
         {
-          path: 'profile',
+          path: PROFILE_PAGE_URL,
           element: (
             <ProtectedRoute>
               <ProfileContextProvider>
@@ -46,20 +47,20 @@ const router = createBrowserRouter(
           ),
           children: [
             {
-              path: 'settings',
+              path: SETTINGS_PAGE_URL,
               element: <Settings />,
             },
           ],
         },
         {
-          path: 'cart',
+          path: CART_PAGE_URL,
           element: <Cart />,
         },
       ],
     },
   ],
   {
-    basename: '/picnic-app',
+    basename: BASENAME_URL,
   },
 )
 

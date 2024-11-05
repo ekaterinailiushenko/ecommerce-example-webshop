@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom'
 
 import en from '../i18n/en.json'
 import { useAuthContext } from '../contexts/AuthContext/hook'
+import { LOGIN_PAGE_URL, PROFILE_PAGE_URL, SIGNUP_PAGE_URL } from '../helpers/constants'
 
 type AuthFormProps = {
   formPlaceholder: string
@@ -26,9 +27,9 @@ export const AuthForm = ({
   isSignup,
   onInputFocus,
 }: AuthFormProps) => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const { user, loading, error } = useAuthContext()
 
@@ -40,20 +41,15 @@ export const AuthForm = ({
   if (loading) return <div>{en.global.loading}</div>
 
   if (user) {
-    return <Navigate to="/profile" />
+    return <Navigate to={PROFILE_PAGE_URL} />
   }
 
   return (
     <div className="bg-white shadow-md rounded flex flex-col w-5/6 sm:w-1/3 border border-inherit">
-      <h2 className="text-2xl font-semibold mt-6 self-center">
-        {formPlaceholder}
-      </h2>
+      <h2 className="text-2xl font-semibold mt-6 self-center">{formPlaceholder}</h2>
       <form onSubmit={handleSubmit} className="space-y-4 p-8">
         <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             {en.auth.form.email}
           </label>
           <input
@@ -67,10 +63,7 @@ export const AuthForm = ({
           />
         </div>
         <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             {en.auth.form.password}
           </label>
           <input
@@ -85,10 +78,7 @@ export const AuthForm = ({
         </div>
         {isSignup && (
           <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
               {en.auth.form.confirmPassword}
             </label>
             <input
@@ -103,9 +93,7 @@ export const AuthForm = ({
           </div>
         )}
         <div className="flex items-center h-6">
-          {error && (
-            <div className="text-red-500 text-sm leading-tight">{error}</div>
-          )}
+          {error && <div className="text-red-500 text-sm leading-tight">{error}</div>}
         </div>
         <div>
           <button
@@ -118,13 +106,11 @@ export const AuthForm = ({
       </form>
       {isSignup ? (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToLogin}{' '}
-          <Link to={'/login'}>{en.auth.login.title}</Link>
+          {en.auth.form.linkToLogin} <Link to={LOGIN_PAGE_URL}>{en.auth.login.title}</Link>
         </p>
       ) : (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToSignup}{' '}
-          <Link to={'/signup'}>{en.auth.signup.title}</Link>
+          {en.auth.form.linkToSignup} <Link to={SIGNUP_PAGE_URL}>{en.auth.signup.title}</Link>
         </p>
       )}
     </div>
