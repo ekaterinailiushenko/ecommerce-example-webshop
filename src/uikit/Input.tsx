@@ -1,8 +1,9 @@
 import { MdClear } from 'react-icons/md'
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useMatch } from 'react-router-dom'
 
 import en from '../i18n/en.json'
+import { HOME_PAGE_URL } from '../helpers/constants'
 import { useProductContext } from '../contexts/ProductContext/hook'
 
 export const Input = () => {
@@ -10,14 +11,13 @@ export const Input = () => {
 
   const { filterProducts, isLoading } = useProductContext()
 
-  const location = useLocation()
-  const isHomePage = ['/'].includes(location.pathname)
+  const HomePage = useMatch(HOME_PAGE_URL)
 
   useEffect(() => {
-    if (!isHomePage) {
+    if (!HomePage) {
       setSearchItem('')
     }
-  }, [isHomePage])
+  }, [HomePage])
 
   useEffect(() => {
     void filterProducts(searchItem)
@@ -25,14 +25,15 @@ export const Input = () => {
 
   return (
     <>
-      {!isLoading && isHomePage && (
+      {!isLoading && HomePage && (
         <div className="relative">
           <input
             type="text"
             value={searchItem}
             onChange={e => setSearchItem(e.target.value)}
+            maxLength={50}
             placeholder={en.header.inputPlaceholder}
-            className="md:w-96 bg-searchbar p-2 pl-4 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
+            className="md:w-96 bg-searchbar py-2 pl-6 pr-8 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
           />
           {searchItem && (
             <MdClear className="absolute top-3 right-2" onClick={() => setSearchItem('')} />
