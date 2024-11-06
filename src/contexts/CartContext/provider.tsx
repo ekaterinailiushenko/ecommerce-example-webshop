@@ -50,7 +50,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
         setIsLoading(false)
       }
     },
-    [user],
+    [user]
   )
 
   const handleDeleteProductFromCart = useCallback(
@@ -70,7 +70,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
         setIsLoading(false)
       }
     },
-    [user],
+    [user]
   )
 
   const handleClearCart = useCallback(async () => {

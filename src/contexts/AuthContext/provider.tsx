@@ -46,7 +46,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         setIsLoading(false)
       }
     },
-    [],
+    []
   )
 
   const handleSignup = useCallback(
@@ -69,7 +69,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         setIsLoading(false)
       }
     },
-    [],
+    []
   )
 
   const handleLogout = useCallback(async () => {
@@ -110,7 +110,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         setIsLoading(false)
       }
     },
-    [],
+    []
   )
 
   const handleDeleteUser = useCallback(async (user: User) => {

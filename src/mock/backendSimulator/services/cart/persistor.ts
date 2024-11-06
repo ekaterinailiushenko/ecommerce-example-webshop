@@ -36,7 +36,7 @@ const loadCartFromCookies = (userId: string) => {
   cartInternal._productsMap = new Map(
     parsedCartFromCookies.products.map(cookieProduct => {
       const productInDB = getProductsResponse.find(
-        product => product.product_id === cookieProduct.product_id,
+        product => product.product_id === cookieProduct.product_id
       )
 
       if (productInDB) {
@@ -46,7 +46,7 @@ const loadCartFromCookies = (userId: string) => {
       }
 
       return [cookieProduct.product_id, cookieProduct]
-    }),
+    })
   )
 }
 

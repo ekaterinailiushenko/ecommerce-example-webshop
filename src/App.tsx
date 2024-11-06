@@ -61,7 +61,7 @@ const router = createBrowserRouter(
   ],
   {
     basename: BASENAME_URL,
-  },
+  }
 )
 
 export const App = () => {

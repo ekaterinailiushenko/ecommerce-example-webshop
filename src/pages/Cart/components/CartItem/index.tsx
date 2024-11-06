@@ -71,7 +71,7 @@ export const CartItem = ({ item }: { item: Product }) => {
           <TfiClose
             className={classNames(
               'text-slate-400 hover:text-slate-500 text-xl transition',
-              isRemoving && 'invisible',
+              isRemoving && 'invisible'
             )}
           />
         </button>

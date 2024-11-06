@@ -24,14 +24,14 @@ export const Modal = ({
       onClick={onClickClose}
       className={classNames(
         'fixed inset-0 flex justify-center items-center transition-colors z-50',
-        isOpen ? 'visible bg-black/75' : 'invisible',
+        isOpen ? 'visible bg-black/75' : 'invisible'
       )}
     >
       <div
         onClick={e => e.stopPropagation()}
         className={classNames(
           'bg-white w-4/12 h-4/6 rounded-2xl p-6 transition-all duration-300 ease-in',
-          isOpen ? 'scale-100 opacity-100' : 'scale-125 opacity-0',
+          isOpen ? 'scale-100 opacity-100' : 'scale-125 opacity-0'
         )}
       >
         <button

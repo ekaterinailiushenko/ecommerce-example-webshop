@@ -102,7 +102,7 @@ export const ProfileContextProvider = ({ children }: { children: ReactNode }) =>
         setIsLoading(false)
       }
     },
-    [],
+    []
   )
 
   const value = useMemo(() => {

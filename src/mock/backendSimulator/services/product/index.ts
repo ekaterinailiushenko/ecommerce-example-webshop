@@ -25,7 +25,7 @@ export const productsInternal: ProductsInternal = {
   },
   getFilteredProducts(searchItem: string) {
     const filteredProducts = this._products.filter(product =>
-      product.name.toLowerCase().includes(searchItem.toLowerCase()),
+      product.name.toLowerCase().includes(searchItem.toLowerCase())
     )
 
     return [...filteredProducts]
