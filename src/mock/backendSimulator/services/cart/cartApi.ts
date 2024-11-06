@@ -1,9 +1,6 @@
 import Cookies from 'js-cookie'
 
-import {
-  getProductsResponse,
-  resetGetProductsResponse,
-} from '../../../getProductsResponse'
+import { getProductsResponse, resetGetProductsResponse } from '../../../getProductsResponse'
 import { cartInternal } from './index'
 import { cartPersistor } from './persistor'
 import { STATIC_GUEST_USER_ID } from './constants'
@@ -25,9 +22,7 @@ export const cartApi = {
     userId?: string
     productId: Product['product_id']
   }) => {
-    const productInDB = getProductsResponse.find(
-      product => product.product_id === productId,
-    )!
+    const productInDB = getProductsResponse.find(product => product.product_id === productId)!
 
     const productInProductsMap = cartInternal._productsMap.get(productId)
 
@@ -42,8 +37,7 @@ export const cartApi = {
       })
     }
 
-    productInDB.amountInCart =
-      cartInternal._productsMap.get(productId)?.amountInCart || 1
+    productInDB.amountInCart = cartInternal._productsMap.get(productId)?.amountInCart || 1
 
     cartPersistor.save({ userId, cartInternal })
 
@@ -58,9 +52,7 @@ export const cartApi = {
     productId: Product['product_id']
     removeAll?: boolean
   }) => {
-    const productInDB = getProductsResponse.find(
-      product => product.product_id === productId,
-    )!
+    const productInDB = getProductsResponse.find(product => product.product_id === productId)!
 
     const productInProductsMap = cartInternal._productsMap.get(productId)
 
@@ -74,8 +66,7 @@ export const cartApi = {
       productInProductsMap.priceForAmountInCart -= productInDB.pricePerProduct
 
       productInDB.amountInCart = productInProductsMap.amountInCart
-      productInDB.priceForAmountInCart =
-        productInProductsMap.priceForAmountInCart
+      productInDB.priceForAmountInCart = productInProductsMap.priceForAmountInCart
     }
 
     cartPersistor.save({ userId, cartInternal })

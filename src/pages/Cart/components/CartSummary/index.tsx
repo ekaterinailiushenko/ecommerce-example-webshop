@@ -9,12 +9,7 @@ export const CartSummary = () => {
     return <p>{en.global.loading}</p>
   }
 
-  const {
-    totalPrice,
-    deliveryCosts,
-    totalPriceWithDeliveryCosts,
-    productsQuantity,
-  } = cartSummary
+  const { totalPrice, deliveryCosts, totalPriceWithDeliveryCosts, productsQuantity } = cartSummary
 
   return (
     <section className="bg-white p-6 rounded-lg shadow-md h-min">

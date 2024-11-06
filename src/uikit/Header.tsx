@@ -12,11 +12,7 @@ export const Header = () => {
   return (
     <header className="flex justify-between items-center bg-header">
       <Link to={`/`} onClick={() => clearSearchInput('')}>
-        <img
-          className="size-16"
-          src={picnicHeaderLogo}
-          alt={en.header.logoAltText}
-        />
+        <img className="size-16" src={picnicHeaderLogo} alt={en.header.logoAltText} />
       </Link>
       <Input />
       <NavMenu />

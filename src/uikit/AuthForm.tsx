@@ -45,15 +45,10 @@ export const AuthForm = ({
 
   return (
     <div className="bg-white shadow-md rounded flex flex-col w-5/6 sm:w-1/3 border border-inherit">
-      <h2 className="text-2xl font-semibold mt-6 self-center">
-        {formPlaceholder}
-      </h2>
+      <h2 className="text-2xl font-semibold mt-6 self-center">{formPlaceholder}</h2>
       <form onSubmit={handleSubmit} className="space-y-4 p-8">
         <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             {en.auth.form.email}
           </label>
           <input
@@ -67,10 +62,7 @@ export const AuthForm = ({
           />
         </div>
         <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             {en.auth.form.password}
           </label>
           <input
@@ -85,10 +77,7 @@ export const AuthForm = ({
         </div>
         {isSignup && (
           <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
               {en.auth.form.confirmPassword}
             </label>
             <input
@@ -103,9 +92,7 @@ export const AuthForm = ({
           </div>
         )}
         <div className="flex items-center h-6">
-          {error && (
-            <div className="text-red-500 text-sm leading-tight">{error}</div>
-          )}
+          {error && <div className="text-red-500 text-sm leading-tight">{error}</div>}
         </div>
         <div>
           <button
@@ -118,13 +105,11 @@ export const AuthForm = ({
       </form>
       {isSignup ? (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToLogin}{' '}
-          <Link to={'/login'}>{en.auth.login.title}</Link>
+          {en.auth.form.linkToLogin} <Link to={'/login'}>{en.auth.login.title}</Link>
         </p>
       ) : (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToSignup}{' '}
-          <Link to={'/signup'}>{en.auth.signup.title}</Link>
+          {en.auth.form.linkToSignup} <Link to={'/signup'}>{en.auth.signup.title}</Link>
         </p>
       )}
     </div>

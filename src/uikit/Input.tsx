@@ -6,15 +6,14 @@ import en from '../i18n/en.json'
 import { useProductsStore } from '../stores'
 
 export const Input = () => {
-  const { filterItems, searchItem, setSearchItem, isLoading } =
-    useProductsStore(state => {
-      return {
-        filterItems: state.filterProducts,
-        searchItem: state.searchItem,
-        setSearchItem: state.setSearchItem,
-        isLoading: state.isLoading,
-      }
-    })
+  const { filterItems, searchItem, setSearchItem, isLoading } = useProductsStore(state => {
+    return {
+      filterItems: state.filterProducts,
+      searchItem: state.searchItem,
+      setSearchItem: state.setSearchItem,
+      isLoading: state.isLoading,
+    }
+  })
 
   const location = useLocation()
   const isHomePage = ['/'].includes(location.pathname)
@@ -41,10 +40,7 @@ export const Input = () => {
             className="md:w-96 bg-searchbar p-2 pl-4 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
           />
           {searchItem && (
-            <MdClear
-              className="absolute top-3 right-2"
-              onClick={() => setSearchItem('')}
-            />
+            <MdClear className="absolute top-3 right-2" onClick={() => setSearchItem('')} />
           )}
         </div>
       )}

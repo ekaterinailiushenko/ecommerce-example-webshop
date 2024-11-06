@@ -1,9 +1,4 @@
-import {
-  ref,
-  uploadBytes,
-  deleteObject,
-  getDownloadURL,
-} from 'firebase/storage'
+import { ref, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage'
 import { FirebaseError } from 'firebase/app'
 import { type User, updateProfile } from 'firebase/auth'
 import { useCallback, useMemo, useState, type ReactNode } from 'react'
@@ -14,11 +9,7 @@ import { storage } from '../../firebaseConfig'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import { getFirebaseErrorMessage, logger } from '../../utilities'
 
-export const ProfileContextProvider = ({
-  children,
-}: {
-  children: ReactNode
-}) => {
+export const ProfileContextProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>()
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [userPhoto, setUserPhoto] = useState(defaultAvatar)
@@ -86,10 +77,7 @@ export const ProfileContextProvider = ({
           throw new Error('User is undefined')
         }
 
-        const fileRef = ref(
-          storage,
-          `profilePics/${user.uid}/profilePicture.png`,
-        )
+        const fileRef = ref(storage, `profilePics/${user.uid}/profilePicture.png`)
 
         await uploadBytes(fileRef, file)
 
@@ -111,7 +99,7 @@ export const ProfileContextProvider = ({
         setIsLoading(false)
       }
     },
-    [],
+    []
   )
 
   const value = useMemo(() => {
@@ -133,7 +121,5 @@ export const ProfileContextProvider = ({
     handleDeleteProfileImage,
   ])
 
-  return (
-    <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
-  )
+  return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
 }

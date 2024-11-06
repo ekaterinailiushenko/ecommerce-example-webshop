@@ -21,9 +21,7 @@ export const NavMenu = () => {
           <div className="flex flex-col items-center">
             <MdAccountCircle className="text-white size-8" />
             <p className="text-xs">
-              {user
-                ? en.header.navMenu.linkToProfile
-                : en.header.navMenu.linkToLogin}
+              {user ? en.header.navMenu.linkToProfile : en.header.navMenu.linkToLogin}
             </p>
           </div>
         </Link>
