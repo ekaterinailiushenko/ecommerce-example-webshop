@@ -52,9 +52,7 @@ export const Settings = () => {
     await deleteUser(user)
   }
 
-  const handleUploadImageChange = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleUploadImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
 
     if (!user) {
@@ -126,10 +124,7 @@ export const Settings = () => {
         </button>
       </div>
       <form onSubmit={handleNewPasswordSubmit} className="bg-yellow-200">
-        <label
-          htmlFor="newPassword"
-          className="mb-1 block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="newPassword" className="mb-1 block text-sm font-medium text-gray-700">
           {en.profile.buttons.changePassword.title}
         </label>
         <div className="flex space-x-2">

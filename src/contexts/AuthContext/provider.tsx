@@ -16,11 +16,7 @@ import { auth } from '../../firebaseConfig'
 import { Events, PubSub } from '../../utilities/pubSub'
 import { getFirebaseErrorMessage, logger } from '../../utilities'
 
-export const AuthContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User>()
   const [error, setError] = useState<string>()
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -49,7 +45,7 @@ export const AuthContextProvider = ({
         setIsLoading(false)
       }
     },
-    [],
+    []
   )
 
   const handleSignup = useCallback(
@@ -71,7 +67,7 @@ export const AuthContextProvider = ({
         setIsLoading(false)
       }
     },
-    [],
+    []
   )
 
   const handleLogout = useCallback(async () => {
@@ -83,9 +79,7 @@ export const AuthContextProvider = ({
       logger.error('Failed to log out', JSON.stringify(error))
 
       const errorMessage =
-        error instanceof FirebaseError
-          ? getFirebaseErrorMessage(error.code)
-          : en.auth.errors.logout
+        error instanceof FirebaseError ? getFirebaseErrorMessage(error.code) : en.auth.errors.logout
 
       setError(errorMessage)
     } finally {
@@ -112,7 +106,7 @@ export const AuthContextProvider = ({
         setIsLoading(false)
       }
     },
-    [],
+    []
   )
 
   const handleDeleteUser = useCallback(async (user: User) => {

@@ -17,9 +17,8 @@ export const cartInternal: CartInternal = {
   },
   get totalPrice() {
     return this.products.reduce(
-      (currentPrice, product) =>
-        currentPrice + product.pricePerProduct * product.amountInCart,
-      0,
+      (currentPrice, product) => currentPrice + product.pricePerProduct * product.amountInCart,
+      0
     )
   },
   get deliveryCosts() {
@@ -31,9 +30,8 @@ export const cartInternal: CartInternal = {
   },
   get productsQuantity() {
     return this.products.reduce(
-      (totalAmountInTheCart, product) =>
-        totalAmountInTheCart + product.amountInCart,
-      0,
+      (totalAmountInTheCart, product) => totalAmountInTheCart + product.amountInCart,
+      0
     )
   },
   get totalPriceWithDeliveryCosts() {

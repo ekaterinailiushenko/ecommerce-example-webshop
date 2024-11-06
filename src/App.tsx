@@ -1,14 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import {
-  Cart,
-  Home,
-  LogIn,
-  SignUp,
-  Profile,
-  Settings,
-  ErrorPage,
-} from './pages'
+import { Cart, Home, LogIn, SignUp, Profile, Settings, ErrorPage } from './pages'
 import './index.css'
 import { Layout, ProtectedRoute } from './uikit'
 import { CartContextProvider } from './contexts/CartContext/provider'
@@ -59,7 +51,7 @@ const router = createBrowserRouter(
   ],
   {
     basename: '/picnic-app',
-  },
+  }
 )
 
 export const App = () => {

@@ -5,11 +5,7 @@ import emptyCartLogo from '../../../../assets/emptyCartLogo.png'
 
 export const EmptyCart = () => (
   <div className="flex flex-col flex-1 items-center gap-2 justify-center">
-    <img
-      src={emptyCartLogo}
-      alt={en.cart.emptyCart.altText}
-      className="size-32"
-    />
+    <img src={emptyCartLogo} alt={en.cart.emptyCart.altText} className="size-32" />
     <p className="font-bold text-2xl">{en.cart.emptyCart.mainMessage}</p>
     <p className="text-md text-slate-600">{en.cart.emptyCart.nextMessage}</p>
     <Link

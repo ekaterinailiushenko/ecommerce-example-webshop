@@ -56,44 +56,22 @@ export const CartItem = ({ item }: { item: Product }) => {
     >
       <img
         src={item.image}
-        className={classNames(
-          'object-contain place-self-center',
-          isRemoving && 'opacity-50',
-        )}
+        className={classNames('object-contain place-self-center', isRemoving && 'opacity-50')}
         alt={item.name}
       />
       <div className="lg:col-start-2 lg:col-span-4 flex flex-col justify-between">
-        <p
-          className={classNames(
-            'font-bold text-lg',
-            isRemoving && 'opacity-50',
-          )}
-        >
-          {item.name}
-        </p>
-        <p
-          className={classNames(
-            'text-sm text-slate-600',
-            isRemoving && 'opacity-50',
-          )}
-        >
+        <p className={classNames('font-bold text-lg', isRemoving && 'opacity-50')}>{item.name}</p>
+        <p className={classNames('text-sm text-slate-600', isRemoving && 'opacity-50')}>
           {en.cart.deliveryTime}
         </p>
-        <CartButton
-          product={item}
-          isRemoving={isRemoving}
-          onUndo={handleUndoDeleteClick}
-        />
+        <CartButton product={item} isRemoving={isRemoving} onUndo={handleUndoDeleteClick} />
       </div>
       <div className="flex justify-end items-start">
-        <button
-          onClick={() => handleDeleteClick(item.product_id)}
-          disabled={isRemoving}
-        >
+        <button onClick={() => handleDeleteClick(item.product_id)} disabled={isRemoving}>
           <TfiClose
             className={classNames(
               'text-slate-400 hover:text-slate-500 text-xl transition',
-              isRemoving && 'invisible',
+              isRemoving && 'invisible'
             )}
           />
         </button>

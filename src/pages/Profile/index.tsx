@@ -36,14 +36,9 @@ export const Profile = () => {
           <p className="text-slate-600">
             {en.profile.email} {user?.email}
           </p>
-          <button
-            className="flex items-center gap-2"
-            onClick={handleLogoutClick}
-          >
+          <button className="flex items-center gap-2" onClick={handleLogoutClick}>
             <MdLogout className="text-slate-600" />
-            <p className="text-xs text-slate-600">
-              {en.profile.buttons.logout.title}
-            </p>
+            <p className="text-xs text-slate-600">{en.profile.buttons.logout.title}</p>
           </button>
         </div>
       </div>
