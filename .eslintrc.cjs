@@ -10,17 +10,14 @@ module.exports = {
     'plugin:eslint-comments/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
-    'prettier',
+    'plugin:prettier/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   parserOptions: { project: './tsconfig.json' },
   plugins: ['react-refresh', 'unused-imports', 'jest', 'react-hooks-addons'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'no-void': 0,
     'react-hooks-addons/no-unused-deps': 'warn',
     '@typescript-eslint/no-misused-promises': [
