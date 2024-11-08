@@ -1,5 +1,5 @@
 import en from '../../../../i18n/en.json'
-import { ProductCard } from './components/ProductCard'
+import { ProductCard } from './components'
 import productNotFoundLogo from '../../../../assets/productNotFoundLogo.png'
 import { useProductContext } from '../../../../contexts/ProductContext/hook'
 

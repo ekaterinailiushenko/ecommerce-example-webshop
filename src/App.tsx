@@ -10,9 +10,10 @@ import {
   SIGNUP_PAGE_URL,
 } from './helpers/constants'
 import './index.css'
-import { Layout, ProtectedRoute } from './uikit'
+import { Layout, Modal, ProtectedRoute } from './uikit'
 import { CartContextProvider } from './contexts/CartContext/provider'
 import { AuthContextProvider } from './contexts/AuthContext/provider'
+import { ModalContextProvider } from './contexts/ModalContext/provider'
 import { ProfileContextProvider } from './contexts/ProfileContext/provider'
 import { ProductContextProvider } from './contexts/ProductContext/provider'
 import { Cart, Home, LogIn, SignUp, Profile, Settings, ErrorPage } from './pages'
@@ -69,7 +70,10 @@ export const App = () => {
     <AuthContextProvider>
       <ProductContextProvider>
         <CartContextProvider>
-          <RouterProvider router={router} />
+          <ModalContextProvider>
+            <RouterProvider router={router} />
+            <Modal />
+          </ModalContextProvider>
         </CartContextProvider>
       </ProductContextProvider>
     </AuthContextProvider>

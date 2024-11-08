@@ -3,10 +3,10 @@ import { TfiClose } from 'react-icons/tfi'
 import { useEffect, useRef, useState } from 'react'
 
 import en from '../../../../i18n/en.json'
+import { logger } from '../../../../utilities'
 import { CartButton } from '../../../../uikit'
 import type { Product } from '../../../../api/types'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
-import { logger } from '../../../../utilities'
 
 const REMOVAL_DELAY = 5000
 
