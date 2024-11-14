@@ -4,15 +4,11 @@ import { formatPrice } from '../../../../../utilities'
 import type { Product } from '../../../../../api/types'
 import { CartButton } from '../../../../../uikit/CartButton'
 import { useModalContext } from '../../../../../contexts/ModalContext/hook'
-import { useProductContext } from '../../../../../contexts/ProductContext/hook'
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const { openModal } = useModalContext()
 
-  const { getProductDetails } = useProductContext()
-
-  const handleOpenModalClick = (id: string) => {
-    void getProductDetails(id)
+  const handleOpenModalClick = () => {
     openModal({
       content: <ProductCardModal product={product} />,
     })
@@ -25,7 +21,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
         <img src={product.image} alt={en.products.productImageAltText} className="object-contain" />
         <button
           className="bg-white opacity-80 text-black text-sm font-semibold px-3 py-1 rounded group/button invisible group-hover/item:visible absolute"
-          onClick={() => handleOpenModalClick(product.product_id)}
+          onClick={handleOpenModalClick}
         >
           {en.products.quickView}
         </button>

@@ -6,14 +6,15 @@ import { productApi } from '../../api/productApi'
 import type { Product, ProductDetails } from '../../api/types'
 
 export const ProductContextProvider = ({ children }: { children: ReactNode }) => {
-  const [isError, setIsError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isProductsError, setIsProductsError] = useState(false)
   const [products, setProducts] = useState<Product[]>([])
   const [productDetails, setProductDetails] = useState<ProductDetails>()
+  const [isProductDetailsError, setIsProductDetailsError] = useState(false)
   const [isProductDetailsLoading, setIsProductDetailsLoading] = useState(false)
 
   const handleGetProducts = useCallback(async () => {
-    setIsError(false)
+    setIsProductsError(false)
     setIsLoading(true)
 
     try {
@@ -21,14 +22,14 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
       setProducts(products)
     } catch (error) {
       logger.error(`Error in ProductContextProvider.handleGetProducts -> ${error}`)
-      setIsError(true)
+      setIsProductsError(true)
     } finally {
       setIsLoading(false)
     }
   }, [])
 
   const handleFilterProducts = useCallback(async (searchItem: string) => {
-    setIsError(false)
+    setIsProductsError(false)
     setIsLoading(true)
 
     try {
@@ -36,14 +37,14 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
       setProducts(filteredProducts)
     } catch (error) {
       logger.error(`Error in ProductContextProvider.handleFilterProducts -> ${error}`)
-      setIsError(true)
+      setIsProductsError(true)
     } finally {
       setIsLoading(false)
     }
   }, [])
 
   const handleGetProductDetails = useCallback(async (id: string) => {
-    setIsError(false)
+    setIsProductDetailsError(false)
     setIsProductDetailsLoading(true)
 
     try {
@@ -51,7 +52,7 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
       setProductDetails(productDetails)
     } catch (error) {
       logger.error(`Error in ProductContextProvider.handleGetProductDetails -> ${error}`)
-      setIsError(true)
+      setIsProductDetailsError(true)
     } finally {
       setIsProductDetailsLoading(false)
     }
@@ -59,10 +60,11 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
 
   const value = useMemo(() => {
     const obj: ProductContext.Value = {
-      isError,
       products,
       isLoading,
       productDetails,
+      isProductsError,
+      isProductDetailsError,
       isProductDetailsLoading,
       getProducts: handleGetProducts,
       filterProducts: handleFilterProducts,
@@ -70,12 +72,13 @@ export const ProductContextProvider = ({ children }: { children: ReactNode }) =>
     }
     return obj
   }, [
-    isError,
     products,
     isLoading,
     productDetails,
+    isProductsError,
     handleGetProducts,
     handleFilterProducts,
+    isProductDetailsError,
     isProductDetailsLoading,
     handleGetProductDetails,
   ])

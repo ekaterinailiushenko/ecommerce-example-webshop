@@ -5,7 +5,7 @@ import { Products } from './components'
 import { useProductContext } from '../../contexts/ProductContext/hook'
 
 export const Home = () => {
-  const { isLoading, isError, getProducts } = useProductContext()
+  const { isLoading, isProductsError, getProducts } = useProductContext()
 
   useEffect(() => {
     void getProducts()
@@ -15,7 +15,7 @@ export const Home = () => {
     return <p>{en.global.loading}</p>
   }
 
-  if (isError) {
+  if (isProductsError) {
     return <p>{en.products.errors.loadError}</p>
   }
 

@@ -2,7 +2,8 @@
   "global": {
     "loading": "Loading...",
     "changing": "Changing...",
-    "errorHeader": "Oops!"
+    "errorHeader": "Oops!",
+    "closeButton": "CLOSE"
   },
   "header": {
     "inputPlaceholder": "Search by name...",
@@ -52,6 +53,7 @@
     },
     "quickView": "Quick View",
     "modal": {
+      "error": "There was an error loading the product details. Please try again later.",
       "description": "Product Description",
       "productImageAltText": "Product",
       "storageInstructions": {

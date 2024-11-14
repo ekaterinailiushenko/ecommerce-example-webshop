@@ -1,32 +1,62 @@
+import { useEffect } from 'react'
+
 import en from '../../../../../i18n/en.json'
 import { formatPrice } from '../../../../../utilities'
 import type { Product } from '../../../../../api/types'
-import { CartButton, LoadingSkeleton } from '../../../../../uikit'
+import { Icon, CartButton } from '../../../../../uikit'
+import { useModalContext } from '../../../../../contexts/ModalContext/hook'
 import { useProductContext } from '../../../../../contexts/ProductContext/hook'
+import { ImageWithPlaceholder } from '../../../../../uikit/ImageWithPlaceholder'
 
 export const ProductCardModal = ({ product }: { product: Product }) => {
-  const { isLoading, productDetails } = useProductContext()
+  const { closeModal } = useModalContext()
 
-  if (isLoading || !productDetails) {
-    return <LoadingSkeleton />
+  const { getProductDetails, productDetails, isProductDetailsError, isProductDetailsLoading } =
+    useProductContext()
+
+  useEffect(() => {
+    void getProductDetails(product.product_id)
+  }, [getProductDetails, product.product_id])
+
+  if (isProductDetailsError) {
+    return (
+      <div className="flex flex-col h-full p-5">
+        <p className="flex items-center flex-1 text-xl text-center">{en.products.modal.error}</p>
+        <button
+          onClick={closeModal}
+          className="flex justify-center bg-red-500 hover:bg-red-700 rounded-lg py-2 px-4 text-white transition-colors duration-200"
+        >
+          {en.global.closeButton}
+        </button>
+      </div>
+    )
+  }
+
+  if (isProductDetailsLoading || !productDetails) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full p-5 gap-5">
+        <Icon variant="ImSpinner9" className="animate-spin text-3xl" />
+        <p>{en.global.loading}</p>
+      </div>
+    )
   }
 
   return (
     <div className="grid grid-cols-2 h-full gap-4">
-      <div className="flex items-center justify-center">
-        <img
-          className="h-40"
+      <div className="col-span-2 grid grid-cols-2 gap-4">
+        <ImageWithPlaceholder
+          size={160}
           key={productDetails.image}
           src={productDetails.image}
           alt={en.products.modal.productImageAltText}
         />
-      </div>
-      <div className="flex flex-col justify-between">
-        <div>
-          <h3 className="text-xl font-bold">{productDetails.name}</h3>
-          <p className="text-2xl font-bold">{formatPrice(productDetails.price)}</p>
+        <div className="flex flex-col justify-between mr-5">
+          <div>
+            <h3 className="text-xl font-bold">{productDetails.name}</h3>
+            <p className="text-2xl font-bold">{formatPrice(productDetails.price)}</p>
+          </div>
+          <CartButton product={product} />
         </div>
-        <CartButton product={product} />
       </div>
       <div className="col-span-2 overflow-y-auto">
         <p className="font-semibold text-gray-500 text-base">{en.products.modal.description}</p>
