@@ -1,11 +1,10 @@
 import classNames from 'classnames'
-import { TfiClose } from 'react-icons/tfi'
 import { useEffect, useRef, useState } from 'react'
 
 import en from '../../../../i18n/en.json'
 import { logger } from '../../../../utilities'
-import { CartButton } from '../../../../uikit'
 import type { Product } from '../../../../api/types'
+import { Icon, CartButton } from '../../../../uikit'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
 
 const REMOVAL_DELAY = 5000
@@ -68,7 +67,8 @@ export const CartItem = ({ item }: { item: Product }) => {
       </div>
       <div className="flex justify-end items-start">
         <button onClick={() => handleDeleteClick(item.product_id)} disabled={isRemoving}>
-          <TfiClose
+          <Icon
+            variant="TfiClose"
             className={classNames(
               'text-slate-400 hover:text-slate-500 text-xl transition',
               isRemoving && 'invisible'

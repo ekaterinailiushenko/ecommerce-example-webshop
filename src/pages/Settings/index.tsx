@@ -1,13 +1,11 @@
 import classNames from 'classnames'
-import { FaCheck } from 'react-icons/fa6'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { RiDeleteBin6Line } from 'react-icons/ri'
-import { IoChevronBackOutline } from 'react-icons/io5'
 
+import { Icon } from '../../uikit'
 import en from '../../i18n/en.json'
 import { logger } from '../../utilities'
-import { UpdateImageButton } from '../../uikit'
+import { UpdateImageButton } from './components'
 import { useAuthContext } from '../../contexts/AuthContext/hook'
 import { useProfileContext } from '../../contexts/ProfileContext/hook'
 
@@ -100,7 +98,7 @@ export const Settings = () => {
         }}
         className="flex items-center gap-2"
       >
-        <IoChevronBackOutline className="text-slate-600" />
+        <Icon variant="IoChevronBackOutline" className="text-slate-600" />
         <p className="text-slate-600 text-sm">{en.profile.returnToAccount}</p>
       </button>
       <h1 className="text-3xl font-semibold">{en.profile.settings}</h1>
@@ -120,7 +118,7 @@ export const Settings = () => {
           onClick={handleDeleteProfileImageClick}
           className={classNames(isError && 'invisible')}
         >
-          <RiDeleteBin6Line />
+          <Icon variant="RiDeleteBin6Line" />
         </button>
       </div>
       <form onSubmit={handleNewPasswordSubmit} className="bg-yellow-200">
@@ -141,7 +139,7 @@ export const Settings = () => {
             className="shadow-md px-3 font-medium text-white bg-green-600 rounded-md"
             disabled={loading}
           >
-            {loading ? en.global.changing : <FaCheck />}
+            {loading ? en.global.changing : <Icon variant="FaCheck" />}
           </button>
         </div>
       </form>

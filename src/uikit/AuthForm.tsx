@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 
 import en from '../i18n/en.json'
+import { Routes } from '../router/config'
 import { useAuthContext } from '../contexts/AuthContext/hook'
-import { LOGIN_PAGE_URL, PROFILE_PAGE_URL, SIGNUP_PAGE_URL } from '../helpers/constants'
 
 type AuthFormProps = {
   formPlaceholder: string
@@ -41,7 +41,7 @@ export const AuthForm = ({
   if (loading) return <div>{en.global.loading}</div>
 
   if (user) {
-    return <Navigate to={PROFILE_PAGE_URL} />
+    return <Navigate to={Routes.PROFILE_PAGE_URL} />
   }
 
   return (
@@ -106,11 +106,12 @@ export const AuthForm = ({
       </form>
       {isSignup ? (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToLogin} <Link to={LOGIN_PAGE_URL}>{en.auth.login.title}</Link>
+          {en.auth.form.linkToLogin} <Link to={Routes.LOGIN_PAGE_URL}>{en.auth.login.title}</Link>
         </p>
       ) : (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToSignup} <Link to={SIGNUP_PAGE_URL}>{en.auth.signup.title}</Link>
+          {en.auth.form.linkToSignup}{' '}
+          <Link to={Routes.SIGNUP_PAGE_URL}>{en.auth.signup.title}</Link>
         </p>
       )}
     </div>
