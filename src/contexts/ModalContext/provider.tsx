@@ -1,18 +1,20 @@
-import { type ReactNode, useMemo, useState, useCallback } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 
 import { ModalContext } from './context'
+
+const defaultFadeDuration = 300
 
 const initialConfig: ModalContext.ModalConfig = {
   isOpen: false,
   content: null,
-  fadeDuration: 300,
+  fadeDuration: defaultFadeDuration,
 }
 
-export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
+export const ModalContextProvider = ({ children }: { children: Children }) => {
   const [config, setConfig] = useState(initialConfig)
 
   const openModal: ModalContext.Value['openModal'] = useCallback(
-    ({ content, fadeDuration = 300 }) => {
+    ({ content, fadeDuration = defaultFadeDuration }) => {
       setConfig({
         content,
         fadeDuration,
