@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { CartContext } from './context'
 import { logger } from '../../utilities'
@@ -15,7 +15,7 @@ const initialCartSummary: Cart = {
   totalPriceWithDeliveryCosts: 0,
 }
 
-export const CartContextProvider = ({ children }: { children: ReactNode }) => {
+export const CartContextProvider = ({ children }: { children: Children }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [cartSummary, setCartSummary] = useState<Cart>(initialCartSummary)
 

@@ -16,7 +16,7 @@ import { auth } from '../../firebaseConfig'
 import { Events, PubSub } from '../../utilities/pubSub'
 import { getFirebaseErrorMessage, logger } from '../../utilities'
 
-export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthContextProvider = ({ children }: { children: Children }) => {
   const [error, setError] = useState('')
   const [user, setUser] = useState<User>()
   const [isLoading, setIsLoading] = useState(false)

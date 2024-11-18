@@ -1,6 +1,6 @@
 import { FirebaseError } from 'firebase/app'
+import { useCallback, useMemo, useState } from 'react'
 import { type User, updateProfile } from 'firebase/auth'
-import { useCallback, useMemo, useState, type ReactNode } from 'react'
 import { ref, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage'
 
 import en from '../../i18n/en.json'
@@ -9,7 +9,7 @@ import { storage } from '../../firebaseConfig'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import { getFirebaseErrorMessage, logger } from '../../utilities'
 
-export const ProfileContextProvider = ({ children }: { children: ReactNode }) => {
+export const ProfileContextProvider = ({ children }: { children: Children }) => {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [userPhoto, setUserPhoto] = useState(defaultAvatar)

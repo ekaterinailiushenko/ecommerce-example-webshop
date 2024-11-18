@@ -1,4 +1,4 @@
-import { createContext, type ReactNode } from 'react'
+import { createContext } from 'react'
 
 export namespace ModalContext {
   export interface Value {
@@ -9,7 +9,7 @@ export namespace ModalContext {
 
   export interface ModalConfig {
     isOpen: boolean
-    content: ReactNode
+    content: JSX.Element | null
 
     fadeDuration?: number
   }

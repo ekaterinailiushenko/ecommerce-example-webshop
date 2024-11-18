@@ -1,11 +1,11 @@
-import { type ReactNode, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { logger } from '../../utilities'
 import { ProductContext } from './context'
 import { productApi } from '../../api/productApi'
 import type { Product, ProductDetails } from '../../api/types'
 
-export const ProductContextProvider = ({ children }: { children: ReactNode }) => {
+export const ProductContextProvider = ({ children }: { children: Children }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isProductsError, setIsProductsError] = useState(false)
   const [products, setProducts] = useState<Product[]>([])
