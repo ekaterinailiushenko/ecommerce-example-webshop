@@ -36,8 +36,8 @@ export const Input = () => {
             className="md:w-96 bg-searchbar py-2 pl-6 pr-8 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
           />
           {searchItem && (
-            <button onClick={() => setSearchItem('')}>
-              <Icon variant="MdClear" className="absolute top-3 right-2" />
+            <button onClick={() => setSearchItem('')} className="absolute inset-y-0 right-3">
+              <Icon variant="cross" />
             </button>
           )}
         </div>

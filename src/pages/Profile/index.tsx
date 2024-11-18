@@ -22,11 +22,8 @@ export const Profile = () => {
             className="rounded-full w-32"
             alt={en.profile.profileImageAltText}
           />
-          <Link to={Routes.SETTINGS_PAGE_URL}>
-            <Icon
-              variant="BsGearFill"
-              className="text-3xl text-neutral-400 absolute top-1 right-1 hover:animate-spin-slow"
-            />
+          <Link to={Routes.SETTINGS_PAGE_URL} className="absolute top-1 right-1">
+            <Icon variant="gear" size="lg" />
           </Link>
         </div>
         <div className="flex flex-col justify-between my-5">
@@ -35,7 +32,7 @@ export const Profile = () => {
             {en.profile.email} {user?.email}
           </p>
           <button className="flex items-center gap-2" onClick={handleLogoutClick}>
-            <Icon variant="MdLogout" className="text-slate-600" />
+            <Icon variant="logout" />
             <p className="text-xs text-slate-600">{en.profile.buttons.logout.title}</p>
           </button>
         </div>

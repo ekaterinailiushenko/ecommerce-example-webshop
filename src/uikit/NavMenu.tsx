@@ -20,7 +20,7 @@ export const NavMenu = () => {
       <div className="hover:text-white hover:underline transition">
         <Link to={user ? Routes.PROFILE_PAGE_URL : Routes.LOGIN_PAGE_URL}>
           <div className="flex flex-col items-center">
-            <Icon variant="MdAccountCircle" className="text-white size-8" />
+            <Icon variant="profile" size="lg" />
             <p className="text-xs">
               {user ? en.header.navMenu.linkToProfile : en.header.navMenu.linkToLogin}
             </p>
@@ -33,7 +33,7 @@ export const NavMenu = () => {
         </div>
         <Link to={Routes.CART_PAGE_URL}>
           <div className="flex flex-col items-center">
-            <Icon variant="MdOutlineShoppingCart" className="text-white size-8" />
+            <Icon variant="cart" size="lg" />
             <p className="text-xs ">{en.header.navMenu.linkToCart}</p>
           </div>
         </Link>

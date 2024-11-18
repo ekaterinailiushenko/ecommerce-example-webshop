@@ -98,7 +98,7 @@ export const Settings = () => {
         }}
         className="flex items-center gap-2"
       >
-        <Icon variant="IoChevronBackOutline" className="text-slate-600" />
+        <Icon variant="chevronLeft" />
         <p className="text-slate-600 text-sm">{en.profile.returnToAccount}</p>
       </button>
       <h1 className="text-3xl font-semibold">{en.profile.settings}</h1>
@@ -118,7 +118,7 @@ export const Settings = () => {
           onClick={handleDeleteProfileImageClick}
           className={classNames(isError && 'invisible')}
         >
-          <Icon variant="RiDeleteBin6Line" />
+          <Icon variant="bin" size="md" />
         </button>
       </div>
       <form onSubmit={handleNewPasswordSubmit} className="bg-yellow-200">
@@ -136,10 +136,10 @@ export const Settings = () => {
           />
           <button
             type="submit"
-            className="shadow-md px-3 font-medium text-white bg-green-600 rounded-md"
+            className="shadow-md px-3 bg-green-600 rounded-md"
             disabled={loading}
           >
-            {loading ? en.global.changing : <Icon variant="FaCheck" />}
+            {loading ? en.global.changing : <Icon variant="checkMark" />}
           </button>
         </div>
       </form>

@@ -35,7 +35,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
   if (isProductDetailsLoading || !productDetails) {
     return (
       <div className="flex flex-col items-center justify-center h-full p-5 gap-5">
-        <Icon variant="ImSpinner9" className="animate-spin text-3xl" />
+        <Icon variant="spinner" size="lg" />
         <p>{en.global.loading}</p>
       </div>
     )

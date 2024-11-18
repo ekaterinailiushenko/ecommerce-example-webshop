@@ -1,43 +1,57 @@
+import classNames from 'classnames'
+import { FaCheck } from 'react-icons/fa'
 import { TfiClose } from 'react-icons/tfi'
+import { BsGearFill } from 'react-icons/bs'
 import { ImSpinner9 } from 'react-icons/im'
 import { RiDeleteBin6Line } from 'react-icons/ri'
-import { BsGearFill, BsCart2 } from 'react-icons/bs'
 import { IoChevronBackOutline } from 'react-icons/io5'
-import { FaCheck, FaInfoCircle } from 'react-icons/fa'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
-import { MdLogout, MdClear, MdOutlineShoppingCart, MdAccountCircle } from 'react-icons/md'
-
-import { logger } from '../utilities'
+import { MdLogout, MdOutlineShoppingCart, MdAccountCircle } from 'react-icons/md'
 
 interface IconProps {
-  variant: keyof typeof iconMap
   className?: string
+  size?: 'sm' | 'md' | 'lg'
+  variant: keyof typeof iconMap
 }
 
 const iconMap = {
-  BsCart2,
-  FaCheck,
-  MdClear,
-  TfiClose,
-  MdLogout,
-  BsGearFill,
-  ImSpinner9,
-  FaInfoCircle,
-  AiOutlinePlus,
-  AiOutlineMinus,
-  MdAccountCircle,
-  RiDeleteBin6Line,
-  IoChevronBackOutline,
-  MdOutlineShoppingCart,
+  cross: TfiClose,
+  logout: MdLogout,
+  gear: BsGearFill,
+  checkMark: FaCheck,
+  plus: AiOutlinePlus,
+  spinner: ImSpinner9,
+  bin: RiDeleteBin6Line,
+  minus: AiOutlineMinus,
+  profile: MdAccountCircle,
+  cart: MdOutlineShoppingCart,
+  chevronLeft: IoChevronBackOutline,
 }
 
-export const Icon = ({ variant, className, ...rest }: IconProps) => {
+const stylePresets: Record<keyof typeof iconMap, string> = {
+  bin: '',
+  plus: '',
+  minus: '',
+  cart: 'text-white',
+  profile: 'text-white',
+  spinner: 'animate-spin',
+  checkMark: 'text-white',
+  logout: 'text-slate-600',
+  chevronLeft: 'text-slate-600',
+  gear: 'text-neutral-400 hover:animate-spin-slow',
+  cross: 'text-slate-400 hover:text-slate-500 transition',
+}
+
+const sizeClasses = {
+  sm: 'w-4 h-4',
+  md: 'w-6 h-6',
+  lg: 'w-8 h-8',
+}
+
+export const Icon = ({ variant, size = 'sm', className, ...rest }: IconProps) => {
   const IconComponent = iconMap[variant]
 
-  if (!IconComponent) {
-    logger.warn(`Icon component for variant "${variant}" not found.`)
-    return null
-  }
+  const combinedClassName = classNames(sizeClasses[size], stylePresets[variant], className)
 
-  return <IconComponent className={className} {...rest} />
+  return <IconComponent className={combinedClassName} {...rest} />
 }

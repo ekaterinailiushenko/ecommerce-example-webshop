@@ -67,13 +67,7 @@ export const CartItem = ({ item }: { item: Product }) => {
       </div>
       <div className="flex justify-end items-start">
         <button onClick={() => handleDeleteClick(item.product_id)} disabled={isRemoving}>
-          <Icon
-            variant="TfiClose"
-            className={classNames(
-              'text-slate-400 hover:text-slate-500 text-xl transition',
-              isRemoving && 'invisible'
-            )}
-          />
+          <Icon variant="cross" size="md" className={classNames(isRemoving && 'invisible')} />
         </button>
       </div>
     </section>

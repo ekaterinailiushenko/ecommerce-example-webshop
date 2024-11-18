@@ -11,7 +11,7 @@ export const Modal = () => {
   const { isOpen, content, fadeDuration } = config
 
   return (
-    <Backdrop onClick={closeModal} isOpen={isOpen}>
+    <Backdrop onClick={closeModal} isVisible={isOpen}>
       <Container
         onClick={e => e.stopPropagation()}
         className={classNames(
@@ -20,11 +20,8 @@ export const Modal = () => {
         )}
         style={{ transitionDuration: `${fadeDuration}ms` }}
       >
-        <button
-          onClick={closeModal}
-          className="absolute top-6 right-6 rounded-full text-gray-500 bg-gray-100 hover:text-gray-400"
-        >
-          <Icon variant="TfiClose" className="text-xs m-1" />
+        <button onClick={closeModal} className="absolute top-6 right-6">
+          <Icon variant="cross" />
         </button>
         {content}
       </Container>
