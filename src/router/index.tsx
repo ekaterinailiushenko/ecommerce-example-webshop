@@ -4,14 +4,14 @@ import '../index.css'
 import { Routes } from './config'
 import { ProtectedRoute, Layout } from '../uikit'
 import { ProfileContextProvider } from '../contexts/ProfileContext/provider'
-import { Cart, Home, LogIn, SignUp, Profile, Settings, ErrorPage } from '../pages'
+import { Cart, Home, LogIn, SignUp, Profile, Settings, RouteErrorPage } from '../pages'
 
 const router = createBrowserRouter(
   [
     {
       path: Routes.HOME_PAGE_URL,
       element: <Layout />,
-      errorElement: <ErrorPage />,
+      errorElement: <RouteErrorPage />,
       children: [
         {
           index: true,
