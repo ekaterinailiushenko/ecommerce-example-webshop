@@ -16,10 +16,10 @@ import { auth } from '../../firebaseConfig'
 import { Events, PubSub } from '../../utilities/pubSub'
 import { getFirebaseErrorMessage, logger } from '../../utilities'
 
-export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthContextProvider = ({ children }: { children: Children }) => {
+  const [error, setError] = useState('')
   const [user, setUser] = useState<User>()
-  const [error, setError] = useState<string>()
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSetError = useCallback((updatedError: string) => {
     setError(updatedError)
@@ -28,6 +28,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   const handleLogin = useCallback(
     async ({ email, password }: { email: string; password: string }) => {
       setError('')
+      setIsLoading(true)
 
       try {
         await signInWithEmailAndPassword(auth, email, password)
@@ -51,6 +52,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   const handleSignup = useCallback(
     async ({ email, password }: { email: string; password: string }) => {
       setError('')
+      setIsLoading(true)
 
       try {
         await createUserWithEmailAndPassword(auth, email, password)
@@ -72,6 +74,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
 
   const handleLogout = useCallback(async () => {
     setError('')
+    setIsLoading(true)
 
     try {
       await signOut(auth)
@@ -90,6 +93,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   const handleChangePassword = useCallback(
     async ({ user, newPassword }: { user: User; newPassword: string }) => {
       setError('')
+      setIsLoading(true)
 
       try {
         await updatePassword(user, newPassword)
@@ -111,6 +115,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
 
   const handleDeleteUser = useCallback(async (user: User) => {
     setError('')
+    setIsLoading(true)
 
     try {
       await deleteUser(user)
@@ -131,7 +136,6 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser || undefined)
-      setIsLoading(false)
     })
     return unsubscribe
   }, [])

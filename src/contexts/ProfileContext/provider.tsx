@@ -1,7 +1,7 @@
-import { ref, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage'
 import { FirebaseError } from 'firebase/app'
+import { useCallback, useMemo, useState } from 'react'
 import { type User, updateProfile } from 'firebase/auth'
-import { useCallback, useMemo, useState, type ReactNode } from 'react'
+import { ref, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage'
 
 import en from '../../i18n/en.json'
 import { ProfileContext } from './context'
@@ -9,13 +9,14 @@ import { storage } from '../../firebaseConfig'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import { getFirebaseErrorMessage, logger } from '../../utilities'
 
-export const ProfileContextProvider = ({ children }: { children: ReactNode }) => {
-  const [error, setError] = useState<string | null>()
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+export const ProfileContextProvider = ({ children }: { children: Children }) => {
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [userPhoto, setUserPhoto] = useState(defaultAvatar)
 
   const handleDeleteProfileImage = useCallback(async (user: User) => {
-    setError(null)
+    setError('')
+    setIsLoading(true)
 
     try {
       if (!user) {
@@ -42,7 +43,8 @@ export const ProfileContextProvider = ({ children }: { children: ReactNode }) =>
   }, [])
 
   const handleLoadProfileImage = useCallback(async (user: User) => {
-    setError(null)
+    setError('')
+    setIsLoading(true)
 
     try {
       if (!user) {
@@ -70,7 +72,8 @@ export const ProfileContextProvider = ({ children }: { children: ReactNode }) =>
 
   const handleUpdateProfileImage = useCallback(
     async ({ file, user }: { file: File; user: User }) => {
-      setError(null)
+      setError('')
+      setIsLoading(true)
 
       try {
         if (!user) {

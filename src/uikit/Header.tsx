@@ -1,19 +1,19 @@
-import { Link } from 'react-router-dom'
-
-import en from '../i18n/en.json'
 import { Input } from './Input'
+import en from '../i18n/en.json'
 import { NavMenu } from './NavMenu'
-import { useProductsStore } from '../stores'
+import { Routes } from '../router/config'
 import picnicHeaderLogo from '../assets/picnicHeaderLogo.png'
 
 export const Header = () => {
-  const clearSearchInput = useProductsStore(state => state.setSearchItem)
+  const goToHomepage = () => {
+    window.location.replace(Routes.HOME_PAGE_URL)
+  }
 
   return (
     <header className="flex justify-between items-center bg-header">
-      <Link to={`/`} onClick={() => clearSearchInput('')}>
+      <button onClick={goToHomepage}>
         <img className="size-16" src={picnicHeaderLogo} alt={en.header.logoAltText} />
-      </Link>
+      </button>
       <Input />
       <NavMenu />
     </header>

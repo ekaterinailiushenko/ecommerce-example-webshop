@@ -2,7 +2,8 @@
   "global": {
     "loading": "Loading...",
     "changing": "Changing...",
-    "errorHeader": "Oops!"
+    "errorHeader": "Oops!",
+    "closeButton": "CLOSE"
   },
   "header": {
     "inputPlaceholder": "Search by name...",
@@ -42,6 +43,7 @@
     "yourItems": "Your Item(s)"
   },
   "products": {
+    "productImageAltText": "Product",
     "errors": {
       "loadError": "There was an error loading the products",
       "notFound": {
@@ -51,8 +53,14 @@
     },
     "quickView": "Quick View",
     "modal": {
+      "error": "There was an error loading the product details. Please try again later.",
       "description": "Product Description",
-      "storageInstructions": "Storage Instructions",
+      "productImageAltText": "Product",
+      "storageInstructions": {
+        "title": "Storage Instructions",
+        "part1": "To maintain freshness, store ",
+        "part2": " in a cool, dry place. For best results, keep refrigerated and consume within a few days of purchase."
+      },
       "usageSuggestions": {
         "title": "Usage Suggestions",
         "bullet1": "Perfect for Salads: Add a fresh, crisp texture to your favorite salad mix.",

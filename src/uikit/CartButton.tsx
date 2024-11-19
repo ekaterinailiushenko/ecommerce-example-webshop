@@ -1,7 +1,4 @@
-import { BsCart2 } from 'react-icons/bs'
-import { RiDeleteBin6Line } from 'react-icons/ri'
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
-
+import { Icon } from './Icon'
 import en from '../i18n/en.json'
 import { formatPrice } from '../utilities'
 import type { Product } from '../api/types'
@@ -39,13 +36,9 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
         <div className="flex justify-between items-center w-full h-full">
           <button onClick={() => decreaseQuantity({ productId: product.product_id })}>
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
-              {itemInCart.amountInCart > 1 ? (
-                <AiOutlineMinus className="text-lg mx-2" />
-              ) : (
-                <RiDeleteBin6Line className="text-lg mx-2" />
-              )}
+              {itemInCart.amountInCart > 1 ? <Icon variant="minus" /> : <Icon variant="bin" />}
 
-              <div className="h-9 border-l border-green-300 opacity-30"></div>
+              <div className="h-9 border-l border-green-300 opacity-30 mx-2"></div>
             </div>
           </button>
           <div className="flex flex-col items-center justify-center leading-none w-full h-full">
@@ -56,8 +49,8 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
           </div>
           <button onClick={() => addProductToCart(product.product_id)}>
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
-              <div className="h-9 border-l border-green-300 opacity-20"></div>
-              <AiOutlinePlus className="text-lg mx-2" />
+              <div className="h-9 border-l border-green-300 opacity-20 mx-2"></div>
+              <Icon variant="plus" />
             </div>
           </button>
         </div>
@@ -68,14 +61,14 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
         className="flex gap-1 w-full h-full items-center justify-center"
         onClick={() => addProductToCart(product.product_id)}
       >
-        <BsCart2 className="text-sm" />
+        <Icon variant="cart" size="sm" />
         {en.cart.buttons.addToCart.title}
       </button>
     )
   }
 
   return (
-    <div className="shadow bg-green-500 text-white text-xs h-10 rounded-md relative">
+    <div className="shadow bg-green-500 text-white text-xs h-10 rounded-md px-2 relative">
       {renderButtonContent()}
     </div>
   )

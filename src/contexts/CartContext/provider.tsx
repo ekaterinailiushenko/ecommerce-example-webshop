@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { CartContext } from './context'
 import { logger } from '../../utilities'
@@ -15,13 +15,15 @@ const initialCartSummary: Cart = {
   totalPriceWithDeliveryCosts: 0,
 }
 
-export const CartContextProvider = ({ children }: { children: ReactNode }) => {
+export const CartContextProvider = ({ children }: { children: Children }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [cartSummary, setCartSummary] = useState<Cart>(initialCartSummary)
 
   const { user } = useAuthContext()
 
   const handleGetCart = useCallback(async () => {
+    setIsLoading(true)
+
     try {
       const cart = await cartApi.getCartSummary(user?.uid)
       setCartSummary(cart)
@@ -34,6 +36,8 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
 
   const handleAddProductToCart = useCallback(
     async (productId: Product['product_id']) => {
+      setIsLoading(true)
+
       try {
         const updatedCart = await cartApi.addProductToCart({
           userId: user?.uid,
@@ -51,6 +55,8 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
 
   const handleDeleteProductFromCart = useCallback(
     async ({ productId, removeAll }: { productId: Product['product_id']; removeAll?: boolean }) => {
+      setIsLoading(true)
+
       try {
         const updatedCart = await cartApi.deleteProductFromCart({
           userId: user?.uid,
@@ -68,6 +74,8 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
   )
 
   const handleClearCart = useCallback(async () => {
+    setIsLoading(true)
+
     try {
       const updatedCart = await cartApi.clearCart(user?.uid)
       setCartSummary(updatedCart)

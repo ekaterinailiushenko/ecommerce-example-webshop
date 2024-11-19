@@ -9,7 +9,7 @@ export namespace ProfileContext {
     loadProfileImage: (user: User) => Promise<void>
     updateProfileImage: (args: { file: File; user: User }) => Promise<void>
 
-    error?: string | null
+    error?: string
   }
 }
 

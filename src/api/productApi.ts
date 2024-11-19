@@ -1,8 +1,10 @@
-import { getProductsResponse, getProductDetailsResponse } from '../mock'
+import { backendSimulator } from '../mock/backendSimulator'
 
-export const API_URL = 'https://s3-eu-west-1.amazonaws.com/developer-application-test/cart'
-
-export const getProducts = () => Promise.resolve(getProductsResponse)
-
-export const getProductDetails = (id: string) =>
-  Promise.resolve(getProductDetailsResponse.find(i => i.product_id === id))
+/**
+ * Frontend-side product methods to work with backend's product service
+ */
+export const productApi = {
+  getProducts: backendSimulator.productApi.getProducts,
+  getProductDetails: backendSimulator.productApi.getProductDetails,
+  getFilteredProducts: backendSimulator.productApi.getFilteredProducts,
+}

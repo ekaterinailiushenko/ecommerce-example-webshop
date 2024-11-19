@@ -1,10 +1,10 @@
 import en from '../../../../i18n/en.json'
-import { useProductsStore } from '../../../../stores'
-import { ProductCard } from './components/ProductCard'
+import { ProductCard } from './components'
 import productNotFoundLogo from '../../../../assets/productNotFoundLogo.png'
+import { useProductContext } from '../../../../contexts/ProductContext/hook'
 
 export const Products = () => {
-  const products = useProductsStore(state => state.filteredProducts)
+  const { products } = useProductContext()
 
   const renderProducts = () => {
     if (!products.length) {

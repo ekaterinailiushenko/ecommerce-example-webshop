@@ -1,12 +1,11 @@
 import classNames from 'classnames'
-import { TfiClose } from 'react-icons/tfi'
 import { useEffect, useRef, useState } from 'react'
 
 import en from '../../../../i18n/en.json'
-import { CartButton } from '../../../../uikit'
-import type { Product } from '../../../../api/types'
-import { useCartContext } from '../../../../contexts/CartContext/hook'
 import { logger } from '../../../../utilities'
+import type { Product } from '../../../../api/types'
+import { Icon, CartButton } from '../../../../uikit'
+import { useCartContext } from '../../../../contexts/CartContext/hook'
 
 const REMOVAL_DELAY = 5000
 
@@ -57,7 +56,7 @@ export const CartItem = ({ item }: { item: Product }) => {
       <img
         src={item.image}
         className={classNames('object-contain place-self-center', isRemoving && 'opacity-50')}
-        alt={item.name}
+        alt={en.products.productImageAltText}
       />
       <div className="lg:col-start-2 lg:col-span-4 flex flex-col justify-between">
         <p className={classNames('font-bold text-lg', isRemoving && 'opacity-50')}>{item.name}</p>
@@ -68,12 +67,7 @@ export const CartItem = ({ item }: { item: Product }) => {
       </div>
       <div className="flex justify-end items-start">
         <button onClick={() => handleDeleteClick(item.product_id)} disabled={isRemoving}>
-          <TfiClose
-            className={classNames(
-              'text-slate-400 hover:text-slate-500 text-xl transition',
-              isRemoving && 'invisible'
-            )}
-          />
+          <Icon variant="cross" size="md" className={classNames(isRemoving && 'invisible')} />
         </button>
       </div>
     </section>

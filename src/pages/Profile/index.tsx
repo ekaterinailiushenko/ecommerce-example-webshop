@@ -1,16 +1,13 @@
-import { MdLogout } from 'react-icons/md'
-import { BsGearFill } from 'react-icons/bs'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 
+import { Icon } from '../../uikit'
 import en from '../../i18n/en.json'
+import { Routes } from '../../router/config'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import { useAuthContext } from '../../contexts/AuthContext/hook'
 
 export const Profile = () => {
   const { user, logout } = useAuthContext()
-
-  const location = useLocation()
-  const isProfilePage = ['/profile'].includes(location.pathname)
 
   const handleLogoutClick = async () => {
     await logout()
@@ -25,11 +22,9 @@ export const Profile = () => {
             className="rounded-full w-32"
             alt={en.profile.profileImageAltText}
           />
-          {isProfilePage && (
-            <Link to={'settings'}>
-              <BsGearFill className="text-3xl text-neutral-400 absolute top-1 right-1 hover:animate-spin-slow" />
-            </Link>
-          )}
+          <Link to={Routes.SETTINGS_PAGE_URL} className="absolute top-1 right-1">
+            <Icon variant="gear" size="lg" />
+          </Link>
         </div>
         <div className="flex flex-col justify-between my-5">
           <h1 className="text-3xl font-semibold">{en.profile.title}</h1>
@@ -37,7 +32,7 @@ export const Profile = () => {
             {en.profile.email} {user?.email}
           </p>
           <button className="flex items-center gap-2" onClick={handleLogoutClick}>
-            <MdLogout className="text-slate-600" />
+            <Icon variant="logout" />
             <p className="text-xs text-slate-600">{en.profile.buttons.logout.title}</p>
           </button>
         </div>

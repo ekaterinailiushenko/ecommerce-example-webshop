@@ -1,46 +1,44 @@
-import { useEffect } from 'react'
-import { MdClear } from 'react-icons/md'
-import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useMatch } from 'react-router-dom'
 
+import { Icon } from './Icon'
 import en from '../i18n/en.json'
-import { useProductsStore } from '../stores'
+import { Routes } from '../router/config'
+import { useProductContext } from '../contexts/ProductContext/hook'
 
 export const Input = () => {
-  const { filterItems, searchItem, setSearchItem, isLoading } = useProductsStore(state => {
-    return {
-      filterItems: state.filterProducts,
-      searchItem: state.searchItem,
-      setSearchItem: state.setSearchItem,
-      isLoading: state.isLoading,
-    }
-  })
+  const [searchItem, setSearchItem] = useState('')
 
-  const location = useLocation()
-  const isHomePage = ['/'].includes(location.pathname)
+  const { filterProducts, isLoading } = useProductContext()
+
+  const HomePage = useMatch(Routes.HOME_PAGE_URL)
 
   useEffect(() => {
-    if (!isHomePage) {
+    if (!HomePage) {
       setSearchItem('')
     }
-  }, [isHomePage, setSearchItem])
+  }, [HomePage])
 
   useEffect(() => {
-    filterItems(searchItem)
-  }, [searchItem, filterItems])
+    void filterProducts(searchItem)
+  }, [searchItem, filterProducts])
 
   return (
     <>
-      {!isLoading && isHomePage && (
+      {!isLoading && HomePage && (
         <div className="relative">
           <input
             type="text"
             value={searchItem}
             onChange={e => setSearchItem(e.target.value)}
+            maxLength={50}
             placeholder={en.header.inputPlaceholder}
-            className="md:w-96 bg-searchbar p-2 pl-4 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
+            className="md:w-96 bg-searchbar py-2 pl-6 pr-8 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
           />
           {searchItem && (
-            <MdClear className="absolute top-3 right-2" onClick={() => setSearchItem('')} />
+            <button onClick={() => setSearchItem('')} className="absolute inset-y-0 right-3">
+              <Icon variant="cross" />
+            </button>
           )}
         </div>
       )}

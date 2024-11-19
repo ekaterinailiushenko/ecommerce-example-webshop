@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 
 import en from '../i18n/en.json'
+import { Routes } from '../router/config'
 import { useAuthContext } from '../contexts/AuthContext/hook'
 
 type AuthFormProps = {
@@ -26,9 +27,9 @@ export const AuthForm = ({
   isSignup,
   onInputFocus,
 }: AuthFormProps) => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const { user, loading, error } = useAuthContext()
 
@@ -40,7 +41,7 @@ export const AuthForm = ({
   if (loading) return <div>{en.global.loading}</div>
 
   if (user) {
-    return <Navigate to="/profile" />
+    return <Navigate to={Routes.PROFILE_PAGE_URL} />
   }
 
   return (
@@ -105,11 +106,12 @@ export const AuthForm = ({
       </form>
       {isSignup ? (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToLogin} <Link to={'/login'}>{en.auth.login.title}</Link>
+          {en.auth.form.linkToLogin} <Link to={Routes.LOGIN_PAGE_URL}>{en.auth.login.title}</Link>
         </p>
       ) : (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToSignup} <Link to={'/signup'}>{en.auth.signup.title}</Link>
+          {en.auth.form.linkToSignup}{' '}
+          <Link to={Routes.SIGNUP_PAGE_URL}>{en.auth.signup.title}</Link>
         </p>
       )}
     </div>
