@@ -3,7 +3,9 @@
     "loading": "Loading...",
     "changing": "Changing...",
     "errorHeader": "Oops!",
-    "closeButton": "CLOSE"
+    "closeButton": "CLOSE",
+    "backHomeButton": "Back to Homepage",
+    "unknownError": "Something went wrong. Please try again later."
   },
   "header": {
     "inputPlaceholder": "Search by name...",
@@ -140,5 +142,11 @@
     "weakPassword": "Password should be at least 6 characters",
     "objectNotFound": "No object exists at the desired reference.",
     "unknownError": "Something went wrong. Please try again later."
+  },
+  "routeError": {
+    "pageNotFound": "This page doesn't exist!",
+    "unauthorized": "You aren't authorized to see this",
+    "apiUnavailable": "Looks like our API is down",
+    "unknownError": "Something went wrong"
   }
 }
