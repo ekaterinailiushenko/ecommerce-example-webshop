@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router-dom'
 
 import en from '../../i18n/en.json'
@@ -8,7 +9,11 @@ import { getRouteErrorMessage } from '../../router/getRouterErrorMessage'
 export const RouteErrorPage = () => {
   const error = useRouteError()
 
-  logger.error(error)
+  useEffect(() => {
+    if (error) {
+      logger.error(error)
+    }
+  }, [error])
 
   const isRouteError = isRouteErrorResponse(error)
 
