@@ -1,16 +1,18 @@
-// ImageWithPlaceholder component
 import { useState } from 'react'
 import classNames from 'classnames'
 
-export const ImageWithPlaceholder = ({
-  src,
-  alt,
-  size,
-}: {
-  src: string
-  alt: string
-  size: number
-}) => {
+import { Container } from './Container'
+
+export namespace ImageWithPlaceholder {
+  export interface Props {
+    src: string
+    alt: string
+
+    size?: number
+  }
+}
+
+export const ImageWithPlaceholder = ({ src, alt, size }: ImageWithPlaceholder.Props) => {
   const [isLoaded, setIsLoaded] = useState(false)
 
   const handleImageLoad = () => {
@@ -18,8 +20,8 @@ export const ImageWithPlaceholder = ({
   }
 
   return (
-    <div className="relative h-full w-full">
-      <div
+    <Container className="relative h-full w-full">
+      <Container
         className={classNames(
           'absolute inset-0 bg-slate-200 transition-opacity duration-500',
           isLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'
@@ -32,9 +34,9 @@ export const ImageWithPlaceholder = ({
           'transition-opacity duration-500 object-contain mx-auto',
           isLoaded ? 'opacity-100' : 'opacity-0'
         )}
-        style={{ height: `${size}px` }}
+        style={{ height: size }}
         onLoad={handleImageLoad}
       />
-    </div>
+    </Container>
   )
 }

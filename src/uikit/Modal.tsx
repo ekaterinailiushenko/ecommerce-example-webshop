@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { Icon } from './Icon'
+import { Button } from './Button'
 import { Backdrop } from './Backdrop'
 import { Container } from './Container'
 import { useModalContext } from '../contexts/ModalContext/hook'
@@ -15,14 +15,19 @@ export const Modal = () => {
       <Container
         onClick={e => e.stopPropagation()}
         className={classNames(
-          'bg-white w-4/12 h-4/6 rounded-2xl p-6 transition-all ease-in',
-          isOpen ? 'scale-100 opacity-100' : 'scale-125 opacity-0'
+          'bg-white absolute inset-x-0 bottom-0 rounded-t-xl py-5 px-3 transition-all ease-out',
+          'md:inset-0 md:place-self-center md:rounded-xl md:max-w-xl md:max-h-[30rem]',
+          isOpen ? 'translate-y-2 opacity-100' : '-translate-y-2 opacity-0'
         )}
         style={{ transitionDuration: `${fadeDuration}ms` }}
       >
-        <button onClick={closeModal} className="absolute top-6 right-6">
-          <Icon variant="cross" />
-        </button>
+        <Button
+          variant="icon"
+          icon="cross"
+          iconSize="xs"
+          onClick={closeModal}
+          className="absolute top-4 right-4"
+        />
         {content}
       </Container>
     </Backdrop>

@@ -1,23 +1,25 @@
 import classNames from 'classnames'
 
-export const Backdrop = ({
-  children,
-  onClick,
-  isVisible,
-}: {
-  children: Children
-  onClick: () => void
-  isVisible: boolean
-}) => {
+import { Container } from './Container'
+
+export namespace Backdrop {
+  export interface Props {
+    children: Children
+    onClick: () => void
+    isVisible: boolean
+  }
+}
+
+export const Backdrop = ({ children, onClick, isVisible }: Backdrop.Props) => {
   return (
-    <div
+    <Container
       onClick={onClick}
       className={classNames(
-        'fixed inset-0 flex justify-center items-center transition-colors z-50',
-        isVisible ? 'visible bg-black/75' : 'invisible'
+        'fixed inset-0 transition-colors z-50',
+        isVisible ? 'visible bg-black/50' : 'invisible'
       )}
     >
       {children}
-    </div>
+    </Container>
   )
 }
