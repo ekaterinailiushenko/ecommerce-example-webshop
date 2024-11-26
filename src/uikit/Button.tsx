@@ -67,8 +67,25 @@ export const Button = ({
 }: Button.Props) => {
   const combinedClassName = classNames(sizeClasses[size], variantClasses[variant], className)
 
-  const renderIcon = (position: 'left' | 'right') =>
-    icon && iconPosition === position && <Icon variant={icon} size={iconSize} />
+  const renderIcon = (position: Button.Props['iconPosition']) => {
+    if (!icon || iconPosition !== position) {
+      return null
+    }
+
+    return <Icon variant={icon} size={iconSize} />
+  }
+
+  const renderContent = () => {
+    if (isLoading) {
+      return <Icon variant="spinner" size={iconSize} />
+    }
+
+    if (!label) {
+      return children
+    }
+
+    return label
+  }
 
   return (
     <button
@@ -78,7 +95,7 @@ export const Button = ({
       {...rest}
     >
       {renderIcon('left')}
-      {isLoading ? <Icon variant="spinner" size={iconSize} /> : label || children}
+      {renderContent()}
       {renderIcon('right')}
     </button>
   )
