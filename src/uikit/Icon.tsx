@@ -8,10 +8,16 @@ import { IoChevronBackOutline } from 'react-icons/io5'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 import { MdLogout, MdOutlineShoppingCart, MdAccountCircle } from 'react-icons/md'
 
-interface IconProps {
-  className?: string
-  size?: 'sm' | 'md' | 'lg'
-  variant: keyof typeof iconMap
+export namespace Icon {
+  export interface Props {
+    variant: keyof typeof iconMap
+
+    className?: string
+    /**
+     * @default sm
+     */
+    size?: 'xs' | 'sm' | 'md' | 'lg'
+  }
 }
 
 const iconMap = {
@@ -36,19 +42,20 @@ const stylePresets: Record<keyof typeof iconMap, string> = {
   profile: 'text-white',
   spinner: 'animate-spin',
   checkMark: 'text-white',
-  logout: 'text-slate-600',
-  chevronLeft: 'text-slate-600',
+  logout: '',
+  chevronLeft: '',
   gear: 'text-neutral-400 hover:animate-spin-slow',
   cross: 'text-slate-400 hover:text-slate-500 transition',
 }
 
 const sizeClasses = {
+  xs: 'w-3 h-3',
   sm: 'w-4 h-4',
   md: 'w-6 h-6',
   lg: 'w-8 h-8',
 }
 
-export const Icon = ({ variant, size = 'sm', className, ...rest }: IconProps) => {
+export const Icon = ({ variant, size = 'sm', className, ...rest }: Icon.Props) => {
   const IconComponent = iconMap[variant]
 
   const combinedClassName = classNames(sizeClasses[size], stylePresets[variant], className)

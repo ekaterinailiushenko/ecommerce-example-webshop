@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useMatch } from 'react-router-dom'
 
-import { Icon } from './Icon'
 import en from '../i18n/en.json'
+import { Button } from '../uikit'
 import { Routes } from '../router/config'
 import { useProductContext } from '../contexts/ProductContext/hook'
 
@@ -11,13 +11,13 @@ export const Input = () => {
 
   const { filterProducts, isLoading } = useProductContext()
 
-  const HomePage = useMatch(Routes.HOME_PAGE_URL)
+  const isHomePage = !!useMatch(Routes.HOME_PAGE_URL)
 
   useEffect(() => {
-    if (!HomePage) {
+    if (!isHomePage) {
       setSearchItem('')
     }
-  }, [HomePage])
+  }, [isHomePage])
 
   useEffect(() => {
     void filterProducts(searchItem)
@@ -25,20 +25,23 @@ export const Input = () => {
 
   return (
     <>
-      {!isLoading && HomePage && (
-        <div className="relative">
+      {!isLoading && isHomePage && (
+        <div className="relative w-full">
           <input
             type="text"
             value={searchItem}
             onChange={e => setSearchItem(e.target.value)}
             maxLength={50}
             placeholder={en.header.inputPlaceholder}
-            className="md:w-96 bg-searchbar py-2 pl-6 pr-8 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
+            className="w-full bg-searchbar py-2 pl-6 pr-8 rounded-3xl shadow-sm placeholder:text-white placeholder:text-sm placeholder:opacity-50 focus:outline-none focus:shadow-outline focus:bg-white"
           />
           {searchItem && (
-            <button onClick={() => setSearchItem('')} className="absolute inset-y-0 right-3">
-              <Icon variant="cross" />
-            </button>
+            <Button
+              variant="icon"
+              icon="cross"
+              onClick={() => setSearchItem('')}
+              className="absolute inset-y-0 right-3"
+            />
           )}
         </div>
       )}

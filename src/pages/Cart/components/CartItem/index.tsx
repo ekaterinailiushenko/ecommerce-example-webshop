@@ -1,10 +1,11 @@
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 
+import { Icon } from '../../../../uikit'
 import en from '../../../../i18n/en.json'
+import { CartButton } from '../CartButton'
 import { logger } from '../../../../utilities'
 import type { Product } from '../../../../api/types'
-import { Icon, CartButton } from '../../../../uikit'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
 
 const REMOVAL_DELAY = 5000

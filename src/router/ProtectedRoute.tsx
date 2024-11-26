@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 
 import en from '../i18n/en.json'
-import { Routes } from '../router/config'
+import { Routes } from './config'
 import { useAuthContext } from '../contexts/AuthContext/hook'
 
 export const ProtectedRoute = ({ children }: { children: Children }) => {

@@ -1,8 +1,8 @@
-import { Icon } from './Icon'
-import en from '../i18n/en.json'
-import { formatPrice } from '../utilities'
-import type { Product } from '../api/types'
-import { useCartContext } from '../contexts/CartContext/hook'
+import { Icon } from '../../../../uikit'
+import en from '../../../../i18n/en.json'
+import { formatPrice } from '../../../../utilities'
+import type { Product } from '../../../../api/types'
+import { useCartContext } from '../../../../contexts/CartContext/hook'
 
 type Props = {
   product: Product
@@ -68,7 +68,7 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
   }
 
   return (
-    <div className="shadow bg-green-500 text-white text-xs h-10 rounded-md px-2 relative">
+    <div className="shadow bg-green1 text-white text-xs h-10 rounded-md px-2 relative">
       {renderButtonContent()}
     </div>
   )

@@ -2,7 +2,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import '../index.css'
 import { Routes } from './config'
-import { ProtectedRoute, Layout } from '../uikit'
+import { Layout } from '../components'
+import { ProtectedRoute } from './ProtectedRoute'
 import { ProfileContextProvider } from '../contexts/ProfileContext/provider'
 import { Cart, Home, LogIn, SignUp, Profile, Settings, RouteErrorPage } from '../pages'
 

@@ -1,4 +1,5 @@
 import en from '../../../../i18n/en.json'
+import { Button } from '../../../../uikit'
 import { formatPrice } from '../../../../utilities'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
 
@@ -31,16 +32,14 @@ export const CartSummary = () => {
         </div>
       </div>
       <div className="my-4 h-px bg-slate-300"></div>
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-4">
         <div className="flex items-baseline gap-1">
           <p className="font-bold text-xl">{en.cart.total}</p>
           <p className="text-xs text-slate-600">{en.cart.inclVAT}</p>
         </div>
         <p className="font-bold">{formatPrice(totalPriceWithDeliveryCosts)}</p>
       </div>
-      <button className="mt-4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 rounded-md w-full shadow">
-        {en.cart.buttons.buyNow.title}
-      </button>
+      <Button variant="success" size="large" label={en.cart.buttons.buyNow.title} />
     </section>
   )
 }
