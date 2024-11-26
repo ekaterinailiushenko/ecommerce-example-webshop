@@ -1,5 +1,5 @@
 import en from '../../i18n/en.json'
-import { AuthForm } from '../../uikit'
+import { AuthForm } from '../../components'
 import { useAuthContext } from '../../contexts/AuthContext/hook'
 
 export const SignUp = () => {

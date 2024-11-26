@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { Icon } from '../../uikit'
 import en from '../../i18n/en.json'
+import { Button } from '../../uikit'
 import { logger } from '../../utilities'
 import { UpdateImageButton } from './components'
 import { useAuthContext } from '../../contexts/AuthContext/hook'
@@ -92,15 +92,14 @@ export const Settings = () => {
 
   return (
     <>
-      <button
+      <Button
+        variant="minimalist"
+        icon="chevronLeft"
+        label={en.profile.returnToAccount}
         onClick={() => {
           navigate(-1)
         }}
-        className="flex items-center gap-2"
-      >
-        <Icon variant="chevronLeft" />
-        <p className="text-slate-600 text-sm">{en.profile.returnToAccount}</p>
-      </button>
+      />
       <h1 className="text-3xl font-semibold">{en.profile.settings}</h1>
       <h2 className="text-2xl font-semibold">{en.profile.data}</h2>
       <div className="flex items-center gap-6 outline">
@@ -114,12 +113,14 @@ export const Settings = () => {
           />
         )}
         <UpdateImageButton onChange={handleUploadImageChange} />
-        <button
+        <Button
+          variant="icon"
+          size="minimal"
+          icon="bin"
+          iconSize="md"
           onClick={handleDeleteProfileImageClick}
           className={classNames(isError && 'invisible')}
-        >
-          <Icon variant="bin" size="md" />
-        </button>
+        />
       </div>
       <form onSubmit={handleNewPasswordSubmit} className="bg-yellow-200">
         <label htmlFor="newPassword" className="mb-1 block text-sm font-medium text-gray-700">
@@ -134,23 +135,23 @@ export const Settings = () => {
             required
             className=" w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-          <button
+          <Button
             type="submit"
-            className="shadow-md px-3 bg-green-600 rounded-md"
+            variant="success"
+            size="small"
+            icon="checkMark"
             disabled={loading}
-          >
-            {loading ? en.global.changing : <Icon variant="checkMark" />}
-          </button>
+          />
         </div>
       </form>
 
       {error && <div className="text-red-500 text-sm">{error}</div>}
-      <button
+      <Button
+        variant="danger"
+        size="small"
+        label={en.profile.buttons.deleteAccount.title}
         onClick={handleDeleteAccountClick}
-        className="shadow-md px-3 py-1 font-medium text-white bg-red-600 rounded-md"
-      >
-        {en.profile.buttons.deleteAccount.title}
-      </button>
+      />
     </>
   )
 }

@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router-dom'
 
 import en from '../../i18n/en.json'
+import { Container } from '../../uikit'
 import { logger } from '../../utilities'
-import { Container } from '../../uikit/Container'
 import { getRouteErrorMessage } from '../../router/getRouterErrorMessage'
 
 export const RouteErrorPage = () => {

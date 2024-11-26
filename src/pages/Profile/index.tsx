@@ -1,7 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
 
-import { Icon } from '../../uikit'
 import en from '../../i18n/en.json'
+import { Icon, Button } from '../../uikit'
 import { Routes } from '../../router/config'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import { useAuthContext } from '../../contexts/AuthContext/hook'
@@ -26,15 +26,17 @@ export const Profile = () => {
             <Icon variant="gear" size="lg" />
           </Link>
         </div>
-        <div className="flex flex-col justify-between my-5">
+        <div className="flex flex-col justify-between my-5 bg-red-100 items-start">
           <h1 className="text-3xl font-semibold">{en.profile.title}</h1>
           <p className="text-slate-600">
             {en.profile.email} {user?.email}
           </p>
-          <button className="flex items-center gap-2" onClick={handleLogoutClick}>
-            <Icon variant="logout" />
-            <p className="text-xs text-slate-600">{en.profile.buttons.logout.title}</p>
-          </button>
+          <Button
+            variant="minimalist"
+            icon="logout"
+            label={en.profile.buttons.logout.title}
+            onClick={handleLogoutClick}
+          />
         </div>
       </div>
       <Outlet />

@@ -3,10 +3,10 @@ import { useEffect } from 'react'
 import en from '../../../../../i18n/en.json'
 import { formatPrice } from '../../../../../utilities'
 import type { Product } from '../../../../../api/types'
-import { Icon, CartButton } from '../../../../../uikit'
+import { CartButton } from '../../../../Cart/components'
+import { Button, Container, Icon, ImageWithPlaceholder, Text } from '../../../../../uikit'
 import { useModalContext } from '../../../../../contexts/ModalContext/hook'
 import { useProductContext } from '../../../../../contexts/ProductContext/hook'
-import { ImageWithPlaceholder } from '../../../../../uikit/ImageWithPlaceholder'
 
 export const ProductCardModal = ({ product }: { product: Product }) => {
   const { closeModal } = useModalContext()
@@ -20,15 +20,10 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
 
   if (isProductDetailsError) {
     return (
-      <div className="flex flex-col h-full p-5">
-        <p className="flex items-center flex-1 text-xl text-center">{en.products.modal.error}</p>
-        <button
-          onClick={closeModal}
-          className="flex justify-center bg-red-500 hover:bg-red-700 rounded-lg py-2 px-4 text-white transition-colors duration-200"
-        >
-          {en.global.closeButton}
-        </button>
-      </div>
+      <Container className="flex flex-col items-center p-5 gap-5">
+        <Text text={en.products.modal.error} size="xl" className="text-center" />
+        <Button variant="danger" size="large" label={en.global.closeButton} onClick={closeModal} />
+      </Container>
     )
   }
 
@@ -58,7 +53,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
           <CartButton product={product} />
         </div>
       </div>
-      <div className="col-span-2 overflow-y-auto">
+      <div className="col-span-2 overflow-y-auto max-h-64">
         <p className="font-semibold text-gray-500 text-base">{en.products.modal.description}</p>
         <p className="text-sm mb-3">{productDetails.description}</p>
         <p className="font-semibold text-gray-500 text-base">
