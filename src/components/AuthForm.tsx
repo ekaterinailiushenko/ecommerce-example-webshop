@@ -2,42 +2,35 @@ import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 
 import en from '../i18n/en.json'
-import { Button } from '../uikit'
 import { Routes } from '../router/config'
-import { FormInput } from '../uikit/FormInput'
+import { Button, FormInput } from '../uikit'
 import { useAuthContext } from '../contexts/AuthContext/hook'
 
-type AuthFormProps = {
-  formPlaceholder: string
-  onSubmit: ({
-    email,
-    password,
-    confirmPassword,
-  }: {
-    email: string
-    password: string
-    confirmPassword: string
-  }) => void
-  buttonText: string
+type Props = {
   isSignup: boolean
-  onInputFocus: () => void
 }
-export const AuthForm = ({
-  formPlaceholder,
-  onSubmit,
-  buttonText,
-  isSignup,
-  onInputFocus,
-}: AuthFormProps) => {
+
+export const AuthForm = ({ isSignup }: Props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const { user, loading, error } = useAuthContext()
+  const { user, loading, error, setError, signup, login } = useAuthContext()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit({ email, password, confirmPassword })
+
+    if (isSignup && confirmPassword !== password) {
+      setError(en.auth.signup.passwordsNotEqual)
+      return
+    }
+
+    const authAction = isSignup ? signup : login
+    await authAction({ email, password })
+  }
+
+  const handleInputFocus = () => {
+    setError('')
   }
 
   if (loading) return <div>{en.global.loading}</div>
@@ -48,8 +41,10 @@ export const AuthForm = ({
 
   return (
     <div className="bg-white shadow-md rounded flex flex-col w-5/6 sm:w-1/3 border border-inherit">
-      <h2 className="text-2xl font-semibold mt-6 self-center">{formPlaceholder}</h2>
-      <form onSubmit={handleSubmit} className="space-y-4 p-8">
+      <h2 className="text-2xl font-semibold mt-6 self-center">
+        {isSignup ? en.auth.signup.title : en.auth.login.title}
+      </h2>
+      <form onSubmit={handleFormSubmit} className="space-y-4 p-8">
         <FormInput
           label={en.auth.form.email}
           htmlFor="email"
@@ -57,7 +52,7 @@ export const AuthForm = ({
           id="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          onFocus={onInputFocus}
+          onFocus={handleInputFocus}
           required
         />
         <FormInput
@@ -67,7 +62,7 @@ export const AuthForm = ({
           id="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          onFocus={onInputFocus}
+          onFocus={handleInputFocus}
           required
         />
         {isSignup && (
@@ -78,14 +73,19 @@ export const AuthForm = ({
             id="confirmPassword"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
-            onFocus={onInputFocus}
+            onFocus={handleInputFocus}
             required
           />
         )}
         <div className="flex items-center h-6">
           {error && <div className="text-red-500 text-sm leading-tight">{error}</div>}
         </div>
-        <Button type="submit" variant="secondary" label={buttonText} size="large" />
+        <Button
+          type="submit"
+          variant="secondary"
+          label={isSignup ? en.auth.signup.button : en.auth.login.button}
+          size="large"
+        />
       </form>
       {isSignup ? (
         <p className="text-sm text-center mb-6">
