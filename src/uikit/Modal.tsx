@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import classNames from 'classnames'
 
 import { Button } from './Button'
@@ -10,13 +11,30 @@ export const Modal = () => {
 
   const { isOpen, content, fadeDuration } = config
 
+  useEffect(() => {
+    if (isOpen) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+
+      document.body.style.overflow = 'hidden'
+      document.body.style.paddingRight = `${scrollbarWidth}px`
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
+    }
+
+    return () => {
+      document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
+    }
+  }, [isOpen])
+
   return (
     <Backdrop onClick={closeModal} isVisible={isOpen}>
       <Container
         onClick={e => e.stopPropagation()}
         className={classNames(
-          'bg-white absolute inset-x-0 bottom-0 rounded-t-xl py-5 px-3 transition-all ease-out',
-          'md:inset-0 md:place-self-center md:rounded-xl md:max-w-xl md:max-h-[30rem]',
+          'bg-white absolute inset-x-0 bottom-0 rounded-t-xl p-6 transition-all ease-out',
+          'md:inset-0 md:place-self-center md:rounded-md md:max-w-[700px] md:max-h-[550px]',
           isOpen ? 'translate-y-2 opacity-100' : '-translate-y-2 opacity-0'
         )}
         style={{ transitionDuration: `${fadeDuration}ms` }}
