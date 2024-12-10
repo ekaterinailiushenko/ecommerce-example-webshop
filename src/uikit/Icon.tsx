@@ -1,12 +1,24 @@
+import {
+  MdLogout,
+  MdPercent,
+  MdMenuBook,
+  MdOutlineInfo,
+  MdOutlineShoppingCart,
+  MdOutlineBusinessCenter,
+} from 'react-icons/md'
 import classNames from 'classnames'
+import { FiPlus } from 'react-icons/fi'
 import { FaCheck } from 'react-icons/fa'
-import { TfiClose } from 'react-icons/tfi'
-import { BsGearFill } from 'react-icons/bs'
+import { CgProfile } from 'react-icons/cg'
+import { BiLogoAws } from 'react-icons/bi'
 import { ImSpinner9 } from 'react-icons/im'
-import { RiDeleteBin6Line } from 'react-icons/ri'
-import { IoChevronBackOutline } from 'react-icons/io5'
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
-import { MdLogout, MdOutlineShoppingCart, MdAccountCircle } from 'react-icons/md'
+import { LuCroissant } from 'react-icons/lu'
+import { PiMagnifyingGlassBold } from 'react-icons/pi'
+import { BsGearFill, BsArrowUp } from 'react-icons/bs'
+import { AiOutlineMinus, AiFillStar } from 'react-icons/ai'
+import { RiDeleteBin6Line, RiBowlLine } from 'react-icons/ri'
+import { IoChevronBackOutline, IoClose } from 'react-icons/io5'
+import { TiBusinessCard, TiArrowSortedDown } from 'react-icons/ti'
 
 export namespace Icon {
   export interface Props {
@@ -16,41 +28,66 @@ export namespace Icon {
     /**
      * @default sm
      */
-    size?: 'xs' | 'sm' | 'md' | 'lg'
+    size?: keyof typeof sizeClasses
   }
 }
 
 const iconMap = {
-  cross: TfiClose,
+  plus: FiPlus,
+  cross: IoClose,
+  logo: BiLogoAws,
+  arrowUp: BsArrowUp,
   logout: MdLogout,
+  star: AiFillStar,
+  bowl: RiBowlLine,
   gear: BsGearFill,
+  menu: MdMenuBook,
+  percent: MdPercent,
+  profile: CgProfile,
   checkMark: FaCheck,
-  plus: AiOutlinePlus,
+  info: MdOutlineInfo,
   spinner: ImSpinner9,
   bin: RiDeleteBin6Line,
+  croissant: LuCroissant,
   minus: AiOutlineMinus,
-  profile: MdAccountCircle,
+  memberCard: TiBusinessCard,
   cart: MdOutlineShoppingCart,
+  arrowDown: TiArrowSortedDown,
+  mgnfGlass: PiMagnifyingGlassBold,
+  suitcase: MdOutlineBusinessCenter,
   chevronLeft: IoChevronBackOutline,
 }
 
 const stylePresets: Record<keyof typeof iconMap, string> = {
   bin: '',
   plus: '',
+  info: '',
+  arrowUp: '',
+  arrowDown: '',
+  menu: '',
+  logo: 'text-green4',
+  star: 'fill-orange1',
   minus: '',
-  cart: 'text-white',
-  profile: 'text-white',
+  cart: '',
+  profile: '',
+  bowl: '',
+  suitcase: '',
+  mgnfGlass: 'text-white',
+  croissant: '',
   spinner: 'animate-spin',
   checkMark: 'text-white',
   logout: '',
+  memberCard: '',
   chevronLeft: '',
-  gear: 'text-neutral-400 hover:animate-spin-slow',
-  cross: 'text-slate-400 hover:text-slate-500 transition',
+  percent: 'fill-orange2',
+  gear: 'text-grey3 animate-spin-slow hover:[animation-play-state:running] [animation-play-state:paused]',
+  cross: 'text-white transition',
 }
 
 const sizeClasses = {
-  xs: 'w-3 h-3',
-  sm: 'w-4 h-4',
+  xxs: 'w-3.5 h-3.5',
+  xs: 'w-4 h-4',
+  sm: 'w-5 h-5',
   md: 'w-6 h-6',
   lg: 'w-8 h-8',
 }
