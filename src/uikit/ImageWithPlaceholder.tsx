@@ -31,7 +31,7 @@ export const ImageWithPlaceholder = ({ src, alt, size }: ImageWithPlaceholder.Pr
         src={src}
         alt={alt}
         className={classNames(
-          'transition-opacity duration-500 object-contain mx-auto',
+          'absolute inset-0 transition-opacity duration-500 object-contain mx-auto my-auto',
           isLoaded ? 'opacity-100' : 'opacity-0'
         )}
         style={{ height: size }}
