@@ -1,6 +1,7 @@
 export * from './Icon'
 export * from './Text'
 export * from './Modal'
+export * from './Badge'
 export * from './Button'
 export * from './Dropdown'
 export * from './Backdrop'
