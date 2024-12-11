@@ -7,17 +7,19 @@ export namespace Text {
     /**
      * @default m
      */
-    size?: 'xs' | 's' | 'm' | 'l' | 'xl'
+    size?: keyof typeof sizeClasses
     className?: string
   }
 }
 
 const sizeClasses = {
+  xxs: 'text-xxs',
   xs: 'text-xs',
   s: 'text-sm',
   m: 'text-base',
   l: 'text-lg',
   xl: 'text-xl',
+  xxl: 'text-2xl',
 }
 
 export const Text = ({ text, size = 'm', className, ...rest }: Text.Props) => {
