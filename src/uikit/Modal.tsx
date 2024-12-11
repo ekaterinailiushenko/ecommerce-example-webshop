@@ -34,7 +34,7 @@ export const Modal = () => {
         onClick={e => e.stopPropagation()}
         className={classNames(
           'bg-white absolute inset-x-0 bottom-0 rounded-t-xl p-6 transition-all ease-out',
-          'md:inset-0 md:place-self-center md:rounded-md md:max-w-[700px] md:max-h-[550px]',
+          'md:inset-0 md:place-self-center md:rounded-xl md:max-w-[700px] md:max-h-[550px]',
           isOpen ? 'translate-y-2 opacity-100' : '-translate-y-2 opacity-0'
         )}
         style={{ transitionDuration: `${fadeDuration}ms` }}
