@@ -118,7 +118,7 @@
         "warn": "Are you sure you want to delete your profile image?"
       },
       "changePassword": {
-        "title": "changePassword"
+        "title": "Change password"
       }
     },
     "returnToAccount": "Return to your personal account",

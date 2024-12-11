@@ -99,10 +99,11 @@ export const Settings = () => {
         onClick={() => {
           navigate(-1)
         }}
+        className="mt-4"
       />
-      <h1 className="text-3xl font-semibold">{en.profile.settings}</h1>
+      <h1 className="text-3xl font-semibold my-4">{en.profile.settings}</h1>
       <h2 className="text-2xl font-semibold">{en.profile.data}</h2>
-      <div className="flex items-center gap-6 outline">
+      <div className="flex items-center gap-6 my-2">
         {isLoading ? (
           <div className="w-16 h-16 rounded-full bg-gray-300 animate-pulse" />
         ) : (
@@ -122,7 +123,7 @@ export const Settings = () => {
           className={classNames(isError && 'invisible')}
         />
       </div>
-      <form onSubmit={handleNewPasswordSubmit} className="bg-yellow-200">
+      <form onSubmit={handleNewPasswordSubmit} className="my-4">
         <label htmlFor="newPassword" className="mb-1 block text-sm font-medium text-gray-700">
           {en.profile.buttons.changePassword.title}
         </label>
@@ -144,7 +145,6 @@ export const Settings = () => {
           />
         </div>
       </form>
-
       {error && <div className="text-red-500 text-sm">{error}</div>}
       <Button
         variant="danger"
