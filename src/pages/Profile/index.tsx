@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
 import en from '../../i18n/en.json'
 import { Icon, Button } from '../../uikit'
@@ -8,6 +8,8 @@ import { useAuthContext } from '../../contexts/AuthContext/hook'
 
 export const Profile = () => {
   const { user, logout } = useAuthContext()
+
+  const location = useLocation()
 
   const handleLogoutClick = async () => {
     await logout()
@@ -22,11 +24,13 @@ export const Profile = () => {
             className="rounded-full w-32"
             alt={en.profile.profileImageAltText}
           />
-          <Link to={Routes.SETTINGS_PAGE_URL} className="absolute top-1 right-1">
-            <Icon variant="gear" size="lg" />
-          </Link>
+          {location.pathname === Routes.PROFILE_PAGE_URL && (
+            <Link to={Routes.SETTINGS_PAGE_URL} className="absolute top-1 right-1">
+              <Icon variant="gear" size="lg" />
+            </Link>
+          )}
         </div>
-        <div className="flex flex-col justify-between my-5 bg-red-100 items-start">
+        <div className="flex flex-col justify-between my-5 items-start">
           <h1 className="text-3xl font-semibold">{en.profile.title}</h1>
           <p className="text-slate-600">
             {en.profile.email} {user?.email}
