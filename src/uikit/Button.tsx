@@ -5,7 +5,7 @@ import { Icon } from './Icon'
 
 export namespace Button {
   export interface Props {
-    variant: 'success' | 'secondary' | 'danger' | 'info' | 'light' | 'minimalist' | 'icon'
+    variant: keyof typeof variantClasses
 
     label?: string
     children?: Children
@@ -14,9 +14,9 @@ export namespace Button {
     disabled?: boolean
     onClick?: () => void
     /**
-     * @default small
+     * @default minimal
      */
-    size?: 'minimal' | 'small' | 'regular' | 'large'
+    size?: keyof typeof sizeClasses
     icon?: Icon.Props['variant']
     /**
      * @default sm
@@ -34,21 +34,22 @@ const variantClasses = {
   success:
     'bg-green1 hover:bg-green2 text-white flex items-center justify-center gap-2 font-medium rounded-lg transition-colors',
   secondary:
-    'bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center gap-2 font-medium rounded-lg transition-colors',
+    'flex items-center justify-center bg-green7 text-green1 hover:bg-green2 hover:text-white rounded-lg gap-1.5 text-sm font-medium transition-colors duration-200 ease-in-out',
   danger:
     'bg-berry1 hover:bg-berry2 text-white flex items-center justify-center gap-2 font-medium rounded-lg transition-colors',
-  info: 'bg-white opacity-80 text-sm flex items-center justify-center gap-2 font-medium rounded-lg transition-colors',
+  info: 'bg-white opacity-90 shadow-md text-sm hover:text-green3 flex items-center justify-center gap-2 font-medium rounded-lg transition-colors',
   light:
     'bg-grey1 hover:text-green1 flex items-center justify-center gap-2 font-medium rounded-lg transition-colors',
-  minimalist: 'flex items-center gap-2 text-slate-600 hover:text-green-500 text-sm',
+  minimalist: 'flex items-center gap-1 text-grey2 hover:text-green-500 text-sm',
   icon: '',
+  circle: 'bg-grey3 rounded-full size-fit p-px',
 }
 
 const sizeClasses = {
   minimal: '',
-  small: 'p-2 px-5',
-  regular: 'py-2 px-10',
-  large: 'py-2 w-full',
+  small: 'py-2.5 px-4',
+  regular: 'py-2.5 px-10',
+  large: 'py-2.5 w-full',
 }
 
 export const Button = ({
