@@ -14,7 +14,7 @@ export namespace Button {
     disabled?: boolean
     onClick?: () => void
     /**
-     * @default small
+     * @default minimal
      */
     size?: keyof typeof sizeClasses
     icon?: Icon.Props['variant']
