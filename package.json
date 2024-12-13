@@ -1,8 +1,8 @@
 {
-  "name": "picnic-app",
+  "name": "ecommerce-example-webshop",
   "private": true,
   "version": "1.2.1",
-  "homepage": "https://Kosholadka.github.io/picnic-app/",
+  "homepage": "https://ekaterinailiushenko.github.io/ecommerce-example-webshop/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
