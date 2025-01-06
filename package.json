@@ -2,7 +2,7 @@
   "name": "ecommerce-example-webshop",
   "private": true,
   "version": "1.2.1",
-  "homepage": "https://ekaterinailiushenko.github.io/",
+  "homepage": "https://ekaterinailiushenko.github.io/ecommerce-example-webshop",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
