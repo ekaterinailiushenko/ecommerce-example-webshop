@@ -10,7 +10,7 @@ describe('logger', () => {
   ]
 
   logMethods.forEach(({ method, spy }) => {
-    it(`should call console.${method} with the correct message"`, () => {
+    it(`should call console.${method} with the correct message`, () => {
       logger[method as keyof Logger](message)
 
       expect(spy).toHaveBeenCalledWith(message)
