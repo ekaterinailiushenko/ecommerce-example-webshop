@@ -2,23 +2,20 @@ import en from '../i18n/en.json'
 import { getFirebaseErrorMessage } from './getFirebaseErrorMessage'
 
 describe('getFirebaseErrorMessage', () => {
-  const firebaseErrors = {
-    'auth/invalid-password': 'invalidPassword',
-    'auth/invalid-email': 'invalidEmail',
-    'auth/requires-recent-login': 'recentLoginRequired',
-    'auth/invalid-credential': 'invalidCredential',
-    'auth/email-already-in-use': 'userAlreadyExist',
-    'auth/too-many-requests': 'tooManyRequests',
-    'auth/weak-password': 'weakPassword',
-    'storage/object-not-found': 'objectNotFound',
-  }
-
-  Object.entries(firebaseErrors).forEach(([authCode, errorKey]) => {
-    it(`should return the correct error message for ${authCode}`, () => {
-      expect(getFirebaseErrorMessage(authCode)).toBe(
-        en.firebaseError[errorKey as keyof typeof en.firebaseError]
-      )
-    })
+  test.each`
+    authCode                        | errorKey
+    ${'auth/invalid-password'}      | ${'invalidPassword'}
+    ${'auth/invalid-email'}         | ${'invalidEmail'}
+    ${'auth/requires-recent-login'} | ${'recentLoginRequired'}
+    ${'auth/invalid-credential'}    | ${'invalidCredential'}
+    ${'auth/email-already-in-use'}  | ${'userAlreadyExist'}
+    ${'auth/too-many-requests'}     | ${'tooManyRequests'}
+    ${'auth/weak-password'}         | ${'weakPassword'}
+    ${'storage/object-not-found'}   | ${'objectNotFound'}
+  `('should return the correct error message for $authCode', ({ authCode, errorKey }) => {
+    expect(getFirebaseErrorMessage(authCode)).toBe(
+      en.firebaseError[errorKey as keyof typeof en.firebaseError]
+    )
   })
 
   it('should return the default error message for unknown error code', () => {
