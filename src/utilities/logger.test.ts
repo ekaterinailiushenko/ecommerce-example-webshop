@@ -9,10 +9,6 @@ describe('logger', () => {
     { method: 'error', spy: vi.spyOn(logger, 'error') },
   ]
 
-  afterEach(() => {
-    vi.clearAllMocks()
-  })
-
   logMethods.forEach(({ method, spy }) => {
     it(`should call console.${method} with the correct message"`, () => {
       logger[method as keyof Logger](message)

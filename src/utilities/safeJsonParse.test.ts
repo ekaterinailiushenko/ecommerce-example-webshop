@@ -8,10 +8,6 @@ vi.mock('./logger', () => ({
 }))
 
 describe('safeJsonParse', () => {
-  afterEach(() => {
-    vi.clearAllMocks()
-  })
-
   it('should parse a valid JSON string and return the object', () => {
     const json = '{"key": "value"}'
     const result = safeJsonParse<{ key: string }>(json)

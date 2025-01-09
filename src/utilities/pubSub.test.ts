@@ -3,10 +3,6 @@ import { Events, PubSub } from './pubSub'
 const callback = vi.fn()
 
 describe('PubSub', () => {
-  afterEach(() => {
-    vi.clearAllMocks()
-  })
-
   it('should call the subscriber callback when an event is published', () => {
     const unsubscribe = PubSub.subscribe(Events.USER_LOGGED_IN, callback)
 
