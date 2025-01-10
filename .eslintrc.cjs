@@ -10,7 +10,7 @@ module.exports = {
     'plugin:eslint-comments/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
