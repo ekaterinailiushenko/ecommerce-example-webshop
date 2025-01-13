@@ -5,8 +5,8 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  lint:
-    name: Run Lint
+  pr_workflow:
+    name: pr-workflow
     runs-on: ubuntu-latest
 
     steps:
