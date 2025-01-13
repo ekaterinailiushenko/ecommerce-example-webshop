@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "postinstall": "sh ./scripts/postinstall.sh",
     "lint": "tsc --noEmit && eslint ./ --ext ts --ext tsx --report-unused-disable-directives --max-warnings 0",
-    "test": "vitest --run",
+    "test": "vitest",
     "preview": "vite preview",
     "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx}",
     "predeploy": "npm run build",
