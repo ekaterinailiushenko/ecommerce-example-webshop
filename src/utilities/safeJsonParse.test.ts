@@ -22,7 +22,7 @@ describe('safeJsonParse', () => {
     expect(result).toEqual([1, 2, 3])
   })
 
-  it('should return null for an invalid JSON string and log the error', () => {
+  it('should return null for an invalid JSON string and log the error using logger.error', () => {
     const invalidJson = '{key: value}'
     const result = safeJsonParse(invalidJson)
 
@@ -30,7 +30,7 @@ describe('safeJsonParse', () => {
     expect(logger.error).toHaveBeenCalledWith(expect.stringMatching(/Error in safeJsonParse:/))
   })
 
-  it('should return null for an empty string and log the error', () => {
+  it('should return null for an empty string and log the error using logger.error', () => {
     const emptyJson = ''
     const result = safeJsonParse(emptyJson)
 
