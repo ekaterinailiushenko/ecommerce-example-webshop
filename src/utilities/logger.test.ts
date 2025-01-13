@@ -4,9 +4,9 @@ const message = 'hello'
 
 describe('logger', () => {
   const logMethods = [
-    { method: 'log', spy: vi.spyOn(logger, 'log') },
-    { method: 'warn', spy: vi.spyOn(logger, 'warn') },
-    { method: 'error', spy: vi.spyOn(logger, 'error') },
+    { method: 'log', spy: vi.spyOn(logger, 'log').mockImplementation(vi.fn()) },
+    { method: 'warn', spy: vi.spyOn(logger, 'warn').mockImplementation(vi.fn()) },
+    { method: 'error', spy: vi.spyOn(logger, 'error').mockImplementation(vi.fn()) },
   ]
 
   logMethods.forEach(({ method, spy }) => {
