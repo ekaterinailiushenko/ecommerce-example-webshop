@@ -11,14 +11,14 @@ import { useCartContext } from '../../../../contexts/CartContext/hook'
 const REMOVAL_DELAY = 5000
 
 export const CartItem = ({ item }: { item: Product }) => {
-  const removalTimerRef = useRef<NodeJS.Timeout>()
+  const removalTimerRef = useRef<NodeJS.Timeout>(null)
 
   const [isRemoving, setIsRemoving] = useState(false)
 
   const { deleteProductFromCart } = useCartContext()
 
   const clearRemovalTimer = () => {
-    if (removalTimerRef) {
+    if (removalTimerRef.current !== null) {
       clearTimeout(removalTimerRef.current)
     }
   }
