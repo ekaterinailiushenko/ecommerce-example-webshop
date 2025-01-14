@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router'
 
 import en from '../../i18n/en.json'
 import { Icon, Button } from '../../uikit'

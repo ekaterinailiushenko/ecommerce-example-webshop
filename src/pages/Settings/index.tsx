@@ -1,6 +1,6 @@
 import classNames from 'classnames'
+import { useNavigate } from 'react-router'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import en from '../../i18n/en.json'
 import { Button } from '../../uikit'
@@ -97,7 +97,7 @@ export const Settings = () => {
         icon="chevronLeft"
         label={en.profile.returnToAccount}
         onClick={() => {
-          navigate(-1)
+          void navigate(-1)
         }}
         className="mt-4"
       />

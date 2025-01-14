@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 import en from '../../../../i18n/en.json'
 import { Button } from '../../../../uikit'
