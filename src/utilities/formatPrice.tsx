@@ -1,5 +1,7 @@
-export const formatPrice = (price: number | undefined) => {
-  if (price === undefined) return '0,00'
+export const formatPrice = (price: number) => {
+  if (!Number.isInteger(price)) {
+    return undefined
+  }
 
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',

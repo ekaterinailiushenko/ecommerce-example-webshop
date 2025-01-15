@@ -1,0 +1,64 @@
+{
+  "name": "vitest-fail-on-console",
+  "version": "0.7.1",
+  "description": "Utility to make vitest tests fail when console.error() or console.warn() are used",
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "vite build",
+    "lint": "yarn eslint .",
+    "test": "vitest related ./tests/index.spec.ts --run",
+    "release": "standard-version",
+    "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomasbrodusch/vitest-fail-on-console.git"
+  },
+  "keywords": [
+    "vitest",
+    "testing",
+    "utility",
+    "console-warning"
+  ],
+  "author": "Thomas Brodusch <brodusch.thomas@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vitest-fail-on-console.es.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/vitest-fail-on-console.es.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "bugs": {
+    "url": "https://github.com/thomasbrodusch/vitest-fail-on-console/issues"
+  },
+  "homepage": "https://github.com/thomasbrodusch/vitest-fail-on-console#readme",
+  "devDependencies": {
+    "@commitlint/cli": "19.4.1",
+    "@commitlint/config-conventional": "19.2.2",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "eslint": "8.57.0",
+    "husky": "9.1.5",
+    "prettier": "3.3.3",
+    "standard-version": "9.5.0",
+    "typescript": "5.5.4",
+    "vite": "5.4.2",
+    "vite-plugin-dts": "3.9.1",
+    "vitest": "2.0.5"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0"
+  },
+  "peerDependencies": {
+    "vitest": ">=0.26.2",
+    "vite": ">=4.5.2"
+  }
+}

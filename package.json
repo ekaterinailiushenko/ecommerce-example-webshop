@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "postinstall": "sh ./scripts/postinstall.sh",
     "lint": "tsc --noEmit && eslint ./ --ext ts --ext tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest",
     "preview": "vite preview",
-    "prettier": "npx prettier --write src/**/*.{js,jsx,ts,tsx}",
+    "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx}",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "prepare": "husky"
@@ -30,6 +32,8 @@
     "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash": "^4.17.10",
     "@types/react": "^18.2.66",
@@ -41,7 +45,7 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.35.0",
@@ -56,6 +60,8 @@
     "prettier": "2.8.7",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.2.2",
-    "vite": "^5.1.0"
+    "vite": "^5.1.0",
+    "vitest": "^2.1.8",
+    "vitest-fail-on-console": "^0.7.1"
   }
 }
