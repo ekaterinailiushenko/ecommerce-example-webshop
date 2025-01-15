@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { isRouteErrorResponse, Link, useRouteError } from 'react-router-dom'
+import { isRouteErrorResponse, Link, useRouteError } from 'react-router'
 
 import en from '../../i18n/en.json'
 import { Container } from '../../uikit'

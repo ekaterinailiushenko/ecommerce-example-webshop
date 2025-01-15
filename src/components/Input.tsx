@@ -1,5 +1,5 @@
+import { useMatch } from 'react-router'
 import { useEffect, useState } from 'react'
-import { useMatch } from 'react-router-dom'
 
 import en from '../i18n/en.json'
 import { Button } from '../uikit'

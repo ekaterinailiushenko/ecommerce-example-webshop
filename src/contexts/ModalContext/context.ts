@@ -9,7 +9,7 @@ export namespace ModalContext {
 
   export interface ModalConfig {
     isOpen: boolean
-    content: JSX.Element | null
+    content: Children | null
 
     fadeDuration?: number
   }
