@@ -12,7 +12,7 @@ import { Routes } from './src/router/config'
 export default defineConfig({
   base: Routes.HOME_PAGE_URL,
   plugins: [react()],
-  test: { environment: 'node', globals: true, setupFiles: './tests/setup.ts' },
+  test: { environment: 'jsdom', globals: true, setupFiles: './tests/setup.ts' },
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
   },
