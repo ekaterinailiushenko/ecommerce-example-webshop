@@ -8,7 +8,7 @@ export const CartHeader = () => {
     <section className="flex gap-2 items-baseline justify-between">
       <div className="flex mb-4 gap-2 items-baseline">
         <h1 className="text-3xl font-bold">{en.cart.title}</h1>
-        <p className="text-slate-600">
+        <p className="text-slate-600" data-testid="cart-header-items">
           ({productsQuantity} {en.cart.productItems})
         </p>
       </div>

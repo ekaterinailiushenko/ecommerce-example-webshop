@@ -16,7 +16,7 @@ export const CartSummary = () => {
     <section className="bg-white p-6 rounded-lg shadow-md h-min">
       <div className="flex justify-between items-baseline">
         <p className="font-bold text-3xl">{en.cart.summary}</p>
-        <p className="text-slate-600">
+        <p className="text-slate-600" data-testid="cart-summary-items">
           ({productsQuantity} {en.cart.productItems})
         </p>
       </div>
