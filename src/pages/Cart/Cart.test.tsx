@@ -1,15 +1,17 @@
 import { createMemoryHistory } from 'history'
 import { MemoryRouter, Router } from 'react-router'
-import { screen, render, act } from '@testing-library/react'
+import { screen, render, act, within } from '@testing-library/react'
 
 import { Cart } from './index'
+import en from '../../i18n/en.json'
 import { cartApi } from '../../api/cartApi'
+import { Routes } from '../../router/config'
 import { flushPromises } from '../../utilities'
 import type { Cart as CartType } from '../../api/types'
 import { CartContextProvider } from '../../contexts/CartContext/provider'
 import { AuthContextProvider } from '../../contexts/AuthContext/provider'
 
-const mockProducts = [
+const mockProducts: CartType['products'] = [
   {
     product_id: '1',
     name: 'Apples',
@@ -62,26 +64,18 @@ export const renderApp = async () => {
 
 describe('Cart page', () => {
   describe('when the cart is empty', () => {
-    it('should not render cart header or summary section', async () => {
+    it('should display empty cart section and not render cart header or summary section', async () => {
       await renderApp()
 
-      expect(screen.queryByText('Your Cart')).toBeNull()
-      expect(screen.queryByText('Summary')).toBeNull()
+      expect(
+        within(screen.getByTestId('empty-cart')).getByText(en.cart.emptyCart.mainMessage)
+      ).toBeVisible()
+
+      expect(screen.queryByTestId('cart-header')).toBeNull()
+      expect(screen.queryByTestId('cart-summary')).toBeNull()
     })
 
-    it('should display "Your Cart is empty." message', async () => {
-      await renderApp()
-
-      expect(screen.getByText('Your Cart is empty.')).toBeVisible()
-    })
-
-    it('should display "Start Shopping" button', async () => {
-      await renderApp()
-
-      expect(screen.getByRole('button', { name: 'Start Shopping' })).toBeVisible()
-    })
-
-    it('should redirect to homepage when "Start Shopping" button is clicked', async () => {
+    it('should display a navigation button that redirects to homepage when clicked', async () => {
       const history = createMemoryHistory()
 
       render(
@@ -94,9 +88,9 @@ describe('Cart page', () => {
         </Router>
       )
 
-      expect(screen.getByText('Your Cart is empty.')).toBeVisible()
-
-      const startShoppingButton = screen.getByRole('button', { name: 'Start Shopping' })
+      const startShoppingButton = within(screen.getByTestId('empty-cart')).getByRole('button', {
+        name: en.cart.emptyCart.linkToMainPage,
+      })
 
       await act(async () => {
         startShoppingButton.click()
@@ -104,7 +98,7 @@ describe('Cart page', () => {
         await flushPromises()
       })
 
-      expect(history.location.pathname).toBe('/ecommerce-example-webshop/')
+      expect(history.location.pathname).toBe(Routes.HOME_PAGE_URL)
     })
   })
 
@@ -114,19 +108,16 @@ describe('Cart page', () => {
       vi.mocked(cartApi.clearCart).mockResolvedValue(mockEmptyCartSummary)
     })
 
-    it('should not render "Your Cart is empty." message', async () => {
+    it('should render cart header with correct product quantity and not display empty cart section', async () => {
       await renderApp()
 
-      expect(screen.queryByText('Your Cart is empty.')).toBeNull()
-    })
+      expect(
+        within(screen.getByTestId('cart-header')).getByText(
+          `(${mockCartSummary.productsQuantity} ${en.cart.productItems})`
+        )
+      ).toBeVisible()
 
-    it('should render cart header with correct product quantity', async () => {
-      await renderApp()
-
-      expect(screen.getByText('Your Cart')).toBeVisible()
-      expect(screen.getByTestId('cart-header-items')).toHaveTextContent(
-        `${mockCartSummary.productsQuantity} Items`
-      )
+      expect(screen.queryByTestId('empty-cart')).toBeNull()
     })
 
     it('should render products in the cart', async () => {
@@ -138,27 +129,24 @@ describe('Cart page', () => {
     it('should render cart summary with calculated prices and product quantity', async () => {
       await renderApp()
 
-      expect(screen.getByText('Summary')).toBeVisible()
+      expect(
+        within(screen.getByTestId('cart-summary')).getByText(
+          `(${mockCartSummary.productsQuantity} ${en.cart.productItems})`
+        )
+      ).toBeVisible()
       expect(screen.getByText('35,05 €')).toBeVisible()
       expect(screen.getByText('5,00 €')).toBeVisible()
       expect(screen.getByText('40,05 €')).toBeVisible()
-      expect(screen.getByTestId('cart-summary-items')).toHaveTextContent(
-        `${mockCartSummary.productsQuantity} Items`
-      )
     })
 
-    it('should render "Clear Cart" button', async () => {
+    it('should clear all products and display empty cart section after clear cart button is clicked', async () => {
       await renderApp()
 
-      expect(screen.getByRole('button', { name: 'Clear Cart' })).toBeVisible()
-    })
+      expect(screen.queryByTestId('empty-cart')).toBeNull()
 
-    it('should clear cart after "Clear Cart" button is clicked', async () => {
-      await renderApp()
-
-      mockProducts.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
-
-      const clearCartButton = screen.getByRole('button', { name: 'Clear Cart' })
+      const clearCartButton = within(screen.getByTestId('cart-header')).getByRole('button', {
+        name: en.cart.buttons.clearCart.title,
+      })
 
       await act(async () => {
         clearCartButton.click()
@@ -166,7 +154,11 @@ describe('Cart page', () => {
         await flushPromises()
       })
 
-      expect(screen.getByText('Your Cart is empty.')).toBeVisible()
+      expect(screen.getByTestId('empty-cart')).toBeVisible()
+
+      mockProducts.forEach(product => expect(screen.queryByText(product.name)).toBeNull())
+      expect(screen.queryByTestId('cart-header')).toBeNull()
+      expect(screen.queryByTestId('cart-summary')).toBeNull()
     })
   })
 })
