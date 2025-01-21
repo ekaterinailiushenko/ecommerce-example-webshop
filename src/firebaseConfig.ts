@@ -1,6 +1,6 @@
-import { getAuth } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
-import { getStorage } from 'firebase/storage'
+import { type Auth, getAuth } from 'firebase/auth'
+import { type FirebaseStorage, getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -11,7 +11,22 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
 }
 
-const app = initializeApp(firebaseConfig)
+let app
+let auth: Auth
+let storage: FirebaseStorage
 
-export const auth = getAuth(app)
-export const storage = getStorage(app)
+if (process.env.NODE_ENV !== 'test') {
+  app = initializeApp(firebaseConfig)
+  auth = getAuth(app)
+  storage = getStorage(app)
+} else {
+  auth = {
+    onAuthStateChanged: vi.fn(),
+    signInWithEmailAndPassword: vi.fn(),
+    signOut: vi.fn(),
+  } as unknown as Auth
+
+  storage = {} as FirebaseStorage
+}
+
+export { auth, storage }
