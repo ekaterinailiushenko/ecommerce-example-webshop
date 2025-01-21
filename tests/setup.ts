@@ -26,5 +26,10 @@ vi.mock('../src/api/cartApi', () => {
 })
 
 vi.mock('../firebaseConfig', () => ({
-  getAuth: () => ({}),
+  auth: {
+    signInWithEmailAndPassword: vi.fn(),
+    signOut: vi.fn(),
+    onAuthStateChanged: vi.fn(),
+  },
+  storage: {},
 }))
