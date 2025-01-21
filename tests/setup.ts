@@ -24,3 +24,7 @@ vi.mock('../src/api/cartApi', () => {
 
   return mock
 })
+
+vi.mock('../firebaseConfig', () => ({
+  getAuth: () => ({}),
+}))
