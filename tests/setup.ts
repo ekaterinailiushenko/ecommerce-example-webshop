@@ -25,11 +25,25 @@ vi.mock('../src/api/cartApi', () => {
   return mock
 })
 
-vi.mock('../firebaseConfig', () => ({
-  auth: {
-    signInWithEmailAndPassword: vi.fn(callback => callback(null)),
-    signOut: vi.fn(),
-    onAuthStateChanged: vi.fn(),
-  },
-  storage: {},
+vi.mock('firebase/auth', async () => {
+  const actual = await vi.importActual('firebase/auth')
+  return {
+    ...actual,
+    getAuth: vi.fn(() => ({
+      onAuthStateChanged: vi.fn(callback => {
+        callback(null)
+        return () => {}
+      }),
+      signInWithEmailAndPassword: vi.fn(),
+      signOut: vi.fn(),
+    })),
+  }
+})
+
+vi.mock('firebase/app', () => ({
+  initializeApp: vi.fn(),
+}))
+
+vi.mock('firebase/storage', () => ({
+  getStorage: vi.fn(() => ({})),
 }))
