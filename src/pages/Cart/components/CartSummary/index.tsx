@@ -13,10 +13,10 @@ export const CartSummary = () => {
   const { totalPrice, deliveryCosts, totalPriceWithDeliveryCosts, productsQuantity } = cartSummary
 
   return (
-    <section className="bg-white p-6 rounded-lg shadow-md h-min">
+    <section className="bg-white p-6 rounded-lg shadow-md h-min" data-testid="cart-summary">
       <div className="flex justify-between items-baseline">
         <p className="font-bold text-3xl">{en.cart.summary}</p>
-        <p className="text-slate-600" data-testid="cart-summary-items">
+        <p className="text-slate-600">
           ({productsQuantity} {en.cart.productItems})
         </p>
       </div>
