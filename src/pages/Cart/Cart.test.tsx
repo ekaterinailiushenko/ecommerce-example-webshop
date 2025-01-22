@@ -1,5 +1,5 @@
-import { MemoryRouter, Router } from 'react-router'
-import { createMemoryHistory, type MemoryHistory } from 'history'
+import { Router } from 'react-router'
+import { createMemoryHistory } from 'history'
 import { screen, render, act, within } from '@testing-library/react'
 
 import { Cart } from './index'
@@ -46,30 +46,22 @@ const mockEmptyCartSummary: CartType = {
   totalPriceWithDeliveryCosts: 0,
 }
 
-export const renderApp = async (options?: { useHistory?: boolean }) => {
-  const history = options?.useHistory ? createMemoryHistory() : undefined
+const history = createMemoryHistory()
 
-  const RouterComponent = history ? (
-    <Router location={history.location} navigator={history} />
-  ) : (
-    <MemoryRouter />
-  )
-
+export const renderApp = async () => {
   render(
-    <RouterComponent.type {...RouterComponent.props}>
+    <Router location={history.location} navigator={history}>
       <AuthContextProvider>
         <CartContextProvider>
           <Cart />
         </CartContextProvider>
       </AuthContextProvider>
-    </RouterComponent.type>
+    </Router>
   )
 
   await act(async () => {
     await flushPromises()
   })
-
-  return history
 }
 
 describe('Cart page', () => {
@@ -86,7 +78,7 @@ describe('Cart page', () => {
     })
 
     it('should display a navigation button that redirects to homepage when clicked', async () => {
-      const history = (await renderApp({ useHistory: true })) as MemoryHistory
+      await renderApp()
 
       const startShoppingButton = within(screen.getByTestId('empty-cart')).getByRole('button', {
         name: en.cart.emptyCart.linkToMainPage,
