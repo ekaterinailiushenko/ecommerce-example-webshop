@@ -60,8 +60,10 @@ describe('Cart page', () => {
       getProductsResponse.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
     })
 
-    it('should clear all products and display empty cart section after clear cart button is clicked', async () => {
+    it('should delete products from the cart and display empty cart section after clear cart button is clicked', async () => {
       await renderApp()
+
+      getProductsResponse.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
 
       expect(screen.queryByTestId('empty-cart')).toBeNull()
 
