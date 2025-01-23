@@ -7,7 +7,7 @@ import { cartApi } from '../../api/cartApi'
 import { flushPromises } from '../../utilities'
 import { CartContextProvider } from '../../contexts/CartContext/provider'
 import { AuthContextProvider } from '../../contexts/AuthContext/provider'
-import { mockCartSummary, mockEmptyCartSummary, mockProducts } from '../../mocks'
+import { getProductsResponse, mockCartSummary, mockEmptyCartSummary } from '../../mocks'
 
 export const renderApp = async () => {
   render(
@@ -57,7 +57,7 @@ describe('Cart page', () => {
     it('should render products in the cart', async () => {
       await renderApp()
 
-      mockProducts.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
+      getProductsResponse.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
     })
 
     it('should clear all products and display empty cart section after clear cart button is clicked', async () => {
@@ -79,7 +79,7 @@ describe('Cart page', () => {
 
       expect(emptyCart).toBeVisible()
 
-      mockProducts.forEach(product =>
+      getProductsResponse.forEach(product =>
         expect(within(emptyCart).queryByText(product.name)).toBeNull()
       )
       expect(screen.queryByTestId('cart-header')).toBeNull()
