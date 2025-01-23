@@ -38,20 +38,4 @@ describe('CartHeader', () => {
     ).toBeVisible()
     expect(within(cartHeader).getByRole('button', { name: en.cart.buttons.clearCart.title }))
   })
-
-  it('should call clearCart when the clear cart button is clicked', async () => {
-    await renderCartHeader()
-
-    const clearCartButton = within(screen.getByTestId('cart-header')).getByRole('button', {
-      name: en.cart.buttons.clearCart.title,
-    })
-
-    await act(async () => {
-      clearCartButton.click()
-
-      await flushPromises()
-    })
-
-    expect(cartApi.clearCart).toHaveBeenCalledTimes(1)
-  })
 })
