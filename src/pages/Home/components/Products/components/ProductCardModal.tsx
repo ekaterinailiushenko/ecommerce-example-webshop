@@ -3,10 +3,10 @@ import { useEffect } from 'react'
 import en from '../../../../../i18n/en.json'
 import { formatPrice } from '../../../../../utilities'
 import type { Product } from '../../../../../api/types'
-import { CartButton } from '../../../../Cart/components'
-import { Button, Container, Icon, ImageWithPlaceholder, Text } from '../../../../../uikit'
+import { ProductQuantityInCartButton } from '../../../../Cart/components'
 import { useModalContext } from '../../../../../contexts/ModalContext/hook'
 import { useProductContext } from '../../../../../contexts/ProductContext/hook'
+import { Button, Container, Icon, ImageWithPlaceholder, Text } from '../../../../../uikit'
 
 export const ProductCardModal = ({ product }: { product: Product }) => {
   const { closeModal } = useModalContext()
@@ -50,7 +50,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
             <h3 className="text-xl font-bold">{productDetails.name}</h3>
             <p className="text-2xl font-bold">{formatPrice(productDetails.price)}</p>
           </div>
-          <CartButton product={product} />
+          <ProductQuantityInCartButton product={product} />
         </div>
       </div>
       <div className="col-span-2 overflow-y-auto max-h-64">
