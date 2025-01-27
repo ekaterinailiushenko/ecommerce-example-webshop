@@ -1,4 +1,4 @@
-import type { Cart as CartType } from '../api/types'
+import type { Cart as CartType, Product } from '../api/types'
 import { getProductsResponse } from './getProductsResponse'
 
 export const mockCartSummary: CartType = {
@@ -16,3 +16,5 @@ export const mockEmptyCartSummary: CartType = {
   productsQuantity: 0,
   totalPriceWithDeliveryCosts: 0,
 }
+
+export const mockProduct: Product = getProductsResponse[0]!
