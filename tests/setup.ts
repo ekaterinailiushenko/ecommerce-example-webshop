@@ -10,6 +10,7 @@ failOnConsole()
 afterEach(() => {
   cleanup()
   vi.clearAllMocks()
+  vi.clearAllTimers()
 })
 
 vi.mock('../src/api/cartApi', () => {
