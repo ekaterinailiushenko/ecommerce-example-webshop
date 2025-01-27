@@ -21,7 +21,7 @@ export const cartApi = {
   }: {
     userId?: string
     productId: Product['product_id']
-  }) => {
+  }): Promise<Cart> => {
     const productInDB = getProductsResponse.find(product => product.product_id === productId)!
 
     const productInProductsMap = cartInternal._productsMap.get(productId)
@@ -51,7 +51,7 @@ export const cartApi = {
     userId?: string
     productId: Product['product_id']
     removeAll?: boolean
-  }) => {
+  }): Promise<Cart> => {
     const productInDB = getProductsResponse.find(product => product.product_id === productId)!
 
     const productInProductsMap = cartInternal._productsMap.get(productId)

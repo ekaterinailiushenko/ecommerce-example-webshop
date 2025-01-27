@@ -3,12 +3,12 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Icon } from '../../../../uikit'
 import en from '../../../../i18n/en.json'
-import { CartButton } from '../CartButton'
 import { logger } from '../../../../utilities'
 import type { Product } from '../../../../api/types'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
+import { ProductQuantityInCartButton } from '../ProductQuantityInCartButton'
 
-const REMOVAL_DELAY = 5000
+export const REMOVAL_DELAY = 5000
 
 export const CartItem = ({ item }: { item: Product }) => {
   const removalTimerRef = useRef<NodeJS.Timeout>(null)
@@ -52,6 +52,7 @@ export const CartItem = ({ item }: { item: Product }) => {
   return (
     <section
       className="grid lg:grid-cols-6 py-5 px-8 bg-white rounded-lg shadow-md gap-4 min-h-52"
+      data-testid="cart-item"
       key={item.product_id}
     >
       <img
@@ -64,10 +65,18 @@ export const CartItem = ({ item }: { item: Product }) => {
         <p className={classNames('text-sm text-slate-600', isRemoving && 'opacity-50')}>
           {en.cart.deliveryTime}
         </p>
-        <CartButton product={item} isRemoving={isRemoving} onUndo={handleUndoDeleteClick} />
+        <ProductQuantityInCartButton
+          product={item}
+          isRemoving={isRemoving}
+          onUndo={handleUndoDeleteClick}
+        />
       </div>
       <div className="flex justify-end items-start">
-        <button onClick={() => handleDeleteClick(item.product_id)} disabled={isRemoving}>
+        <button
+          onClick={() => handleDeleteClick(item.product_id)}
+          disabled={isRemoving}
+          data-testid="remove-from-cart"
+        >
           <Icon variant="cross" size="md" className={classNames(isRemoving && 'invisible')} />
         </button>
       </div>

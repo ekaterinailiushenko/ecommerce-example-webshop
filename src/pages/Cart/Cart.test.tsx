@@ -4,12 +4,13 @@ import { screen, render, act, within } from '@testing-library/react'
 import { Cart } from './index'
 import en from '../../i18n/en.json'
 import { cartApi } from '../../api/cartApi'
+import { REMOVAL_DELAY } from './components'
 import { flushPromises } from '../../utilities'
 import { CartContextProvider } from '../../contexts/CartContext/provider'
 import { AuthContextProvider } from '../../contexts/AuthContext/provider'
 import { getProductsResponse, mockCartSummary, mockEmptyCartSummary } from '../../mocks'
 
-export const renderApp = async () => {
+const renderApp = async () => {
   render(
     <MemoryRouter>
       <AuthContextProvider>
@@ -86,6 +87,40 @@ describe('Cart page', () => {
       )
       expect(screen.queryByTestId('cart-header')).toBeNull()
       expect(screen.queryByTestId('cart-summary')).toBeNull()
+    })
+
+    it('should remove product after the timeout if undo button is not clicked', async () => {
+      vi.mocked(cartApi.deleteProductFromCart).mockResolvedValue({
+        ...mockCartSummary,
+        products: mockCartSummary.products.slice(1),
+      })
+
+      vi.useFakeTimers({
+        shouldAdvanceTime: true,
+      })
+
+      await renderApp()
+
+      const items = screen.getAllByTestId('cart-item')
+
+      expect(items).toHaveLength(getProductsResponse.length)
+
+      const item = items[0]
+
+      if (!item) {
+        throw new Error('Expected to find a cart item')
+      }
+
+      const deleteFromCartButton = within(item).getByTestId('remove-from-cart')
+
+      await act(async () => {
+        deleteFromCartButton.click()
+
+        await vi.advanceTimersByTimeAsync(REMOVAL_DELAY)
+      })
+
+      expect(item).not.toBeVisible()
+      expect(screen.getAllByTestId('cart-item')).toHaveLength(getProductsResponse.length - 1)
     })
   })
 })
