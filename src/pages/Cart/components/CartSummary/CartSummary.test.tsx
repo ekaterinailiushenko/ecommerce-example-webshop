@@ -23,11 +23,15 @@ const renderCartSummary = async () => {
 }
 
 describe('CartSummary', () => {
-  beforeEach(() => {
-    vi.mocked(cartApi.getCartSummary).mockResolvedValue(mockCartSummary)
+  it('should display loading state when cart summary is not loaded', async () => {
+    await renderCartSummary()
+
+    expect(screen.getByText(en.global.loading)).toBeVisible()
   })
 
   it('should display cart summary title, product quantity, calculated prices and action button', async () => {
+    vi.mocked(cartApi.getCartSummary).mockResolvedValue(mockCartSummary)
+
     await renderCartSummary()
 
     const cartSummary = screen.getByTestId('cart-summary')
