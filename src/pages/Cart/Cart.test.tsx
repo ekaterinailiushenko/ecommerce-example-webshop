@@ -10,6 +10,34 @@ import { CartContextProvider } from '../../contexts/CartContext/provider'
 import { AuthContextProvider } from '../../contexts/AuthContext/provider'
 import { getProductsResponse, mockCartSummary, mockEmptyCartSummary } from '../../mocks'
 
+const elementsGetters = {
+  get emptyCart() {
+    return screen.queryByTestId('empty-cart')
+  },
+  get cartHeader() {
+    return screen.queryByTestId('cart-header')
+  },
+  get cartSummary() {
+    return screen.queryByTestId('cart-summary')
+  },
+}
+
+type Config = Record<keyof typeof elementsGetters, 'rendered' | 'not-rendered'>
+
+const checkElements = (config: Config) => {
+  const keys = Object.keys(config) as (keyof Config)[]
+
+  keys.forEach(key => {
+    if (config[key] === 'rendered') {
+      expect(elementsGetters[key]).toBeVisible()
+
+      return
+    }
+
+    expect(elementsGetters[key]).toBeNull()
+  })
+}
+
 const renderApp = async () => {
   render(
     <MemoryRouter>
@@ -31,12 +59,11 @@ describe('Cart page', () => {
     it('should display empty cart section and not render cart header or summary section', async () => {
       await renderApp()
 
-      expect(
-        within(screen.getByTestId('empty-cart')).getByText(en.cart.emptyCart.mainMessage)
-      ).toBeVisible()
-
-      expect(screen.queryByTestId('cart-header')).toBeNull()
-      expect(screen.queryByTestId('cart-summary')).toBeNull()
+      checkElements({
+        emptyCart: 'rendered',
+        cartHeader: 'not-rendered',
+        cartSummary: 'not-rendered',
+      })
     })
   })
 
@@ -49,14 +76,21 @@ describe('Cart page', () => {
     it('should render cart header, cart summary and not display empty cart section', async () => {
       await renderApp()
 
-      expect(screen.getByTestId('cart-header')).toBeVisible()
-      expect(screen.getByTestId('cart-summary')).toBeVisible()
-
-      expect(screen.queryByTestId('empty-cart')).toBeNull()
+      checkElements({
+        emptyCart: 'not-rendered',
+        cartHeader: 'rendered',
+        cartSummary: 'rendered',
+      })
     })
 
     it('should render products in the cart', async () => {
       await renderApp()
+
+      checkElements({
+        emptyCart: 'not-rendered',
+        cartHeader: 'rendered',
+        cartSummary: 'rendered',
+      })
 
       getProductsResponse.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
     })
@@ -64,9 +98,13 @@ describe('Cart page', () => {
     it('should delete products from the cart and display empty cart section after clear cart button is clicked', async () => {
       await renderApp()
 
-      getProductsResponse.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
+      checkElements({
+        emptyCart: 'not-rendered',
+        cartHeader: 'rendered',
+        cartSummary: 'rendered',
+      })
 
-      expect(screen.queryByTestId('empty-cart')).toBeNull()
+      getProductsResponse.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
 
       const clearCartButton = within(screen.getByTestId('cart-header')).getByRole('button', {
         name: en.cart.buttons.clearCart.title,
@@ -78,15 +116,13 @@ describe('Cart page', () => {
         await flushPromises()
       })
 
-      const emptyCart = screen.getByTestId('empty-cart')
+      getProductsResponse.forEach(product => expect(screen.queryByText(product.name)).toBeNull())
 
-      expect(emptyCart).toBeVisible()
-
-      getProductsResponse.forEach(product =>
-        expect(within(emptyCart).queryByText(product.name)).toBeNull()
-      )
-      expect(screen.queryByTestId('cart-header')).toBeNull()
-      expect(screen.queryByTestId('cart-summary')).toBeNull()
+      checkElements({
+        emptyCart: 'rendered',
+        cartHeader: 'not-rendered',
+        cartSummary: 'not-rendered',
+      })
     })
 
     it('should remove product after the timeout if undo button is not clicked', async () => {

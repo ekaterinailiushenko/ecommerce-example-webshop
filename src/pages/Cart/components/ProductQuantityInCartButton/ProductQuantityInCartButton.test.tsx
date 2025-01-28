@@ -8,6 +8,40 @@ import { CartContextProvider } from '../../../../contexts/CartContext/provider'
 import { AuthContextProvider } from '../../../../contexts/AuthContext/provider'
 import { mockCartSummary, mockEmptyCartSummary, mockProduct } from '../../../../mocks'
 
+const elementsGetters = {
+  get undoButton() {
+    return screen.queryByText(en.cart.buttons.undoRemoveFromCart.title)
+  },
+  get addToCartButton() {
+    return screen.queryByText(en.cart.buttons.addToCart.title)
+  },
+  get decreaseQuantityButton() {
+    return screen.queryByTestId('decrease-quantity')
+  },
+  get increaseQuantityButton() {
+    return screen.queryByTestId('increase-quantity')
+  },
+  get productQuantity() {
+    return screen.queryByText(product.amountInCart)
+  },
+}
+
+type Config = Record<keyof typeof elementsGetters, 'rendered' | 'not-rendered'>
+
+const checkElements = (config: Config) => {
+  const keys = Object.keys(config) as (keyof Config)[]
+
+  keys.forEach(key => {
+    if (config[key] === 'rendered') {
+      expect(elementsGetters[key]).toBeVisible()
+
+      return
+    }
+
+    expect(elementsGetters[key]).toBeNull()
+  })
+}
+
 const product = mockProduct
 
 const renderComponent = async ({ isRemoving = false } = {}) => {
@@ -33,15 +67,28 @@ describe('ProductQuantityInCartButton', () => {
     it('should render add to cart button', async () => {
       await renderComponent()
 
-      expect(screen.getByText(en.cart.buttons.addToCart.title)).toBeVisible()
+      checkElements({
+        undoButton: 'not-rendered',
+        addToCartButton: 'rendered',
+        decreaseQuantityButton: 'not-rendered',
+        increaseQuantityButton: 'not-rendered',
+        productQuantity: 'not-rendered',
+      })
     })
 
     it('should call addProductToCart when add to cart button is clicked', async () => {
       await renderComponent()
 
+      checkElements({
+        undoButton: 'not-rendered',
+        addToCartButton: 'rendered',
+        decreaseQuantityButton: 'not-rendered',
+        increaseQuantityButton: 'not-rendered',
+        productQuantity: 'not-rendered',
+      })
+
       const addToCartButton = screen.getByRole('button', { name: en.cart.buttons.addToCart.title })
 
-      expect(addToCartButton).toBeVisible()
       expect(addToCartButton).toBeEnabled()
       expect(cartApi.addProductToCart).not.toHaveBeenCalled()
 
@@ -62,14 +109,25 @@ describe('ProductQuantityInCartButton', () => {
     it('should render decrease and increase quantity buttons', async () => {
       await renderComponent()
 
-      expect(screen.getByTestId('decrease-quantity')).toBeVisible()
-      expect(screen.getByTestId('increase-quantity')).toBeVisible()
+      checkElements({
+        undoButton: 'not-rendered',
+        addToCartButton: 'not-rendered',
+        decreaseQuantityButton: 'rendered',
+        increaseQuantityButton: 'rendered',
+        productQuantity: 'rendered',
+      })
     })
 
     it('should render product quantity in the cart', async () => {
       await renderComponent()
 
-      expect(screen.getByText(product.amountInCart)).toBeVisible()
+      checkElements({
+        undoButton: 'not-rendered',
+        addToCartButton: 'not-rendered',
+        decreaseQuantityButton: 'rendered',
+        increaseQuantityButton: 'rendered',
+        productQuantity: 'rendered',
+      })
     })
   })
 
@@ -81,7 +139,13 @@ describe('ProductQuantityInCartButton', () => {
     it('should render "Undo" button', async () => {
       await renderComponent({ isRemoving: true })
 
-      expect(screen.getByText(en.cart.buttons.undoRemoveFromCart.title)).toBeVisible()
+      checkElements({
+        undoButton: 'rendered',
+        addToCartButton: 'not-rendered',
+        decreaseQuantityButton: 'not-rendered',
+        increaseQuantityButton: 'not-rendered',
+        productQuantity: 'not-rendered',
+      })
     })
   })
 })
