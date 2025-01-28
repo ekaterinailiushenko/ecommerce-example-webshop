@@ -73,17 +73,7 @@ describe('Cart page', () => {
       vi.mocked(cartApi.clearCart).mockResolvedValue(mockEmptyCartSummary)
     })
 
-    it('should render cart header, cart summary and not display empty cart section', async () => {
-      await renderApp()
-
-      checkElements({
-        emptyCart: 'not-rendered',
-        cartHeader: 'rendered',
-        cartSummary: 'rendered',
-      })
-    })
-
-    it('should render products in the cart', async () => {
+    it('should render cart header, cart summary, products in the cart and not display empty cart section', async () => {
       await renderApp()
 
       checkElements({

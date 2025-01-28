@@ -71,23 +71,31 @@ describe('CartItem', () => {
   it('should show undo button and hide delete product from cart button when it is clicked', async () => {
     await renderCartItem()
 
-    const deleteFromCartButton = screen.getByTestId('remove-from-cart')
+    const visibleDeleteFromCartButton = screen.getByTestId('remove-from-cart')
 
-    expect(deleteFromCartButton).toBeVisible()
-    expect(
-      screen.queryByRole('button', { name: en.cart.buttons.undoRemoveFromCart.title })
-    ).toBeNull()
+    expect(visibleDeleteFromCartButton).toBeVisible()
+
+    const unvisibleUndoButton = screen.queryByRole('button', {
+      name: en.cart.buttons.undoRemoveFromCart.title,
+    })
+
+    expect(unvisibleUndoButton).toBeNull()
 
     await act(async () => {
-      deleteFromCartButton.click()
+      visibleDeleteFromCartButton.click()
 
       await flushPromises()
     })
 
-    expect(screen.queryByTestId('remove-from-cart')).toHaveAttribute('disabled')
-    expect(
-      screen.getByRole('button', { name: en.cart.buttons.undoRemoveFromCart.title })
-    ).toBeVisible()
+    const disabledDeleteFromCartButton = screen.queryByTestId('remove-from-cart')
+
+    expect(disabledDeleteFromCartButton).toHaveAttribute('disabled')
+
+    const visibleUndoButton = screen.getByRole('button', {
+      name: en.cart.buttons.undoRemoveFromCart.title,
+    })
+
+    expect(visibleUndoButton).toBeVisible()
   })
 
   it('should cancel product removal when undo button is clicked', async () => {

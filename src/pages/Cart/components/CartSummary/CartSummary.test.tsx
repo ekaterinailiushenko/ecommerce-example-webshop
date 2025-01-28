@@ -36,10 +36,15 @@ describe('CartSummary', () => {
 
     const cartSummary = screen.getByTestId('cart-summary')
 
-    expect(within(cartSummary).getByText(en.cart.summary)).toBeVisible()
-    expect(
-      within(cartSummary).getByText(`(${mockCartSummary.productsQuantity} ${en.cart.productItems})`)
-    ).toBeVisible()
+    const cartSummaryTitle = within(cartSummary).getByText(en.cart.summary)
+
+    expect(cartSummaryTitle).toBeVisible()
+
+    const productQuantity = within(cartSummary).getByText(
+      `(${mockCartSummary.productsQuantity} ${en.cart.productItems})`
+    )
+
+    expect(productQuantity).toBeVisible()
 
     const assertPriceInCartSummary = (price: number) => {
       const formattedPrice = formatPrice(price)
@@ -53,8 +58,10 @@ describe('CartSummary', () => {
     assertPriceInCartSummary(mockCartSummary.deliveryCosts)
     assertPriceInCartSummary(mockCartSummary.totalPriceWithDeliveryCosts)
 
-    expect(
-      within(cartSummary).getByRole('button', { name: en.cart.buttons.buyNow.title })
-    ).toBeVisible()
+    const buyButton = within(cartSummary).getByRole('button', {
+      name: en.cart.buttons.buyNow.title,
+    })
+
+    expect(buyButton).toBeVisible()
   })
 })

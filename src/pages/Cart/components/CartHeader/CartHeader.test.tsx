@@ -32,10 +32,20 @@ describe('CartHeader', () => {
 
     const cartHeader = screen.getByTestId('cart-header')
 
-    expect(within(cartHeader).getByText(en.cart.title)).toBeVisible()
-    expect(
-      within(cartHeader).getByText(`(${mockCartSummary.productsQuantity} ${en.cart.productItems})`)
-    ).toBeVisible()
-    expect(within(cartHeader).getByRole('button', { name: en.cart.buttons.clearCart.title }))
+    const cartTitle = within(cartHeader).getByText(en.cart.title)
+
+    expect(cartTitle).toBeVisible()
+
+    const productQuantity = within(cartHeader).getByText(
+      `(${mockCartSummary.productsQuantity} ${en.cart.productItems})`
+    )
+
+    expect(productQuantity).toBeVisible()
+
+    const clearCartButton = within(cartHeader).getByRole('button', {
+      name: en.cart.buttons.clearCart.title,
+    })
+
+    expect(clearCartButton).toBeVisible()
   })
 })

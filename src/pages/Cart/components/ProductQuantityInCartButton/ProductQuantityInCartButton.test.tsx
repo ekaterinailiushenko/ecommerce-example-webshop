@@ -79,16 +79,9 @@ describe('ProductQuantityInCartButton', () => {
     it('should call addProductToCart when add to cart button is clicked', async () => {
       await renderComponent()
 
-      checkElements({
-        undoButton: 'not-rendered',
-        addToCartButton: 'rendered',
-        decreaseQuantityButton: 'not-rendered',
-        increaseQuantityButton: 'not-rendered',
-        productQuantity: 'not-rendered',
-      })
-
       const addToCartButton = screen.getByRole('button', { name: en.cart.buttons.addToCart.title })
 
+      expect(addToCartButton).toBeVisible()
       expect(addToCartButton).toBeEnabled()
       expect(cartApi.addProductToCart).not.toHaveBeenCalled()
 
@@ -106,19 +99,7 @@ describe('ProductQuantityInCartButton', () => {
       vi.mocked(cartApi.getCartSummary).mockResolvedValue(mockCartSummary)
     })
 
-    it('should render decrease and increase quantity buttons', async () => {
-      await renderComponent()
-
-      checkElements({
-        undoButton: 'not-rendered',
-        addToCartButton: 'not-rendered',
-        decreaseQuantityButton: 'rendered',
-        increaseQuantityButton: 'rendered',
-        productQuantity: 'rendered',
-      })
-    })
-
-    it('should render product quantity in the cart', async () => {
+    it('should render decrease and increase quantity buttons and product quantity', async () => {
       await renderComponent()
 
       checkElements({
