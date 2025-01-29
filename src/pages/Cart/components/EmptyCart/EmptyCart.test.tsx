@@ -11,7 +11,7 @@ import { AuthContextProvider } from '../../../../contexts/AuthContext/provider'
 
 const history = createMemoryHistory()
 
-const renderCartSummary = async () => {
+const renderEmptyCart = async () => {
   render(
     <Router location={history.location} navigator={history}>
       <AuthContextProvider>
@@ -29,27 +29,28 @@ const renderCartSummary = async () => {
 
 describe('EmptyCart', () => {
   it('should display empty cart image, main message, secondary message, and navigation button', async () => {
-    await renderCartSummary()
+    await renderEmptyCart()
 
-    const emptySummary = screen.getByTestId('empty-cart')
+    const emptyCart = screen.getByTestId('empty-cart')
+    const withinEmptyCart = within(emptyCart)
 
-    expect(within(emptySummary).getByAltText(en.cart.emptyCart.altText)).toBeVisible()
-    expect(within(emptySummary).getByText(en.cart.emptyCart.mainMessage)).toBeVisible()
-    expect(within(emptySummary).getByText(en.cart.emptyCart.secondaryMessage)).toBeVisible()
-
-    const startShoppingButton = within(emptySummary).getByRole('button', {
+    const startShoppingButton = withinEmptyCart.getByRole('button', {
       name: en.cart.emptyCart.linkToMainPage,
     })
 
     expect(startShoppingButton).toBeVisible()
+    expect(withinEmptyCart.getByAltText(en.cart.emptyCart.altText)).toBeVisible()
+    expect(withinEmptyCart.getByText(en.cart.emptyCart.mainMessage)).toBeVisible()
+    expect(withinEmptyCart.getByText(en.cart.emptyCart.secondaryMessage)).toBeVisible()
   })
 
   it('should redirect to homepage when navigation button is clicked', async () => {
-    await renderCartSummary()
+    await renderEmptyCart()
 
-    const emptySummary = screen.getByTestId('empty-cart')
+    const emptyCart = screen.getByTestId('empty-cart')
+    const withinEmptyCart = within(emptyCart)
 
-    const startShoppingButton = within(emptySummary).getByRole('button', {
+    const startShoppingButton = withinEmptyCart.getByRole('button', {
       name: en.cart.emptyCart.linkToMainPage,
     })
 

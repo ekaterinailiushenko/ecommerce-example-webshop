@@ -35,33 +35,30 @@ describe('CartSummary', () => {
     await renderCartSummary()
 
     const cartSummary = screen.getByTestId('cart-summary')
+    const withinCartSummary = within(cartSummary)
 
-    const cartSummaryTitle = within(cartSummary).getByText(en.cart.summary)
-
-    expect(cartSummaryTitle).toBeVisible()
-
-    const productQuantity = within(cartSummary).getByText(
+    const cartSummaryTitle = withinCartSummary.getByText(en.cart.summary)
+    const productQuantity = withinCartSummary.getByText(
       `(${mockCartSummary.productsQuantity} ${en.cart.productItems})`
     )
+    const buyButton = withinCartSummary.getByRole('button', {
+      name: en.cart.buttons.buyNow.title,
+    })
 
+    expect(cartSummaryTitle).toBeVisible()
     expect(productQuantity).toBeVisible()
+    expect(buyButton).toBeVisible()
 
     const assertPriceInCartSummary = (price: number) => {
       const formattedPrice = formatPrice(price)
 
       if (formattedPrice) {
-        expect(within(cartSummary).findByText(formattedPrice)).not.toBeNull()
+        expect(withinCartSummary.findByText(formattedPrice)).not.toBeNull()
       }
     }
 
     assertPriceInCartSummary(mockCartSummary.totalPrice)
     assertPriceInCartSummary(mockCartSummary.deliveryCosts)
     assertPriceInCartSummary(mockCartSummary.totalPriceWithDeliveryCosts)
-
-    const buyButton = within(cartSummary).getByRole('button', {
-      name: en.cart.buttons.buyNow.title,
-    })
-
-    expect(buyButton).toBeVisible()
   })
 })

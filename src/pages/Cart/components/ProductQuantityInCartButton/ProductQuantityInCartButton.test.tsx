@@ -87,6 +87,7 @@ describe('ProductQuantityInCartButton', () => {
 
       await act(async () => {
         addToCartButton.click()
+
         await flushPromises()
       })
 

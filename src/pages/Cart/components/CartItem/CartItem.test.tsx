@@ -72,13 +72,11 @@ describe('CartItem', () => {
     await renderCartItem()
 
     const visibleDeleteFromCartButton = screen.getByTestId('remove-from-cart')
-
-    expect(visibleDeleteFromCartButton).toBeVisible()
-
     const unvisibleUndoButton = screen.queryByRole('button', {
       name: en.cart.buttons.undoRemoveFromCart.title,
     })
 
+    expect(visibleDeleteFromCartButton).toBeVisible()
     expect(unvisibleUndoButton).toBeNull()
 
     await act(async () => {
@@ -88,28 +86,24 @@ describe('CartItem', () => {
     })
 
     const disabledDeleteFromCartButton = screen.queryByTestId('remove-from-cart')
-
-    expect(disabledDeleteFromCartButton).toHaveAttribute('disabled')
-
     const visibleUndoButton = screen.getByRole('button', {
       name: en.cart.buttons.undoRemoveFromCart.title,
     })
 
+    expect(disabledDeleteFromCartButton).toHaveAttribute('disabled')
     expect(visibleUndoButton).toBeVisible()
   })
 
   it('should cancel product removal when undo button is clicked', async () => {
     await renderCartItem()
 
+    const visibleDeleteFromCartButton = screen.getByTestId('remove-from-cart')
     const unvisibleUndoButton = screen.queryByRole('button', {
       name: en.cart.buttons.undoRemoveFromCart.title,
     })
 
-    expect(unvisibleUndoButton).toBeNull()
-
-    const visibleDeleteFromCartButton = screen.getByTestId('remove-from-cart')
-
     expect(visibleDeleteFromCartButton).toBeVisible()
+    expect(unvisibleUndoButton).toBeNull()
 
     await act(async () => {
       visibleDeleteFromCartButton.click()
@@ -117,15 +111,13 @@ describe('CartItem', () => {
       await flushPromises()
     })
 
+    const disabledDeleteFromCartButton = screen.queryByTestId('remove-from-cart')
     const visibleUndoButton = await screen.findByRole('button', {
       name: en.cart.buttons.undoRemoveFromCart.title,
     })
 
-    expect(visibleUndoButton).toBeVisible()
-
-    const disabledDeleteFromCartButton = screen.queryByTestId('remove-from-cart')
-
     expect(disabledDeleteFromCartButton).toHaveAttribute('disabled')
+    expect(visibleUndoButton).toBeVisible()
 
     await act(async () => {
       visibleUndoButton.click()

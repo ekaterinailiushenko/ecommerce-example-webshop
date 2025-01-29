@@ -82,7 +82,9 @@ describe('Cart page', () => {
         cartSummary: 'rendered',
       })
 
-      getProductsResponse.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
+      getProductsResponse.forEach(product => {
+        expect(screen.getByText(product.name)).toBeVisible()
+      })
     })
 
     it('should delete products from the cart and display empty cart section after clear cart button is clicked', async () => {
@@ -94,11 +96,11 @@ describe('Cart page', () => {
         cartSummary: 'rendered',
       })
 
-      getProductsResponse.forEach(product => expect(screen.getByText(product.name)).toBeVisible())
-
-      const clearCartButton = within(screen.getByTestId('cart-header')).getByRole('button', {
-        name: en.cart.buttons.clearCart.title,
+      getProductsResponse.forEach(product => {
+        expect(screen.getByText(product.name)).toBeVisible()
       })
+
+      const clearCartButton = screen.getByRole('button', { name: en.cart.buttons.clearCart.title })
 
       await act(async () => {
         clearCartButton.click()
@@ -106,7 +108,9 @@ describe('Cart page', () => {
         await flushPromises()
       })
 
-      getProductsResponse.forEach(product => expect(screen.queryByText(product.name)).toBeNull())
+      getProductsResponse.forEach(product => {
+        expect(screen.queryByText(product.name)).toBeNull()
+      })
 
       checkElements({
         emptyCart: 'rendered',

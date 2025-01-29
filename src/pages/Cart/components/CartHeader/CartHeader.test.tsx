@@ -31,21 +31,18 @@ describe('CartHeader', () => {
     await renderCartHeader()
 
     const cartHeader = screen.getByTestId('cart-header')
+    const withinCartHeader = within(cartHeader)
 
-    const cartTitle = within(cartHeader).getByText(en.cart.title)
-
-    expect(cartTitle).toBeVisible()
-
-    const productQuantity = within(cartHeader).getByText(
+    const cartTitle = withinCartHeader.getByText(en.cart.title)
+    const productQuantity = withinCartHeader.getByText(
       `(${mockCartSummary.productsQuantity} ${en.cart.productItems})`
     )
-
-    expect(productQuantity).toBeVisible()
-
-    const clearCartButton = within(cartHeader).getByRole('button', {
+    const clearCartButton = withinCartHeader.getByRole('button', {
       name: en.cart.buttons.clearCart.title,
     })
 
+    expect(cartTitle).toBeVisible()
+    expect(productQuantity).toBeVisible()
     expect(clearCartButton).toBeVisible()
   })
 })
