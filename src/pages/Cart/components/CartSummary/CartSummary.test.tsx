@@ -48,6 +48,7 @@ describe('CartSummary', () => {
     expect(cartSummaryTitle).toBeVisible()
     expect(productQuantity).toBeVisible()
     expect(buyButton).toBeVisible()
+    expect(buyButton).toBeEnabled()
 
     const assertPriceInCartSummary = (price: number) => {
       const formattedPrice = formatPrice(price)

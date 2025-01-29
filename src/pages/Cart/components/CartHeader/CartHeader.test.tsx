@@ -44,5 +44,6 @@ describe('CartHeader', () => {
     expect(cartTitle).toBeVisible()
     expect(productQuantity).toBeVisible()
     expect(clearCartButton).toBeVisible()
+    expect(clearCartButton).toBeEnabled()
   })
 })

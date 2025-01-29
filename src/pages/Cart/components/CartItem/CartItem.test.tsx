@@ -77,6 +77,7 @@ describe('CartItem', () => {
     })
 
     expect(deleteButtonBeforeClick).toBeVisible()
+    expect(deleteButtonBeforeClick).toBeEnabled()
     expect(undoButtonBeforeClick).toBeNull()
 
     await act(async () => {
@@ -92,6 +93,7 @@ describe('CartItem', () => {
 
     expect(deleteButtonAfterClick).toBeDisabled()
     expect(undoButtonAfterClick).toBeVisible()
+    expect(undoButtonAfterClick).toBeEnabled()
   })
 
   it('should cancel product removal when undo button is clicked', async () => {
@@ -103,6 +105,7 @@ describe('CartItem', () => {
     })
 
     expect(deleteButtonBeforeClick).toBeVisible()
+    expect(deleteButtonBeforeClick).toBeEnabled()
     expect(undoButtonBeforeClick).toBeNull()
 
     await act(async () => {
@@ -118,6 +121,7 @@ describe('CartItem', () => {
 
     expect(deleteButtonAfterClick).toBeDisabled()
     expect(undoButtonAfterClick).toBeVisible()
+    expect(undoButtonAfterClick).toBeEnabled()
 
     await act(async () => {
       undoButtonAfterClick.click()
@@ -126,6 +130,7 @@ describe('CartItem', () => {
     })
 
     expect(deleteButtonBeforeClick).toBeVisible()
+    expect(deleteButtonBeforeClick).toBeEnabled()
     expect(undoButtonBeforeClick).toBeNull()
   })
 })

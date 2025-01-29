@@ -39,6 +39,7 @@ describe('EmptyCart', () => {
     })
 
     expect(startShoppingButton).toBeVisible()
+    expect(startShoppingButton).toBeEnabled()
     expect(withinEmptyCart.getByAltText(en.cart.emptyCart.altText)).toBeVisible()
     expect(withinEmptyCart.getByText(en.cart.emptyCart.mainMessage)).toBeVisible()
     expect(withinEmptyCart.getByText(en.cart.emptyCart.secondaryMessage)).toBeVisible()
