@@ -29,13 +29,13 @@ export const CartItem = ({ item }: { item: Product }) => {
     }
   }, [])
 
-  const handleDeleteClick = (itemId: string) => {
+  const handleDeleteClick = () => {
     setIsRemoving(true)
     clearRemovalTimer()
 
     removalTimerRef.current = setTimeout(async () => {
       try {
-        await deleteProductFromCart({ productId: itemId, removeAll: true })
+        await deleteProductFromCart({ productId: item.product_id, removeAll: true })
       } catch (error) {
         logger.error('Error deleting product from cart:', error)
       } finally {
@@ -72,11 +72,7 @@ export const CartItem = ({ item }: { item: Product }) => {
         />
       </div>
       <div className="flex justify-end items-start">
-        <button
-          onClick={() => handleDeleteClick(item.product_id)}
-          disabled={isRemoving}
-          data-testid="remove-from-cart"
-        >
+        <button onClick={handleDeleteClick} disabled={isRemoving} data-testid="remove-from-cart">
           <Icon variant="cross" size="md" className={classNames(isRemoving && 'invisible')} />
         </button>
       </div>
