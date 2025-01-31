@@ -8,7 +8,7 @@ import type { Product } from '../../../../api/types'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
 import { ProductQuantityInCartButton } from '../ProductQuantityInCartButton'
 
-export const REMOVAL_DELAY = 5000
+const REMOVAL_DELAY = 5000
 
 export const CartItem = ({ item }: { item: Product }) => {
   const removalTimerRef = useRef<NodeJS.Timeout>(null)
@@ -79,3 +79,5 @@ export const CartItem = ({ item }: { item: Product }) => {
     </section>
   )
 }
+
+CartItem.removalDelay = REMOVAL_DELAY

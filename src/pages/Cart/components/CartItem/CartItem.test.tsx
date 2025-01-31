@@ -1,8 +1,8 @@
 import { render, waitFor, screen, act } from '@testing-library/react'
 
+import { CartItem } from '../index'
 import en from '../../../../i18n/en.json'
 import { cartApi } from '../../../../api/cartApi'
-import { CartItem, REMOVAL_DELAY } from '../index'
 import { flushPromises } from '../../../../utilities'
 import { getProductsResponse } from '../../../../mocks'
 import { CartContextProvider } from '../../../../contexts/CartContext/provider'
@@ -62,7 +62,7 @@ describe('CartItem', () => {
     await act(async () => {
       deleteFromCartButton.click()
 
-      await vi.advanceTimersByTimeAsync(REMOVAL_DELAY)
+      await vi.advanceTimersByTimeAsync(CartItem.removalDelay)
     })
 
     expect(cartApi.deleteProductFromCart).toHaveBeenCalledTimes(1)

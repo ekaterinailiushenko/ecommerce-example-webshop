@@ -3,8 +3,8 @@ import { screen, render, act, within } from '@testing-library/react'
 
 import { Cart } from './index'
 import en from '../../i18n/en.json'
+import { CartItem } from './components'
 import { cartApi } from '../../api/cartApi'
-import { REMOVAL_DELAY } from './components'
 import { flushPromises } from '../../utilities'
 import { CartContextProvider } from '../../contexts/CartContext/provider'
 import { AuthContextProvider } from '../../contexts/AuthContext/provider'
@@ -146,7 +146,7 @@ describe('Cart page', () => {
       await act(async () => {
         deleteFromCartButton.click()
 
-        await vi.advanceTimersByTimeAsync(REMOVAL_DELAY)
+        await vi.advanceTimersByTimeAsync(CartItem.removalDelay)
       })
 
       expect(item).not.toBeVisible()
