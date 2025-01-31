@@ -53,9 +53,13 @@ describe('CartSummary', () => {
     const assertPriceInCartSummary = (price: number) => {
       const formattedPrice = formatPrice(price)
 
-      if (formattedPrice) {
-        expect(withinCartSummary.findByText(formattedPrice)).not.toBeNull()
+      if (!formattedPrice) {
+        throw new Error(`Price formatting failed for: ${price}`)
       }
+
+      expect(
+        withinCartSummary.getByText(formattedPrice, { collapseWhitespace: false })
+      ).toBeVisible()
     }
 
     assertPriceInCartSummary(mockCartSummary.totalPrice)
