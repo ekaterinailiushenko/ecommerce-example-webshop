@@ -10,7 +10,7 @@ type Props = {
   onUndo?: () => void
 }
 
-export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
+export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Props) => {
   const {
     addProductToCart,
     deleteProductFromCart: decreaseQuantity,
@@ -34,7 +34,10 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
     if (itemInCart) {
       return (
         <div className="flex justify-between items-center w-full h-full">
-          <button onClick={() => decreaseQuantity({ productId: product.product_id })}>
+          <button
+            onClick={() => decreaseQuantity({ productId: product.product_id })}
+            data-testid="decrease-quantity"
+          >
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
               {itemInCart.amountInCart > 1 ? <Icon variant="minus" /> : <Icon variant="bin" />}
 
@@ -47,7 +50,10 @@ export const CartButton = ({ product, isRemoving, onUndo }: Props) => {
               {formatPrice(itemInCart.priceForAmountInCart)}
             </p>
           </div>
-          <button onClick={() => addProductToCart(product.product_id)}>
+          <button
+            onClick={() => addProductToCart(product.product_id)}
+            data-testid="increase-quantity"
+          >
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
               <div className="h-9 border-l border-green-300 opacity-20 mx-2"></div>
               <Icon variant="plus" />

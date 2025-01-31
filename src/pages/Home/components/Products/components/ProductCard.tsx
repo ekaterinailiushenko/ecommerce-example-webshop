@@ -5,7 +5,7 @@ import { Button } from '../../../../../uikit'
 import { ProductCardModal } from './ProductCardModal'
 import { formatPrice } from '../../../../../utilities'
 import type { Product } from '../../../../../api/types'
-import { CartButton } from '../../../../Cart/components'
+import { ProductQuantityInCartButton } from '../../../../Cart/components'
 import { useModalContext } from '../../../../../contexts/ModalContext/hook'
 
 export const ProductCard = ({ product }: { product: Product }) => {
@@ -36,7 +36,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
         />
       </div>
       <h5 className="self-end mb-4 font-semibold">{formatPrice(product.pricePerProduct)}</h5>
-      <CartButton product={product} />
+      <ProductQuantityInCartButton product={product} />
     </div>
   )
 }

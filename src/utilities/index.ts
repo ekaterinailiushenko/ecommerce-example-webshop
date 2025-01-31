@@ -1,4 +1,5 @@
 export * from './logger'
 export * from './formatPrice'
+export * from './flushPromises'
 export * from './safeJsonParse'
 export * from './getFirebaseErrorMessage'

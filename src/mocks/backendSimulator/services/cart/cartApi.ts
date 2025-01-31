@@ -4,13 +4,13 @@ import { getProductsResponse, resetGetProductsResponse } from '../../../getProdu
 import { cartInternal } from './index'
 import { cartPersistor } from './persistor'
 import { STATIC_GUEST_USER_ID } from './constants'
-import type { Product } from '../../../../api/types'
+import type { Cart, Product } from '../../../../api/types'
 
 /**
  * Exported to the outside world methods to work with internal cart
  */
 export const cartApi = {
-  getCartSummary: (userId: string = STATIC_GUEST_USER_ID) => {
+  getCartSummary: (userId: string = STATIC_GUEST_USER_ID): Promise<Cart> => {
     cartPersistor.load(userId)
 
     return Promise.resolve({ ...cartInternal })
@@ -21,7 +21,7 @@ export const cartApi = {
   }: {
     userId?: string
     productId: Product['product_id']
-  }) => {
+  }): Promise<Cart> => {
     const productInDB = getProductsResponse.find(product => product.product_id === productId)!
 
     const productInProductsMap = cartInternal._productsMap.get(productId)
@@ -51,7 +51,7 @@ export const cartApi = {
     userId?: string
     productId: Product['product_id']
     removeAll?: boolean
-  }) => {
+  }): Promise<Cart> => {
     const productInDB = getProductsResponse.find(product => product.product_id === productId)!
 
     const productInProductsMap = cartInternal._productsMap.get(productId)
@@ -73,7 +73,7 @@ export const cartApi = {
 
     return Promise.resolve({ ...cartInternal })
   },
-  clearCart: (userId: string = STATIC_GUEST_USER_ID) => {
+  clearCart: (userId: string = STATIC_GUEST_USER_ID): Promise<Cart> => {
     cartInternal._productsMap.clear()
     resetGetProductsResponse()
 

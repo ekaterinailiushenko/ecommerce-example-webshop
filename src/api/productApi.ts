@@ -1,4 +1,4 @@
-import { backendSimulator } from '../mock/backendSimulator'
+import { backendSimulator } from '../mocks/backendSimulator'
 
 /**
  * Frontend-side product methods to work with backend's product service

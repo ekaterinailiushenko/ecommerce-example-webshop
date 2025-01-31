@@ -5,7 +5,7 @@ export const CartHeader = () => {
   const { clearCart, cartSummary: { productsQuantity } = {} } = useCartContext()
 
   return (
-    <section className="flex gap-2 items-baseline justify-between">
+    <section className="flex gap-2 items-baseline justify-between" data-testid="cart-header">
       <div className="flex mb-4 gap-2 items-baseline">
         <h1 className="text-3xl font-bold">{en.cart.title}</h1>
         <p className="text-slate-600">
