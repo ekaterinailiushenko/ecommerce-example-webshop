@@ -1,7 +1,7 @@
+import i18next from 'i18next'
 import { render, screen, act, within } from '@testing-library/react'
 
 import { CartHeader } from './index'
-import en from '../../../../i18n/en.json'
 import { cartApi } from '../../../../api/cartApi'
 import { mockCartSummary } from '../../../../mocks'
 import { flushPromises } from '../../../../utilities'
@@ -33,12 +33,12 @@ describe('CartHeader', () => {
     const cartHeader = screen.getByTestId('cart-header')
     const withinCartHeader = within(cartHeader)
 
-    const cartTitle = withinCartHeader.getByText(en.cart.title)
+    const cartTitle = withinCartHeader.getByText(i18next.t('cart.title'))
     const productQuantity = withinCartHeader.getByText(
-      `(${mockCartSummary.productsQuantity} ${en.cart.productItems})`
+      i18next.t('cart.productItems', { count: mockCartSummary.productsQuantity })
     )
     const clearCartButton = withinCartHeader.getByRole('button', {
-      name: en.cart.buttons.clearCart.title,
+      name: i18next.t('cart.buttons.clearCart.title'),
     })
 
     expect(cartTitle).toBeVisible()

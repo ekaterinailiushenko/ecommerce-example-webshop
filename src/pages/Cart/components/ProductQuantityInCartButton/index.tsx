@@ -1,5 +1,6 @@
+import { useTranslation } from 'react-i18next'
+
 import { Icon } from '../../../../uikit'
-import en from '../../../../i18n/en.json'
 import { formatPrice } from '../../../../utilities'
 import type { Product } from '../../../../api/types'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
@@ -11,6 +12,8 @@ type Props = {
 }
 
 export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Props) => {
+  const { t } = useTranslation()
+
   const {
     addProductToCart,
     deleteProductFromCart: decreaseQuantity,
@@ -27,7 +30,7 @@ export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Pro
           className="flex items-center justify-center w-full h-full hover:bg-green-400 rounded-md transition"
         >
           <div className="absolute top-0 left-0 h-full bg-green-600 rounded-md fill-progress-bar" />
-          <p className="text-white font-bold z-50">{en.cart.buttons.undoRemoveFromCart.title}</p>
+          <p className="text-white font-bold z-50">{t('cart.buttons.undoRemoveFromCart.title')}</p>
         </button>
       )
     }
@@ -68,7 +71,7 @@ export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Pro
         onClick={() => addProductToCart(product.product_id)}
       >
         <Icon variant="cart" size="sm" />
-        {en.cart.buttons.addToCart.title}
+        {t('cart.buttons.addToCart.title')}
       </button>
     )
   }

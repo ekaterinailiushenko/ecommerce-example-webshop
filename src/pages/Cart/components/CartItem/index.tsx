@@ -1,8 +1,8 @@
 import classNames from 'classnames'
+import { useTranslation } from 'react-i18next'
 import { useEffect, useRef, useState } from 'react'
 
 import { Icon } from '../../../../uikit'
-import en from '../../../../i18n/en.json'
 import { logger } from '../../../../utilities'
 import type { Product } from '../../../../api/types'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
@@ -11,6 +11,8 @@ import { ProductQuantityInCartButton } from '../ProductQuantityInCartButton'
 const REMOVAL_DELAY = 5000
 
 export const CartItem = ({ item }: { item: Product }) => {
+  const { t } = useTranslation()
+
   const removalTimerRef = useRef<NodeJS.Timeout>(null)
 
   const [isRemoving, setIsRemoving] = useState(false)
@@ -58,12 +60,12 @@ export const CartItem = ({ item }: { item: Product }) => {
       <img
         src={item.image}
         className={classNames('object-contain place-self-center', isRemoving && 'opacity-50')}
-        alt={en.products.productImageAltText}
+        alt={t('products.productImageAltText')}
       />
       <div className="lg:col-start-2 lg:col-span-4 flex flex-col justify-between">
         <p className={classNames('font-bold text-lg', isRemoving && 'opacity-50')}>{item.name}</p>
         <p className={classNames('text-sm text-slate-600', isRemoving && 'opacity-50')}>
-          {en.cart.deliveryTime}
+          {t('cart.deliveryTime')}
         </p>
         <ProductQuantityInCartButton
           product={item}

@@ -1,7 +1,7 @@
+import i18next from 'i18next'
 import { render, waitFor, screen, act } from '@testing-library/react'
 
 import { CartItem } from '../index'
-import en from '../../../../i18n/en.json'
 import { cartApi } from '../../../../api/cartApi'
 import { flushPromises } from '../../../../utilities'
 import { getProductsResponse } from '../../../../mocks'
@@ -28,15 +28,15 @@ describe('CartItem', () => {
   it('should render product image, name, delivery time and cart button', async () => {
     await renderCartItem()
 
-    expect(screen.getByAltText(en.products.productImageAltText)).toBeVisible()
+    expect(screen.getByAltText(i18next.t('products.productImageAltText'))).toBeVisible()
     expect(screen.getByText(product.name)).toBeVisible()
-    expect(screen.getByText(en.cart.deliveryTime)).toBeVisible()
+    expect(screen.getByText(i18next.t('cart.deliveryTime'))).toBeVisible()
   })
 
   it('should render product image, name and delivery time with opacity when delete product from cart button is clicked', async () => {
     await renderCartItem()
 
-    const img = screen.getByAltText(en.products.productImageAltText)
+    const img = screen.getByAltText(i18next.t('products.productImageAltText'))
     const deleteFromCartButton = screen.getByTestId('remove-from-cart')
 
     await act(async () => {
@@ -73,7 +73,7 @@ describe('CartItem', () => {
 
     const deleteButtonBeforeClick = screen.getByTestId('remove-from-cart')
     const undoButtonBeforeClick = screen.queryByRole('button', {
-      name: en.cart.buttons.undoRemoveFromCart.title,
+      name: i18next.t('cart.buttons.undoRemoveFromCart.title'),
     })
 
     expect(deleteButtonBeforeClick).toBeVisible()
@@ -88,7 +88,7 @@ describe('CartItem', () => {
 
     const deleteButtonAfterClick = screen.queryByTestId('remove-from-cart')
     const undoButtonAfterClick = screen.getByRole('button', {
-      name: en.cart.buttons.undoRemoveFromCart.title,
+      name: i18next.t('cart.buttons.undoRemoveFromCart.title'),
     })
 
     expect(deleteButtonAfterClick).toBeDisabled()
@@ -101,7 +101,7 @@ describe('CartItem', () => {
 
     const deleteButtonBeforeClick = screen.getByTestId('remove-from-cart')
     const undoButtonBeforeClick = screen.queryByRole('button', {
-      name: en.cart.buttons.undoRemoveFromCart.title,
+      name: i18next.t('cart.buttons.undoRemoveFromCart.title'),
     })
 
     expect(deleteButtonBeforeClick).toBeVisible()
@@ -116,7 +116,7 @@ describe('CartItem', () => {
 
     const deleteButtonAfterClick = screen.queryByTestId('remove-from-cart')
     const undoButtonAfterClick = await screen.findByRole('button', {
-      name: en.cart.buttons.undoRemoveFromCart.title,
+      name: i18next.t('cart.buttons.undoRemoveFromCart.title'),
     })
 
     expect(deleteButtonAfterClick).toBeDisabled()

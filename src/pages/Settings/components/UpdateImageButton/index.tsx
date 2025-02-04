@@ -1,6 +1,6 @@
 import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import en from '../../../../i18n/en.json'
 import { Button } from '../../../../uikit'
 
 export const UpdateImageButton = ({
@@ -8,6 +8,8 @@ export const UpdateImageButton = ({
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }) => {
+  const { t } = useTranslation()
+
   const fileInput = useRef<HTMLInputElement>(null)
 
   return (
@@ -24,7 +26,7 @@ export const UpdateImageButton = ({
         variant="light"
         icon="plus"
         size="small"
-        label={en.profile.buttons.changeImage.title}
+        label={t('profile.buttons.changeImage.title')}
         onClick={() => fileInput.current?.click()}
       />
     </div>

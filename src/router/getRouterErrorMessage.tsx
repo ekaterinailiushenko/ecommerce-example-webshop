@@ -1,17 +1,15 @@
-import en from '../i18n/en.json'
-
 export const getRouteErrorMessage = (status: number) => {
   switch (status) {
     case 404:
-      return en.routeError.pageNotFound
+      return 'routeError.pageNotFound'
 
     case 401:
-      return en.routeError.unauthorized
+      return 'routeError.unauthorized'
 
     case 503:
-      return en.routeError.apiUnavailable
+      return 'routeError.apiUnavailable'
 
     default:
-      return en.routeError.unknownError
+      return 'routeError.unknownError'
   }
 }

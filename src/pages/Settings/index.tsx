@@ -1,8 +1,8 @@
 import classNames from 'classnames'
 import { useNavigate } from 'react-router'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import en from '../../i18n/en.json'
 import { Button } from '../../uikit'
 import { logger } from '../../utilities'
 import { UpdateImageButton } from './components'
@@ -10,6 +10,8 @@ import { useAuthContext } from '../../contexts/AuthContext/hook'
 import { useProfileContext } from '../../contexts/ProfileContext/hook'
 
 export const Settings = () => {
+  const { t } = useTranslation()
+
   const [newPassword, setNewPassword] = useState('')
 
   const { user, error, loading, changePassword, deleteUser } = useAuthContext()
@@ -36,7 +38,7 @@ export const Settings = () => {
   }
 
   const handleDeleteAccountClick = async () => {
-    const confirmed = window.confirm(en.profile.buttons.deleteAccount.warn)
+    const confirmed = window.confirm(t('profile.buttons.deleteAccount.warn'))
 
     if (!user) {
       logger.error('User is undefined')
@@ -67,7 +69,7 @@ export const Settings = () => {
   }
 
   const handleDeleteProfileImageClick = async () => {
-    const confirmed = window.confirm(en.profile.buttons.changeImage.warn)
+    const confirmed = window.confirm(t('profile.buttons.changeImage.warn'))
 
     if (!user) {
       logger.error('User is undefined')
@@ -95,14 +97,14 @@ export const Settings = () => {
       <Button
         variant="minimalist"
         icon="chevronLeft"
-        label={en.profile.returnToAccount}
+        label={t('profile.returnToAccount')}
         onClick={() => {
           void navigate(-1)
         }}
         className="mt-4"
       />
-      <h1 className="text-3xl font-semibold my-4">{en.profile.settings}</h1>
-      <h2 className="text-2xl font-semibold">{en.profile.data}</h2>
+      <h1 className="text-3xl font-semibold my-4">{t('profile.settings')}</h1>
+      <h2 className="text-2xl font-semibold">{t('profile.data')}</h2>
       <div className="flex items-center gap-6 my-2">
         {isLoading ? (
           <div className="w-16 h-16 rounded-full bg-gray-300 animate-pulse" />
@@ -110,7 +112,7 @@ export const Settings = () => {
           <img
             className="rounded-full w-16 h-16"
             src={userPhoto}
-            alt={en.profile.profileImageAltText}
+            alt={t('profile.profileImageAltText')}
           />
         )}
         <UpdateImageButton onChange={handleUploadImageChange} />
@@ -125,7 +127,7 @@ export const Settings = () => {
       </div>
       <form onSubmit={handleNewPasswordSubmit} className="my-4">
         <label htmlFor="newPassword" className="mb-1 block text-sm font-medium text-gray-700">
-          {en.profile.buttons.changePassword.title}
+          {t('profile.buttons.changePassword.title')}
         </label>
         <div className="flex space-x-2">
           <input
@@ -149,7 +151,7 @@ export const Settings = () => {
       <Button
         variant="danger"
         size="small"
-        label={en.profile.buttons.deleteAccount.title}
+        label={t('profile.buttons.deleteAccount.title')}
         onClick={handleDeleteAccountClick}
       />
     </>

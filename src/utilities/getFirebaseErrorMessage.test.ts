@@ -1,4 +1,5 @@
-import en from '../i18n/en.json'
+import i18next from 'i18next'
+
 import { getFirebaseErrorMessage } from './getFirebaseErrorMessage'
 
 describe('getFirebaseErrorMessage', () => {
@@ -13,13 +14,15 @@ describe('getFirebaseErrorMessage', () => {
     ${'auth/weak-password'}         | ${'weakPassword'}
     ${'storage/object-not-found'}   | ${'objectNotFound'}
   `('should return the correct error message for $authCode', ({ authCode, errorKey }) => {
-    expect(getFirebaseErrorMessage(authCode)).toBe(
-      en.firebaseError[errorKey as keyof typeof en.firebaseError]
+    expect(i18next.t(getFirebaseErrorMessage(authCode))).toBe(
+      i18next.t(`firebaseError.${errorKey}`)
     )
   })
 
   it('should return the default error message for unknown error code', () => {
     const unknownErrorCode = 'auth/unknown-error-code'
-    expect(getFirebaseErrorMessage(unknownErrorCode)).toBe(en.firebaseError.unknownError)
+    expect(i18next.t(getFirebaseErrorMessage(unknownErrorCode))).toBe(
+      i18next.t('firebaseError.unknownError')
+    )
   })
 })

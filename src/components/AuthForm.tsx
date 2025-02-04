@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router'
+import { useTranslation } from 'react-i18next'
 
-import en from '../i18n/en.json'
 import { Routes } from '../router/config'
 import { Button, FormInput } from '../uikit'
 import { useAuthContext } from '../contexts/AuthContext/hook'
@@ -11,6 +11,8 @@ type Props = {
 }
 
 export const AuthForm = ({ isSignup }: Props) => {
+  const { t } = useTranslation()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -21,7 +23,7 @@ export const AuthForm = ({ isSignup }: Props) => {
     e.preventDefault()
 
     if (isSignup && confirmPassword !== password) {
-      setError(en.auth.signup.passwordsNotEqual)
+      setError(t('auth.signup.passwordsNotEqual'))
       return
     }
 
@@ -33,7 +35,7 @@ export const AuthForm = ({ isSignup }: Props) => {
     setError('')
   }
 
-  if (loading) return <div>{en.global.loading}</div>
+  if (loading) return <div>{t('global.loading')}</div>
 
   if (user) {
     return <Navigate to={Routes.PROFILE_PAGE_URL} />
@@ -42,11 +44,11 @@ export const AuthForm = ({ isSignup }: Props) => {
   return (
     <div className="bg-white shadow-md rounded flex flex-col w-5/6 sm:w-1/3 border border-inherit">
       <h2 className="text-2xl font-semibold mt-6 self-center">
-        {isSignup ? en.auth.signup.title : en.auth.login.title}
+        {isSignup ? t('auth.signup.title') : t('auth.login.title')}
       </h2>
       <form onSubmit={handleFormSubmit} className="space-y-4 p-8">
         <FormInput
-          label={en.auth.form.email}
+          label={t('auth.form.email')}
           htmlFor="email"
           type="email"
           id="email"
@@ -56,7 +58,7 @@ export const AuthForm = ({ isSignup }: Props) => {
           required
         />
         <FormInput
-          label={en.auth.form.password}
+          label={t('auth.form.password')}
           htmlFor="password"
           type="password"
           id="password"
@@ -67,7 +69,7 @@ export const AuthForm = ({ isSignup }: Props) => {
         />
         {isSignup && (
           <FormInput
-            label={en.auth.form.confirmPassword}
+            label={t('auth.form.confirmPassword')}
             htmlFor="confirmPassword"
             type="password"
             id="confirmPassword"
@@ -83,18 +85,19 @@ export const AuthForm = ({ isSignup }: Props) => {
         <Button
           type="submit"
           variant="secondary"
-          label={isSignup ? en.auth.signup.button : en.auth.login.button}
+          label={isSignup ? t('auth.signup.button') : t('auth.login.button')}
           size="large"
         />
       </form>
       {isSignup ? (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToLogin} <Link to={Routes.LOGIN_PAGE_URL}>{en.auth.login.title}</Link>
+          {t('auth.form.linkToLogin')}{' '}
+          <Link to={Routes.LOGIN_PAGE_URL}>{t('auth.login.title')}</Link>
         </p>
       ) : (
         <p className="text-sm text-center mb-6">
-          {en.auth.form.linkToSignup}{' '}
-          <Link to={Routes.SIGNUP_PAGE_URL}>{en.auth.signup.title}</Link>
+          {t('auth.form.linkToSignup')}{' '}
+          <Link to={Routes.SIGNUP_PAGE_URL}>{t('auth.signup.title')}</Link>
         </p>
       )}
     </div>

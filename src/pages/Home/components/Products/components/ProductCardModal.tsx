@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import en from '../../../../../i18n/en.json'
 import { formatPrice } from '../../../../../utilities'
 import type { Product } from '../../../../../api/types'
 import { ProductQuantityInCartButton } from '../../../../Cart/components'
@@ -9,6 +9,8 @@ import { useProductContext } from '../../../../../contexts/ProductContext/hook'
 import { Button, Container, Icon, ImageWithPlaceholder, Text } from '../../../../../uikit'
 
 export const ProductCardModal = ({ product }: { product: Product }) => {
+  const { t } = useTranslation()
+
   const { closeModal } = useModalContext()
 
   const { getProductDetails, productDetails, isProductDetailsError, isProductDetailsLoading } =
@@ -21,8 +23,13 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
   if (isProductDetailsError) {
     return (
       <Container className="flex flex-col items-center p-5 gap-5">
-        <Text text={en.products.modal.error} size="xl" className="text-center" />
-        <Button variant="danger" size="large" label={en.global.closeButton} onClick={closeModal} />
+        <Text text={t('products.modal.error')} size="xl" className="text-center" />
+        <Button
+          variant="danger"
+          size="large"
+          label={t('global.closeButton')}
+          onClick={closeModal}
+        />
       </Container>
     )
   }
@@ -31,7 +38,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
     return (
       <div className="flex flex-col items-center justify-center h-full p-5 gap-5">
         <Icon variant="spinner" size="lg" />
-        <p>{en.global.loading}</p>
+        <p>{t('global.loading')}</p>
       </div>
     )
   }
@@ -43,7 +50,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
           size={160}
           key={productDetails.image}
           src={productDetails.image}
-          alt={en.products.modal.productImageAltText}
+          alt={t('products.modal.productImageAltText')}
         />
         <div className="flex flex-col justify-between mr-5">
           <div>
@@ -54,30 +61,32 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
         </div>
       </div>
       <div className="col-span-2 overflow-y-auto max-h-64">
-        <p className="font-semibold text-gray-500 text-base">{en.products.modal.description}</p>
+        <p className="font-semibold text-gray-500 text-base">{t('products.modal.description')}</p>
         <p className="text-sm mb-3">{productDetails.description}</p>
         <p className="font-semibold text-gray-500 text-base">
-          {en.products.modal.storageInstructions.title}
+          {t('products.modal.storageInstructions.title')}
         </p>
         <p className="text-sm mb-3">
-          {en.products.modal.storageInstructions.part1}
+          {t('products.modal.storageInstructions.part1')}
           <span className="lowercase">{productDetails.name}</span>
-          {en.products.modal.storageInstructions.part2}
+          {t('products.modal.storageInstructions.part2')}
         </p>
         <p className="font-semibold text-gray-500 text-base">
-          {en.products.modal.usageSuggestions.title}
+          {t('products.modal.usageSuggestions.title')}
         </p>
         <ul className="list-disc list-inside text-sm mb-3">
-          <li>{en.products.modal.usageSuggestions.bullet1}</li>
-          <li>{en.products.modal.usageSuggestions.bullet2}</li>
-          <li>{en.products.modal.usageSuggestions.bullet3}</li>
+          <li>{t('products.modal.usageSuggestions.bullet1')}</li>
+          <li>{t('products.modal.usageSuggestions.bullet2')}</li>
+          <li>{t('products.modal.usageSuggestions.bullet3')}</li>
         </ul>
-        <p className="font-semibold text-gray-500 text-base">{en.products.modal.features.title}</p>
+        <p className="font-semibold text-gray-500 text-base">
+          {t('products.modal.features.title')}
+        </p>
         <ul className="list-disc list-inside text-sm mb-3">
-          <li>{en.products.modal.features.bullet1}</li>
-          <li>{en.products.modal.features.bullet2}</li>
-          <li>{en.products.modal.features.bullet3}</li>
-          <li>{en.products.modal.features.bullet4}</li>
+          <li>{t('products.modal.features.bullet1')}</li>
+          <li>{t('products.modal.features.bullet2')}</li>
+          <li>{t('products.modal.features.bullet3')}</li>
+          <li>{t('products.modal.features.bullet4')}</li>
         </ul>
       </div>
     </div>

@@ -1,16 +1,19 @@
-import en from '../i18n/en.json'
+import { useTranslation } from 'react-i18next'
+
 import { NavItem } from './NavItem'
 import { Routes } from '../router/config'
 import { useCartContext } from '../contexts/CartContext/hook'
 import { useAuthContext } from '../contexts/AuthContext/hook'
 
 export const NavMenu = () => {
+  const { t } = useTranslation()
+
   const { user, loading } = useAuthContext()
 
   const totalItemsInCart = useCartContext().cartSummary.productsQuantity
 
   if (loading) {
-    return <div>{en.global.loading}</div>
+    return <div>{t('global.loading')}</div>
   }
 
   return (
@@ -18,7 +21,7 @@ export const NavMenu = () => {
       <div className="hover:text-white hover:underline transition">
         <NavItem
           to={user ? Routes.PROFILE_PAGE_URL : Routes.LOGIN_PAGE_URL}
-          label={user ? en.header.navMenu.linkToProfile : en.header.navMenu.linkToLogin}
+          label={user ? t('header.navMenu.linkToProfile') : t('header.navMenu.linkToLogin')}
           icon="profile"
           iconSize="lg"
         />
@@ -29,7 +32,7 @@ export const NavMenu = () => {
         </div>
         <NavItem
           to={Routes.CART_PAGE_URL}
-          label={en.header.navMenu.linkToCart}
+          label={t('header.navMenu.linkToCart')}
           icon="cart"
           iconSize="lg"
         />

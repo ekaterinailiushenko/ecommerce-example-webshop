@@ -1,6 +1,6 @@
+import i18next from 'i18next'
 import { act, render, screen } from '@testing-library/react'
 
-import en from '../../../../i18n/en.json'
 import { cartApi } from '../../../../api/cartApi'
 import { flushPromises } from '../../../../utilities'
 import { ProductQuantityInCartButton } from './index'
@@ -10,10 +10,10 @@ import { mockCartSummary, mockEmptyCartSummary, mockProduct } from '../../../../
 
 const elementsGetters = {
   get undoButton() {
-    return screen.queryByText(en.cart.buttons.undoRemoveFromCart.title)
+    return screen.queryByText(i18next.t('cart.buttons.undoRemoveFromCart.title'))
   },
   get addToCartButton() {
-    return screen.queryByText(en.cart.buttons.addToCart.title)
+    return screen.queryByText(i18next.t('cart.buttons.addToCart.title'))
   },
   get decreaseQuantityButton() {
     return screen.queryByTestId('decrease-quantity')
@@ -79,7 +79,9 @@ describe('ProductQuantityInCartButton', () => {
     it('should call addProductToCart when add to cart button is clicked', async () => {
       await renderComponent()
 
-      const addToCartButton = screen.getByRole('button', { name: en.cart.buttons.addToCart.title })
+      const addToCartButton = screen.getByRole('button', {
+        name: i18next.t('cart.buttons.addToCart.title'),
+      })
 
       expect(addToCartButton).toBeVisible()
       expect(addToCartButton).toBeEnabled()

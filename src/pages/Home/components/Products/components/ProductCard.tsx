@@ -1,6 +1,6 @@
 import classNames from 'classnames'
+import { useTranslation } from 'react-i18next'
 
-import en from '../../../../../i18n/en.json'
 import { Button } from '../../../../../uikit'
 import { ProductCardModal } from './ProductCardModal'
 import { formatPrice } from '../../../../../utilities'
@@ -9,6 +9,8 @@ import { ProductQuantityInCartButton } from '../../../../Cart/components'
 import { useModalContext } from '../../../../../contexts/ModalContext/hook'
 
 export const ProductCard = ({ product }: { product: Product }) => {
+  const { t } = useTranslation()
+
   const { openModal } = useModalContext()
 
   const handleOpenModalClick = () => {
@@ -26,12 +28,16 @@ export const ProductCard = ({ product }: { product: Product }) => {
           'transition-all group-hover/item:scale-110 duration-700'
         )}
       >
-        <img src={product.image} alt={en.products.productImageAltText} className="object-contain" />
+        <img
+          src={product.image}
+          alt={t('products.productImageAltText')}
+          className="object-contain"
+        />
         <Button
           variant="info"
           size="small"
           className="absolute invisible group-hover/item:visible"
-          label={en.products.quickView}
+          label={t('products.quickView')}
           onClick={handleOpenModalClick}
         />
       </div>

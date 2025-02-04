@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import en from '../../i18n/en.json'
 import { Products } from './components'
 import { useProductContext } from '../../contexts/ProductContext/hook'
 
 export const Home = () => {
+  const { t } = useTranslation()
+
   const { isLoading, isProductsError, getProducts } = useProductContext()
 
   useEffect(() => {
@@ -12,11 +14,11 @@ export const Home = () => {
   }, [getProducts])
 
   if (isLoading) {
-    return <p>{en.global.loading}</p>
+    return <p>{t('global.loading')}</p>
   }
 
   if (isProductsError) {
-    return <p>{en.products.errors.loadError}</p>
+    return <p>{t('products.errors.loadError')}</p>
   }
 
   return (
