@@ -1,8 +1,8 @@
+import i18next from 'i18next'
 import { MemoryRouter } from 'react-router'
 import { screen, render, act, within } from '@testing-library/react'
 
 import { Cart } from './index'
-import en from '../../i18n/en.json'
 import { CartItem } from './components'
 import { cartApi } from '../../api/cartApi'
 import { flushPromises } from '../../utilities'
@@ -100,7 +100,9 @@ describe('Cart page', () => {
         expect(screen.getByText(product.name)).toBeVisible()
       })
 
-      const clearCartButton = screen.getByRole('button', { name: en.cart.buttons.clearCart.title })
+      const clearCartButton = screen.getByRole('button', {
+        name: i18next.t('cart.buttons.clearCart.title'),
+      })
 
       await act(async () => {
         clearCartButton.click()
