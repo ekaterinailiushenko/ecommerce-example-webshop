@@ -1,9 +1,12 @@
-import en from '../../../../i18n/en.json'
+import { useTranslation } from 'react-i18next'
+
 import { ProductCard } from './components'
 import productNotFoundLogo from '../../../../assets/productNotFoundLogo.png'
 import { useProductContext } from '../../../../contexts/ProductContext/hook'
 
 export const Products = () => {
+  const { t } = useTranslation()
+
   const { products } = useProductContext()
 
   const renderProducts = () => {
@@ -13,9 +16,9 @@ export const Products = () => {
           <img
             className="size-16"
             src={productNotFoundLogo}
-            alt={en.products.errors.notFound.altText}
+            alt={t('products.errors.notFound.altText')}
           />
-          <p>{en.products.errors.notFound.title}</p>
+          <p>{t('products.errors.notFound.title')}</p>
         </div>
       )
     }

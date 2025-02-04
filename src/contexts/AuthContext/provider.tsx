@@ -8,15 +8,17 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'
+import { useTranslation } from 'react-i18next'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-import en from '../../i18n/en.json'
 import { AuthContext } from './context'
 import { auth } from '../../firebaseConfig'
 import { Events, PubSub } from '../../utilities/pubSub'
 import { getFirebaseErrorMessage, logger } from '../../utilities'
 
 export const AuthContextProvider = ({ children }: { children: Children }) => {
+  const { t } = useTranslation()
+
   const [error, setError] = useState('')
   const [user, setUser] = useState<User>()
   const [isLoading, setIsLoading] = useState(false)
@@ -38,15 +40,15 @@ export const AuthContextProvider = ({ children }: { children: Children }) => {
 
         const errorMessage =
           error instanceof FirebaseError
-            ? getFirebaseErrorMessage(error.code)
-            : en.auth.errors.login
+            ? t(getFirebaseErrorMessage(error.code))
+            : t('auth.errors.login')
 
         setError(errorMessage)
       } finally {
         setIsLoading(false)
       }
     },
-    []
+    [t]
   )
 
   const handleSignup = useCallback(
@@ -61,15 +63,15 @@ export const AuthContextProvider = ({ children }: { children: Children }) => {
 
         const errorMessage =
           error instanceof FirebaseError
-            ? getFirebaseErrorMessage(error.code)
-            : en.auth.errors.signup
+            ? t(getFirebaseErrorMessage(error.code))
+            : t('auth.errors.signup')
 
         setError(errorMessage)
       } finally {
         setIsLoading(false)
       }
     },
-    []
+    [t]
   )
 
   const handleLogout = useCallback(async () => {
@@ -82,13 +84,15 @@ export const AuthContextProvider = ({ children }: { children: Children }) => {
       logger.error('Failed to log out', JSON.stringify(error))
 
       const errorMessage =
-        error instanceof FirebaseError ? getFirebaseErrorMessage(error.code) : en.auth.errors.logout
+        error instanceof FirebaseError
+          ? t(getFirebaseErrorMessage(error.code))
+          : t('auth.errors.logout')
 
       setError(errorMessage)
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [t])
 
   const handleChangePassword = useCallback(
     async ({ user, newPassword }: { user: User; newPassword: string }) => {
@@ -102,36 +106,39 @@ export const AuthContextProvider = ({ children }: { children: Children }) => {
 
         const errorMessage =
           error instanceof FirebaseError
-            ? getFirebaseErrorMessage(error.code)
-            : en.auth.errors.changePassword
+            ? t(getFirebaseErrorMessage(error.code))
+            : t('auth.errors.changePassword')
 
         setError(errorMessage)
       } finally {
         setIsLoading(false)
       }
     },
-    []
+    [t]
   )
 
-  const handleDeleteUser = useCallback(async (user: User) => {
-    setError('')
-    setIsLoading(true)
+  const handleDeleteUser = useCallback(
+    async (user: User) => {
+      setError('')
+      setIsLoading(true)
 
-    try {
-      await deleteUser(user)
-    } catch (error) {
-      logger.error('Failed to delete user', JSON.stringify(error))
+      try {
+        await deleteUser(user)
+      } catch (error) {
+        logger.error('Failed to delete user', JSON.stringify(error))
 
-      const errorMessage =
-        error instanceof FirebaseError
-          ? getFirebaseErrorMessage(error.code)
-          : en.auth.errors.deleteUser
+        const errorMessage =
+          error instanceof FirebaseError
+            ? t(getFirebaseErrorMessage(error.code))
+            : t('auth.errors.deleteUser')
 
-      setError(errorMessage)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
+        setError(errorMessage)
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [t]
+  )
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {

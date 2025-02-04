@@ -1,10 +1,13 @@
+import { useTranslation } from 'react-i18next'
+
 import { Input } from './Input'
-import en from '../i18n/en.json'
 import { NavMenu } from './NavMenu'
 import { Routes } from '../router/config'
 import picnicHeaderLogo from '../assets/picnicHeaderLogo.png'
 
 export const Header = () => {
+  const { t } = useTranslation()
+
   const goToHomepage = () => {
     window.location.replace(Routes.HOME_PAGE_URL)
   }
@@ -17,7 +20,7 @@ export const Header = () => {
             <img
               className="size-16 object-contain"
               src={picnicHeaderLogo}
-              alt={en.header.logoAltText}
+              alt={t('header.logoAltText')}
             />
           </button>
           <Input />
