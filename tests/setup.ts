@@ -50,6 +50,7 @@ vi.mock('firebase/storage', () => ({
   getStorage: vi.fn(() => ({})),
 }))
 
+// Mocking ResizeObserver for Headless UI components (e.g., Dropdowns, Popovers)
 const ResizeObserverMock = vi.fn(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
