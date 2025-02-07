@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "postinstall": "sh ./scripts/postinstall.sh && patch-package",
+    "postinstall": "sh ./scripts/patch-vitest-fail-on-console.sh && patch-package",
     "lint": "tsc --noEmit && eslint ./ --ext ts --ext tsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest",
     "preview": "vite preview",
