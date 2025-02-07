@@ -5,7 +5,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { logger } from '../utilities'
 import { type SupportedLanguage, SupportedLanguages } from '../i18n/config'
 
-export const LocaleSwitcher = () => {
+export const LanguageSwitcher = () => {
   const { i18n } = useTranslation()
 
   return (
@@ -20,19 +20,19 @@ export const LocaleSwitcher = () => {
           transition
           className="absolute right-0 mt-1 p-1 w-40 space-y-1 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transition duration-100 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
         >
-          {SupportedLanguages.filter(locale => locale !== i18n.language).map(locale => (
-            <MenuItem key={locale}>
+          {SupportedLanguages.filter(lang => lang !== i18n.language).map(lang => (
+            <MenuItem key={lang}>
               <button
                 onClick={async () => {
                   try {
-                    await i18n.changeLanguage<SupportedLanguage>(locale)
+                    await i18n.changeLanguage<SupportedLanguage>(lang)
                   } catch (error) {
                     logger.error('Error changing language:', error)
                   }
                 }}
                 className="rounded-lg data-[focus]:bg-gray-100 data-[focus]:text-gray-900 text-gray-700 block w-full text-left px-4 py-2 text-sm"
               >
-                {locale}
+                {lang}
               </button>
             </MenuItem>
           ))}

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Input } from './Input'
 import { NavMenu } from './NavMenu'
 import { Routes } from '../router/config'
-import { LocaleSwitcher } from './LocaleSwitcher'
+import { LanguageSwitcher } from './LanguageSwitcher'
 import picnicHeaderLogo from '../assets/picnicHeaderLogo.png'
 
 export const Header = () => {
@@ -26,7 +26,7 @@ export const Header = () => {
           </button>
           <Input />
         </div>
-        <LocaleSwitcher />
+        <LanguageSwitcher />
         <div className="hidden md:block">
           <NavMenu />
         </div>
