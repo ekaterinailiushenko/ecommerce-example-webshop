@@ -4,8 +4,6 @@ import { afterEach } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import failOnConsole from 'vitest-fail-on-console'
 
-import type * as CartApiModule from '../src/api/cartApi'
-
 failOnConsole()
 
 afterEach(() => {
@@ -14,21 +12,11 @@ afterEach(() => {
   vi.clearAllTimers()
 })
 
-vi.mock('../src/api/cartApi', () => {
-  const mock: typeof CartApiModule = {
-    cartApi: {
-      clearCart: vi.fn(),
-      getCartSummary: vi.fn(),
-      addProductToCart: vi.fn(),
-      deleteProductFromCart: vi.fn(),
-    },
-  }
-
-  return mock
-})
+vi.mock('../src/api/cartApi')
 
 vi.mock('firebase/auth', async () => {
   const actual = await vi.importActual('firebase/auth')
+
   return {
     ...actual,
     getAuth: vi.fn(() => ({
@@ -42,19 +30,26 @@ vi.mock('firebase/auth', async () => {
   }
 })
 
-vi.mock('firebase/app', () => ({
-  initializeApp: vi.fn(),
-}))
+vi.mock('firebase/app', async () => {
+  const actual = await vi.importActual('firebase/app')
 
-vi.mock('firebase/storage', () => ({
-  getStorage: vi.fn(() => ({})),
-}))
+  return { ...actual, initializeApp: vi.fn() }
+})
 
-// Mocking ResizeObserver for Headless UI components (e.g., Dropdowns, Popovers)
-const ResizeObserverMock = vi.fn(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-}))
+vi.mock('firebase/storage', async () => {
+  const actual = await vi.importActual('firebase/storage')
 
-vi.stubGlobal('ResizeObserver', ResizeObserverMock)
+  return { ...actual, getStorage: vi.fn(() => ({})) }
+})
+
+/**
+ * ResizeObserver is always present in the browser but is not available in JSDOM test environment.
+ */
+vi.stubGlobal(
+  'ResizeObserver',
+  vi.fn(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  }))
+)
