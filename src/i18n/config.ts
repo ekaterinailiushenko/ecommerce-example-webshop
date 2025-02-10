@@ -1,18 +1,26 @@
-import i18next from 'i18next'
+import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
+import detector from 'i18next-browser-languagedetector'
 
-import en from './en.json'
+import en from './locales/en/translation.json'
+import de from './locales/de/translation.json'
 
-const resources = {
-  en: { translation: en },
+const SupportedLanguagesMap = {
+  English: { translation: en },
+  Deutsch: { translation: de },
 }
 
-await i18next.use(initReactI18next).init({
-  resources,
-  lng: 'en',
-  fallbackLng: 'en',
-  supportedLngs: ['en'],
-  preload: ['en'],
-})
+export type SupportedLanguage = keyof typeof SupportedLanguagesMap
 
-export default i18next
+type SupportedLanguages = SupportedLanguage[]
+
+export const SupportedLanguages = Object.keys(SupportedLanguagesMap) as SupportedLanguages
+
+await i18n
+  .use(detector)
+  .use(initReactI18next)
+  .init({
+    resources: SupportedLanguagesMap,
+    fallbackLng: 'English',
+    supportedLngs: ['English', 'Deutsch'],
+  })

@@ -59,6 +59,8 @@ describe('CartItem', () => {
 
     const deleteFromCartButton = screen.getByTestId('remove-from-cart')
 
+    expect(cartApi.deleteProductFromCart).not.toHaveBeenCalled()
+
     await act(async () => {
       deleteFromCartButton.click()
 

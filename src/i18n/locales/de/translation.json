@@ -1,0 +1,153 @@
+{
+  "global": {
+    "loading": "Laden...",
+    "changing": "Ändern...",
+    "errorHeader": "Oops!",
+    "closeButton": "SCHLIEßEN",
+    "backHomeButton": "Zur Startseite",
+    "unknownError": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
+  },
+  "header": {
+    "inputPlaceholder": "Nach Namen suchen...",
+    "logoAltText": "Picnic",
+    "navMenu": {
+      "linkToLogin": "Anmelden",
+      "linkToCart": "Warenkorb",
+      "linkToProfile": "Profil"
+    }
+  },
+  "footer": {
+    "buildVersion": "Version: {{version}}"
+  },
+  "cart": {
+    "title": "Ihr Warenkorb",
+    "buttons": {
+      "addToCart": {
+        "title": "In den Warenkorb",
+        "changeQuantityPopup": "Menge ändern"
+      },
+      "clearCart": { "title": "Warenkorb leeren" },
+      "undoRemoveFromCart": { "title": "Rückgängig" },
+      "buyNow": { "title": "Jetzt kaufen" }
+    },
+    "emptyCart": {
+      "altText": "Leerer Warenkorb",
+      "mainMessage": "Ihr Warenkorb ist leer.",
+      "secondaryMessage": "Sie haben noch keine Artikel in Ihren Warenkorb gelegt.",
+      "linkToMainPage": "Einkaufen beginnen"
+    },
+    "deliveryTime": "Lieferung: 1-3 Werktage",
+    "summary": "Zusammenfassung",
+    "productItems_one": "({{count}} Artikel)",
+    "productItems_other": "({{count}} Artikel)",
+    "deliveryCosts": "Lieferkosten",
+    "total": "Gesamt",
+    "inclVAT": "inkl. MwSt.",
+    "yourItems": "Ihre Artikel"
+  },
+  "products": {
+    "productImageAltText": "Produkt",
+    "errors": {
+      "loadError": "Beim Laden der Produkte ist ein Fehler aufgetreten",
+      "notFound": {
+        "title": "Keine Produkte gefunden. Bitte versuchen Sie eine andere Suche.",
+        "altText": "Nicht gefunden"
+      }
+    },
+    "quickView": "Schnellansicht",
+    "modal": {
+      "error": "Beim Laden der Produktdetails ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+      "description": "Produktbeschreibung",
+      "productImageAltText": "Produkt",
+      "storageInstructions": {
+        "title": "Lagerungshinweise",
+        "part1": "Zur Frischeerhaltung lagern ",
+        "part2": " an einem kühlen, trockenen Ort. Für beste Ergebnisse im Kühlschrank aufbewahren und innerhalb weniger Tage nach dem Kauf verbrauchen."
+      },
+      "usageSuggestions": {
+        "title": "Verwendungsvorschläge",
+        "bullet1": "Perfekt für Salate: Verleiht Ihren Lieblingssalaten eine frische, knackige Textur.",
+        "bullet2": "Ideal zum Kochen: Verfeinert den Geschmack von Suppen, Eintöpfen und Pfannengerichten.",
+        "bullet3": "Gesunder Snack: Genießen Sie es als frischen, kalorienarmen Snack zu jeder Tageszeit."
+      },
+      "features": {
+        "title": "Hauptmerkmale",
+        "bullet1": "Frischegarantie: Geerntet auf dem Höhepunkt der Reife für besten Geschmack und beste Textur.",
+        "bullet2": "Nährstoffreich: Vollgepackt mit Vitaminen, Mineralstoffen und Antioxidantien für Ihr Wohlbefinden.",
+        "bullet3": "Vielseitige Zutat: Perfekt für eine Vielzahl von Gerichten, von herzhaften Salaten und Suppen bis hin zu köstlichen Hauptgerichten und Beilagen.",
+        "bullet4": "Ethisch bezogen: Nachhaltig angebaut mit Fokus auf fairen Handel und Umweltfreundlichkeit."
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "button": "Anmelden"
+    },
+    "signup": {
+      "title": "Registrieren",
+      "button": "Registrieren",
+      "passwordsNotEqual": "Passwörter stimmen nicht überein"
+    },
+    "form": {
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "linkToSignup": "Noch kein Konto?",
+      "linkToLogin": "Bereits ein Konto?"
+    },
+    "errors": {
+      "login": "Anmeldung fehlgeschlagen",
+      "signup": "Registrierung fehlgeschlagen",
+      "logout": "Abmeldung fehlgeschlagen",
+      "changePassword": "Passwortänderung fehlgeschlagen",
+      "deleteUser": "Konto konnte nicht gelöscht werden"
+    }
+  },
+  "profile": {
+    "title": "Mein Profil",
+    "email": "Benutzer-E-Mail: {{email}}",
+    "profileImageAltText": "Profilbild",
+    "buttons": {
+      "logout": { "title": "Abmelden" },
+      "deleteAccount": {
+        "title": "Konto löschen",
+        "warn": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?"
+      },
+      "changeImage": {
+        "title": "Foto hinzufügen",
+        "warn": "Sind Sie sicher, dass Sie Ihr Profilbild löschen möchten?"
+      },
+      "changePassword": {
+        "title": "Passwort ändern"
+      }
+    },
+    "returnToAccount": "Zurück zu Ihrem Konto",
+    "settings": "Meine Einstellungen",
+    "data": "Persönliche Daten",
+    "errors": {
+      "deleteUser": "Konto konnte nicht gelöscht werden. Bitte versuchen Sie es später erneut.",
+      "changePassword": "Passwort konnte nicht geändert werden. Bitte versuchen Sie es später erneut.",
+      "deleteUserPhoto": "Profilbild konnte nicht gelöscht werden. Bitte versuchen Sie es später erneut.",
+      "loadUserPhoto": "Profilbild konnte nicht geladen werden. Bitte versuchen Sie es später erneut.",
+      "updateUserPhoto": "Profilbild konnte nicht aktualisiert werden. Bitte versuchen Sie es später erneut."
+    }
+  },
+  "firebaseError": {
+    "invalidPassword": "Das eingegebene Passwort ist ungültig",
+    "invalidEmail": "Die eingegebene E-Mail-Adresse ist ungültig",
+    "recentLoginRequired": "Sie müssen sich erneut anmelden, bevor Sie Ihr Passwort ändern oder Ihr Konto löschen können",
+    "invalidCredential": "Die eingegebene E-Mail-Adresse oder das Passwort ist ungültig",
+    "userAlreadyExist": "Die angegebene E-Mail-Adresse wird bereits von einem anderen Benutzer verwendet. Jede E-Mail-Adresse muss eindeutig sein.",
+    "tooManyRequests": "Der Zugriff auf dieses Konto wurde vorübergehend gesperrt, da zu viele fehlgeschlagene Anmeldeversuche unternommen wurden. Sie können es sofort wiederherstellen, indem Sie Ihr Passwort zurücksetzen oder es später erneut versuchen.",
+    "weakPassword": "Das Passwort muss mindestens 6 Zeichen lang sein",
+    "objectNotFound": "Das gewünschte Objekt existiert nicht.",
+    "unknownError": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
+  },
+  "routeError": {
+    "pageNotFound": "Diese Seite existiert nicht!",
+    "unauthorized": "Sie sind nicht berechtigt, diese Seite zu sehen",
+    "apiUnavailable": "Unsere API scheint nicht verfügbar zu sein",
+    "unknownError": "Etwas ist falsch gelaufen"
+  }
+}

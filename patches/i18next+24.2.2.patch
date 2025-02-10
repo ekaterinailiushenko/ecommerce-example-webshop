@@ -1,0 +1,13 @@
+diff --git a/node_modules/i18next/index.d.ts b/node_modules/i18next/index.d.ts
+index 90bdcd6..788e841 100644
+--- a/node_modules/i18next/index.d.ts
++++ b/node_modules/i18next/index.d.ts
+@@ -300,7 +300,7 @@ export interface i18n extends CustomInstanceExtensions {
+    * Changes the language. The callback will be called as soon translations were loaded or an error occurs while loading.
+    * HINT: For easy testing - setting lng to 'cimode' will set t function to always return the key.
+    */
+-  changeLanguage(lng?: string, callback?: Callback): Promise<TFunction>;
++  changeLanguage<T>(lng: T, callback?: Callback): Promise<TFunction>;
+ 
+   /**
+    * Is set to the current detected or set language.
