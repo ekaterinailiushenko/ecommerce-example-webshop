@@ -21,9 +21,4 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
   },
-  esbuild: {
-    supported: {
-      'top-level-await': true, // browsers can handle top-level-await features
-    },
-  },
 })
