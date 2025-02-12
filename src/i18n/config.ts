@@ -16,7 +16,7 @@ type SupportedLanguages = SupportedLanguage[]
 
 export const SupportedLanguages = Object.keys(SupportedLanguagesMap) as SupportedLanguages
 
-await i18n
+void i18n
   .use(detector)
   .use(initReactI18next)
   .init({
