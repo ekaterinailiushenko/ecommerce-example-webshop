@@ -15,11 +15,11 @@ export default defineConfig({
   test: { environment: 'jsdom', globals: true, setupFiles: './tests/setup.ts' },
   optimizeDeps: {
     esbuildOptions: {
-      target: 'esnext',
+      target: 'ES2022',
     },
   },
   build: {
-    target: 'esnext',
+    target: 'ES2022',
   },
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
