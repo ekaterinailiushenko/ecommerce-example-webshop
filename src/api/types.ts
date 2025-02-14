@@ -1,10 +1,13 @@
 export interface Product {
   product_id: string
   name: string
+  weight?: number
   pricePerProduct: number
   image: string
   amountInCart: number
   priceForAmountInCart: number
+  stock: number
+  rating: number
 }
 
 export interface ProductDetails {
