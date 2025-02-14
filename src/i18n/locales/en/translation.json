@@ -47,6 +47,16 @@
   },
   "products": {
     "productImageAltText": "Product",
+    "amountInStockPer": {
+      "kg": "{{stock}} kg in stock",
+      "piece": "{{stock}} pcs in stock"
+    },
+    "pricePerKg": "{{price}} / kg",
+    "weightPerPiece": "{{weight}} g",
+    "newProduct": {
+      "label": "New Product",
+      "badge": "New"
+    },
     "errors": {
       "loadError": "There was an error loading the products",
       "notFound": {
