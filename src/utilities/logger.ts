@@ -11,9 +11,21 @@ export interface Logger {
 const isDev = process.env.NODE_ENV !== 'production'
 
 export const logger: Logger = {
-  log: isDev ? console.log.bind(console) : () => {},
-  warn: isDev ? console.warn.bind(console) : () => {},
-  error: isDev ? console.error.bind(console) : () => {},
+  log: (message, ...optionalParams) => {
+    if (isDev) {
+      console.log(message, ...optionalParams)
+    }
+  },
+  warn: (message, ...optionalParams) => {
+    if (isDev) {
+      console.warn(message, ...optionalParams)
+    }
+  },
+  error: (message, ...optionalParams) => {
+    if (isDev) {
+      console.error(message, ...optionalParams)
+    }
+  },
 }
 
 /* eslint-enable no-console */
