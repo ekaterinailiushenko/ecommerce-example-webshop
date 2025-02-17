@@ -1,22 +1,27 @@
 import { formatWeight } from './formatWeight'
 
 describe('formatWeight', () => {
-  test('should convert grams to kilograms correctly', () => {
-    expect(formatWeight(1000)).toBe('1')
-    expect(formatWeight(2500)).toBe('2.5')
-    expect(formatWeight(500)).toBe('0.5')
+  it('should convert provided weight (in grams) as an integer number to kilograms correctly', () => {
+    expect(formatWeight(1305)).toBe('1.305')
   })
 
-  test('should return "0" when weight is 0', () => {
+  it('should convert provided weight (in grams) and remove trailing zeros', () => {
+    expect(formatWeight(3800)).toBe('3.8')
+  })
+
+  it('should return 0 when 0 is provided as weight (in grams) into the function', () => {
     expect(formatWeight(0)).toBe('0')
   })
 
-  test('should handle large numbers correctly', () => {
-    expect(formatWeight(1000000)).toBe('1000')
+  it('should return 49.999 when provided weight (in grams) exceeds the allowed maximum (49999g)', () => {
+    expect(formatWeight(5080001)).toBe('49.999')
   })
 
-  test('should handle decimal values', () => {
-    expect(formatWeight(1234)).toBe('1.234')
-    expect(formatWeight(999)).toBe('0.999')
+  it('should return undefined if provided weight (in grams) is not an integer', () => {
+    expect(formatWeight(12.345)).toBeUndefined()
+  })
+
+  it('should return undefined if provided weight (in grams) is negative', () => {
+    expect(formatWeight(-1000)).toBeUndefined()
   })
 })
