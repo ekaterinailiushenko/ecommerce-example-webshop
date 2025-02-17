@@ -51,8 +51,8 @@
       "kg": "{{stock}} kg in stock",
       "piece": "{{stock}} pcs in stock"
     },
-    "pricePerKg": "{{price}} / kg",
-    "weightPerPiece": "{{weight}} g",
+    "pricePer": { "kg": "{{price}} / kg" },
+    "weightPer": { "piece": "{{weight}} g" },
     "newProduct": {
       "label": "New Product",
       "badge": "New"
