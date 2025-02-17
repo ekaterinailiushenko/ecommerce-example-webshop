@@ -12,8 +12,8 @@ export const Layout = () => {
       <main className="flex flex-1">
         <Outlet />
         <Modal />
+        <ScrollToTopButton />
       </main>
-      <ScrollToTopButton />
       <Footer />
     </div>
   )

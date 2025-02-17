@@ -35,7 +35,8 @@ export const ScrollToTopButton = () => {
     <button
       onClick={scrollToTop}
       className={classNames(
-        'fixed bottom-28 right-14 p-3 bg-white hover:text-green5 shadow-md rounded-xl transition-opacity duration-300 ease-in-out',
+        'sm:bottom-28 sm:right-14 sm:p-3 sm:hover:text-green5',
+        'fixed bottom-16 right-4 p-2 bg-white shadow-md rounded-xl transition-opacity duration-300 ease-in-out',
         isButtonVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
         isScrollingToTop && 'text-green5 cursor-default'
       )}
