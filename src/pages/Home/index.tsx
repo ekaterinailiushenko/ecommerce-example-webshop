@@ -22,7 +22,7 @@ export const Home = () => {
   }
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col sm:mx-20 md:mx-40">
       <Products />
     </div>
   )
