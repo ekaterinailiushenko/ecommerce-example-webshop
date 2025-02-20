@@ -1,1 +1,1 @@
-export * from './useProductDetails'
+export * from './useFormattedProductDetails'
