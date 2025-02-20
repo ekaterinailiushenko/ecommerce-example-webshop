@@ -13,6 +13,7 @@ export default {
         grey1: '#f0f0f4',
         grey2: '#707070',
         grey3: '#94959B',
+        grey5: '#BCBCC3',
         berry1: '#D7144B',
         berry2: '#EB426E',
         orange1: '#F98026',

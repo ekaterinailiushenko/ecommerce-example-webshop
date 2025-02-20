@@ -81,7 +81,7 @@ const stylePresets: Record<keyof typeof iconMap, string> = {
   chevronLeft: '',
   percent: 'fill-orange2',
   gear: 'text-grey3 animate-spin-slow hover:[animation-play-state:running] [animation-play-state:paused]',
-  cross: 'text-white transition',
+  cross: 'text-grey3 hover:text-grey5 transition',
 }
 
 const sizeClasses = {
