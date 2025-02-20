@@ -3,22 +3,25 @@ import { useTranslation } from 'react-i18next'
 import type { Product } from '../api/types'
 import { formatPrice, formatWeight } from '../utilities'
 
-export const useFormattedProductDetails = (
-  product: Pick<Product, 'weight' | 'stock' | 'rating' | 'pricePerProduct'>
-) => {
+export const useFormattedProductDetails = ({
+  weight,
+  stock,
+  rating,
+  pricePerProduct,
+}: Pick<Product, 'weight' | 'stock' | 'rating' | 'pricePerProduct'>) => {
   const { t } = useTranslation()
 
-  const isNewProduct = product.rating === 0
+  const isNewProduct = rating === 0
 
-  const isProductByPiece = product.weight !== undefined
+  const isProductByPiece = weight !== undefined
 
   const priceText = isProductByPiece
-    ? formatPrice(product.pricePerProduct)
-    : t('products.pricePerKg', { price: formatPrice(product.pricePerProduct) })
+    ? formatPrice(pricePerProduct)
+    : t('products.pricePerKg', { price: formatPrice(pricePerProduct) })
 
   const stockText = isProductByPiece
-    ? t('products.amountInStockPer.piece', { stock: product.stock })
-    : t('products.amountInStockPer.kg', { stock: formatWeight(product.stock) })
+    ? t('products.amountInStockPer.piece', { stock: stock })
+    : t('products.amountInStockPer.kg', { stock: formatWeight(stock) })
 
   return { isNewProduct, priceText, stockText }
 }
