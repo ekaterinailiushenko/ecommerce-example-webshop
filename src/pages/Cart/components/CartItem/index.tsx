@@ -68,7 +68,7 @@ export const CartItem = ({ item }: { item: Product }) => {
           {t('cart.deliveryTime')}
         </p>
         <ProductQuantityInCartButton
-          product={item}
+          productId={item.product_id}
           isRemoving={isRemoving}
           onUndo={handleUndoDeleteClick}
         />
