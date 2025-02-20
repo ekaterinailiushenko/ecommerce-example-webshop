@@ -12,7 +12,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
   const { openModal } = useModalContext()
 
-  const { isNewProduct, priceText, stockText } = useFormattedProductDetails({ product })
+  const { isNewProduct, priceText, stockText } = useFormattedProductDetails(product)
 
   const handleOpenModalClick = () => {
     openModal({

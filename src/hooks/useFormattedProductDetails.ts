@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next'
 import type { Product } from '../api/types'
 import { formatPrice, formatWeight } from '../utilities'
 
-export const useFormattedProductDetails = ({ product }: { product: Product }) => {
+export const useFormattedProductDetails = (
+  product: Pick<Product, 'weight' | 'stock' | 'rating' | 'pricePerProduct'>
+) => {
   const { t } = useTranslation()
 
   const isNewProduct = product.rating === 0
