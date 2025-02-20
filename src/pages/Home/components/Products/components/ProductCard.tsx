@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ProductCardModal } from './ProductCardModal'
 import type { Product } from '../../../../../api/types'
-import { useProductDetails } from '../../../../../hooks'
+import { useFormattedProductDetails } from '../../../../../hooks'
 import { Badge, Button, Container, Text } from '../../../../../uikit'
 import { ProductQuantityInCartButton } from '../../../../Cart/components'
 import { useModalContext } from '../../../../../contexts/ModalContext/hook'
@@ -12,7 +12,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
   const { openModal } = useModalContext()
 
-  const { isNewProduct, priceText, stockText } = useProductDetails({ product })
+  const { isNewProduct, priceText, stockText } = useFormattedProductDetails({ product })
 
   const handleOpenModalClick = () => {
     openModal({
