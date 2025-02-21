@@ -9,6 +9,7 @@ export default {
         searchbar: '#eb2f35',
         green1: '#2DBE64',
         green2: '#77D499',
+        green5: '#57CA82',
         green6: '#36BA5F',
         grey1: '#f0f0f4',
         grey2: '#707070',
