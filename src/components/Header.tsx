@@ -1,39 +1,33 @@
 import { useTranslation } from 'react-i18next'
 
-import { Input } from './Input'
 import { NavMenu } from './NavMenu'
-import { Routes } from '../router/config'
+import { Container } from '../uikit'
+import { SearchInput } from './SearchInput'
+import headerLogo from '../assets/headerLogo.png'
+import { redirectToHomepage } from '../utilities'
 import { LanguageSwitcher } from './LanguageSwitcher'
-import picnicHeaderLogo from '../assets/picnicHeaderLogo.png'
 
 export const Header = () => {
   const { t } = useTranslation()
 
-  const goToHomepage = () => {
-    window.location.replace(Routes.HOME_PAGE_URL)
-  }
-
   return (
-    <>
-      <header className="sticky top-0 z-50 flex justify-between items-center gap-4 bg-header px-4">
-        <div className="flex flex-1 gap-4 items-center">
-          <button onClick={goToHomepage}>
-            <img
-              className="size-16 object-contain"
-              src={picnicHeaderLogo}
-              alt={t('header.logoAltText')}
-            />
+    <header className="z-40 sticky top-0">
+      <Container className="relative z-40 bg-white flex justify-between items-center gap-4">
+        <Container className="flex flex-1 gap-4 items-center sm:mx-20 md:mx-40 my-4 ">
+          <button onClick={redirectToHomepage} className="w-40 rounded-lg overflow-hidden">
+            <img src={headerLogo} alt={t('header.logoAltText')} />
           </button>
-          <Input />
-        </div>
-        <LanguageSwitcher />
-        <div className="hidden md:block">
+          <SearchInput />
+          <LanguageSwitcher />
+          <Container className="hidden md:block">
+            <NavMenu />
+          </Container>
+        </Container>
+        <Container className="fixed inset-x-0 bottom-0 z-50 flex justify-center w-full bg-white md:hidden">
           <NavMenu />
-        </div>
-      </header>
-      <div className="fixed inset-x-0 bottom-0 z-50 flex justify-center w-full bg-header md:hidden">
-        <NavMenu />
-      </div>
-    </>
+        </Container>
+      </Container>
+      <div className="border-b border-outline"></div>
+    </header>
   )
 }
