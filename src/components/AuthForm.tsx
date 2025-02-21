@@ -84,7 +84,7 @@ export const AuthForm = ({ isSignup }: Props) => {
         </div>
         <Button
           type="submit"
-          variant="secondary"
+          variant="success"
           label={isSignup ? t('auth.signup.button') : t('auth.login.button')}
           size="large"
         />
