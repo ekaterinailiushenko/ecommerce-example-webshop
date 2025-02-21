@@ -1,42 +1,61 @@
+import classNames from 'classnames'
+import { useLocation } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
 import { NavItem } from './NavItem'
 import { Routes } from '../router/config'
+import { formatPrice } from '../utilities'
+import { Badge, Container } from '../uikit'
 import { useCartContext } from '../contexts/CartContext/hook'
 import { useAuthContext } from '../contexts/AuthContext/hook'
 
 export const NavMenu = () => {
   const { t } = useTranslation()
 
+  const location = useLocation()
+
   const { user, loading } = useAuthContext()
 
-  const totalItemsInCart = useCartContext().cartSummary.productsQuantity
+  const { totalPrice } = useCartContext().cartSummary
+
+  const isCartPage = location.pathname === Routes.CART_PAGE_URL
+
+  const cartLabel =
+    totalPrice > 0 ? (
+      <Badge variant="cart" label={formatPrice(totalPrice) ?? 'N/A'} textSize="s" />
+    ) : (
+      t('header.navMenu.linkToCart')
+    )
+
+  const cartNavLinkClass = classNames(
+    totalPrice && '!text-green3',
+    !totalPrice && isCartPage && 'hover:!text-black cursor-default',
+    isCartPage && 'cursor-default'
+  )
 
   if (loading) {
     return <div>{t('global.loading')}</div>
   }
 
   return (
-    <div className="flex gap-4">
-      <div className="hover:text-white hover:underline transition">
-        <NavItem
-          to={user ? Routes.PROFILE_PAGE_URL : Routes.LOGIN_PAGE_URL}
-          label={user ? t('header.navMenu.linkToProfile') : t('header.navMenu.linkToLogin')}
-          icon="profile"
-          iconSize="lg"
-        />
-      </div>
-      <div className="flex flex-col items-center relative hover:text-white hover:underline transition">
-        <div className="absolute -right-1.5 -top-1.5 rounded-full h-4 w-4 bg-green-500 text-white flex justify-center items-center">
-          <p className="text-xs">{totalItemsInCart}</p>
-        </div>
+    <Container className="flex items-center gap-4">
+      <NavItem
+        to={user ? Routes.PROFILE_PAGE_URL : Routes.LOGIN_PAGE_URL}
+        variant="vertical"
+        label={user ? t('header.navMenu.linkToProfile') : t('header.navMenu.linkToLogin')}
+        icon="profile"
+        iconSize="md"
+      />
+      <div className="group/item">
         <NavItem
           to={Routes.CART_PAGE_URL}
-          label={t('header.navMenu.linkToCart')}
+          variant="vertical"
+          label={cartLabel}
           icon="cart"
-          iconSize="lg"
+          iconSize="md"
+          className={cartNavLinkClass}
         />
       </div>
-    </div>
+    </Container>
   )
 }
