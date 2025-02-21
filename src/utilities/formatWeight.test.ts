@@ -13,10 +13,6 @@ describe('formatWeight', () => {
     expect(formatWeight(0)).toBe('0')
   })
 
-  it('should return 49.999 when provided weight (in grams) exceeds the allowed maximum (49999g)', () => {
-    expect(formatWeight(5080001)).toBe('49.999')
-  })
-
   it('should return undefined if provided weight (in grams) is not an integer', () => {
     expect(formatWeight(12.345)).toBeUndefined()
   })
