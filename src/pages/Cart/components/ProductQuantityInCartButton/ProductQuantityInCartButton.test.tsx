@@ -48,7 +48,7 @@ const renderComponent = async ({ isRemoving = false } = {}) => {
   render(
     <AuthContextProvider>
       <CartContextProvider>
-        <ProductQuantityInCartButton product={product} isRemoving={isRemoving} />
+        <ProductQuantityInCartButton productId={product.product_id} isRemoving={isRemoving} />
       </CartContextProvider>
     </AuthContextProvider>
   )

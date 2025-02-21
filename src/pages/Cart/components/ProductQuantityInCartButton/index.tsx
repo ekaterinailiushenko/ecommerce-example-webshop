@@ -6,12 +6,12 @@ import type { Product } from '../../../../api/types'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
 
 type Props = {
-  product: Product
+  productId: Product['product_id']
   isRemoving?: boolean
   onUndo?: () => void
 }
 
-export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Props) => {
+export const ProductQuantityInCartButton = ({ productId, isRemoving, onUndo }: Props) => {
   const { t } = useTranslation()
 
   const {
@@ -20,7 +20,7 @@ export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Pro
     cartSummary: { products: cartItems } = {},
   } = useCartContext()
 
-  const itemInCart = cartItems?.find(cartItem => cartItem.product_id === product.product_id)
+  const itemInCart = cartItems?.find(cartItem => cartItem.product_id === productId)
 
   const renderButtonContent = () => {
     if (isRemoving) {
@@ -38,7 +38,7 @@ export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Pro
       return (
         <div className="flex justify-between items-center w-full h-full">
           <button
-            onClick={() => decreaseQuantity({ productId: product.product_id })}
+            onClick={() => decreaseQuantity({ productId: productId })}
             data-testid="decrease-quantity"
           >
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
@@ -53,10 +53,7 @@ export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Pro
               {formatPrice(itemInCart.priceForAmountInCart)}
             </p>
           </div>
-          <button
-            onClick={() => addProductToCart(product.product_id)}
-            data-testid="increase-quantity"
-          >
+          <button onClick={() => addProductToCart(productId)} data-testid="increase-quantity">
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
               <div className="h-9 border-l border-green-300 opacity-20 mx-2"></div>
               <Icon variant="plus" />
@@ -68,7 +65,7 @@ export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Pro
     return (
       <button
         className="flex gap-1 w-full h-full items-center justify-center"
-        onClick={() => addProductToCart(product.product_id)}
+        onClick={() => addProductToCart(productId)}
       >
         <Icon variant="cart" size="sm" />
         {t('cart.buttons.addToCart.title')}
