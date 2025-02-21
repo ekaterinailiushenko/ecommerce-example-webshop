@@ -8,10 +8,24 @@ export interface Logger {
   error: LogFn
 }
 
+const isDev = process.env.NODE_ENV !== 'production'
+
 export const logger: Logger = {
-  log: console.log.bind(console),
-  warn: console.warn.bind(console),
-  error: console.error.bind(console),
+  log: (message, ...optionalParams) => {
+    if (isDev) {
+      console.log(message, ...optionalParams)
+    }
+  },
+  warn: (message, ...optionalParams) => {
+    if (isDev) {
+      console.warn(message, ...optionalParams)
+    }
+  },
+  error: (message, ...optionalParams) => {
+    if (isDev) {
+      console.error(message, ...optionalParams)
+    }
+  },
 }
 
 /* eslint-enable no-console */
