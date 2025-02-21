@@ -77,7 +77,7 @@ export const ProductQuantityInCartButton = ({ product, isRemoving, onUndo }: Pro
   }
 
   return (
-    <div className="shadow bg-green1 text-white text-xs h-10 rounded-md px-2 relative">
+    <div className="shadow bg-green6 text-white text-xs h-10 rounded-lg px-2 relative">
       {renderButtonContent()}
     </div>
   )
