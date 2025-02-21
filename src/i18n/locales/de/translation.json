@@ -5,6 +5,7 @@
     "errorHeader": "Oops!",
     "closeButton": "SCHLIEßEN",
     "backHomeButton": "Zur Startseite",
+    "dividerSymbol": "·",
     "unknownError": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
   },
   "header": {

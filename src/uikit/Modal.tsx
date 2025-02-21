@@ -22,11 +22,11 @@ export const Modal = () => {
         style={{ transitionDuration: `${fadeDuration}ms` }}
       >
         <Button
-          variant="icon"
+          variant="circle"
           icon="cross"
-          iconSize="xs"
+          iconSize="sm"
           onClick={closeModal}
-          className="absolute top-4 right-4"
+          className="absolute top-5 right-5"
         />
         {content}
       </Container>

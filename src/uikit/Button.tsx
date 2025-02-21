@@ -42,7 +42,7 @@ const variantClasses = {
     'bg-grey1 hover:text-green1 flex items-center justify-center gap-2 font-medium rounded-lg transition-colors',
   minimalist: 'flex items-center gap-1 text-grey2 hover:text-green-500 text-sm',
   icon: '',
-  circle: 'bg-grey3 rounded-full size-fit p-px',
+  circle: 'bg-grey1 rounded-full p-px',
 }
 
 const sizeClasses = {
