@@ -11,14 +11,13 @@ import { FiPlus } from 'react-icons/fi'
 import { FaCheck } from 'react-icons/fa'
 import { CgProfile } from 'react-icons/cg'
 import { BiLogoAws } from 'react-icons/bi'
-import { ImSpinner9 } from 'react-icons/im'
 import { LuCroissant } from 'react-icons/lu'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
 import { BsGearFill, BsArrowUp } from 'react-icons/bs'
-import { AiOutlineMinus, AiFillStar } from 'react-icons/ai'
 import { RiDeleteBin6Line, RiBowlLine } from 'react-icons/ri'
 import { IoChevronBackOutline, IoClose } from 'react-icons/io5'
 import { TiBusinessCard, TiArrowSortedDown } from 'react-icons/ti'
+import { AiOutlineLoading3Quarters, AiOutlineMinus, AiFillStar } from 'react-icons/ai'
 
 export namespace Icon {
   export interface Props {
@@ -46,7 +45,6 @@ const iconMap = {
   profile: CgProfile,
   checkMark: FaCheck,
   info: MdOutlineInfo,
-  spinner: ImSpinner9,
   bin: RiDeleteBin6Line,
   croissant: LuCroissant,
   minus: AiOutlineMinus,
@@ -56,6 +54,7 @@ const iconMap = {
   mgnfGlass: PiMagnifyingGlassBold,
   suitcase: MdOutlineBusinessCenter,
   chevronLeft: IoChevronBackOutline,
+  spinner: AiOutlineLoading3Quarters,
 }
 
 const stylePresets: Record<keyof typeof iconMap, string> = {
@@ -74,7 +73,7 @@ const stylePresets: Record<keyof typeof iconMap, string> = {
   suitcase: '',
   mgnfGlass: 'text-white',
   croissant: '',
-  spinner: 'animate-spin',
+  spinner: 'animate-spin-fast opacity-60',
   checkMark: 'text-white',
   logout: '',
   memberCard: '',
