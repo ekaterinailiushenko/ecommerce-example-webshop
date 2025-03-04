@@ -32,7 +32,7 @@ export const ProductQuantityInCartButton = ({ productId, isRemoving, onUndo }: P
     try {
       await addProductToCart(productId)
     } catch (error) {
-      toast.error(t('cart.errors.increaseQuantity'))
+      toast.error(t('cart.errors.addProductToCart'))
       logger.error('Failed to increase quantity:', error)
     } finally {
       setIsQuantityChanging(false)
@@ -45,7 +45,7 @@ export const ProductQuantityInCartButton = ({ productId, isRemoving, onUndo }: P
     try {
       await decreaseQuantity({ productId })
     } catch (error) {
-      toast.error(t('cart.errors.decreaseQuantity'))
+      toast.error(t('cart.errors.deleteProductFromCart'))
       logger.error('Failed to decrease quantity:', error)
     } finally {
       setIsQuantityChanging(false)

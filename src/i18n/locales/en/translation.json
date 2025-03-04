@@ -31,8 +31,8 @@
       "buyNow": { "title": "Buy Now" }
     },
     "errors": {
-      "decreaseQuantity": "An error occurred while removing the product from the cart. Please try again later.",
-      "increaseQuantity": "An error occurred while adding the product to the cart. Please try again later.",
+      "addProductToCart": "An error occurred while adding the product to the cart. Please try again later.",
+      "deleteProductFromCart": "An error occurred while removing the product from the cart. Please try again later.",
       "clearCart": "An error occurred while clearing the cart. Please try again later."
     },
     "emptyCart": {
