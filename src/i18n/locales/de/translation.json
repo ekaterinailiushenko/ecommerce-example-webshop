@@ -30,6 +30,12 @@
       "undoRemoveFromCart": { "title": "Rückgängig" },
       "buyNow": { "title": "Jetzt kaufen" }
     },
+    "errors": {
+      "decreaseQuantity": "Beim Entfernen des Produkts aus dem Warenkorb ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+      "increaseQuantity": "Beim Hinzufügen des Produkts zum Warenkorb ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+      "clearCart": "Beim Leeren des Warenkorbs ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
+    },
+
     "emptyCart": {
       "altText": "Leerer Warenkorb",
       "mainMessage": "Ihr Warenkorb ist leer.",

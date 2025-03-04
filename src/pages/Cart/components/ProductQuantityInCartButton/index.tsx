@@ -1,8 +1,10 @@
+import { useState } from 'react'
+import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 
 import { Icon } from '../../../../uikit'
-import { formatPrice } from '../../../../utilities'
 import type { Product } from '../../../../api/types'
+import { formatPrice, logger } from '../../../../utilities'
 import { useCartContext } from '../../../../contexts/CartContext/hook'
 
 type Props = {
@@ -12,6 +14,8 @@ type Props = {
 }
 
 export const ProductQuantityInCartButton = ({ productId, isRemoving, onUndo }: Props) => {
+  const [isQuantityChanging, setIsQuantityChanging] = useState(false)
+
   const { t } = useTranslation()
 
   const {
@@ -22,7 +26,36 @@ export const ProductQuantityInCartButton = ({ productId, isRemoving, onUndo }: P
 
   const itemInCart = cartItems?.find(cartItem => cartItem.product_id === productId)
 
+  const handleIncreaseQuantity = async () => {
+    setIsQuantityChanging(true)
+
+    try {
+      await addProductToCart(productId)
+    } catch (error) {
+      toast.error(t('cart.errors.increaseQuantity'))
+      logger.error('Failed to increase quantity:', error)
+    } finally {
+      setIsQuantityChanging(false)
+    }
+  }
+
+  const handleDecreaseQuantity = async () => {
+    setIsQuantityChanging(true)
+
+    try {
+      await decreaseQuantity({ productId })
+    } catch (error) {
+      toast.error(t('cart.errors.decreaseQuantity'))
+      logger.error('Failed to decrease quantity:', error)
+    } finally {
+      setIsQuantityChanging(false)
+    }
+  }
+
   const renderButtonContent = () => {
+    if (isQuantityChanging) {
+      return <Icon variant="spinner" />
+    }
     if (isRemoving) {
       return (
         <button
@@ -37,10 +70,7 @@ export const ProductQuantityInCartButton = ({ productId, isRemoving, onUndo }: P
     if (itemInCart) {
       return (
         <div className="flex justify-between items-center w-full h-full">
-          <button
-            onClick={() => decreaseQuantity({ productId: productId })}
-            data-testid="decrease-quantity"
-          >
+          <button onClick={handleDecreaseQuantity} data-testid="decrease-quantity">
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
               {itemInCart.amountInCart > 1 ? <Icon variant="minus" /> : <Icon variant="bin" />}
 
@@ -53,7 +83,7 @@ export const ProductQuantityInCartButton = ({ productId, isRemoving, onUndo }: P
               {formatPrice(itemInCart.priceForAmountInCart)}
             </p>
           </div>
-          <button onClick={() => addProductToCart(productId)} data-testid="increase-quantity">
+          <button onClick={handleIncreaseQuantity} data-testid="increase-quantity">
             <div className="flex items-center opacity-70 hover:opacity-100 transition">
               <div className="h-9 border-l border-green-300 opacity-20 mx-2"></div>
               <Icon variant="plus" />
@@ -65,7 +95,7 @@ export const ProductQuantityInCartButton = ({ productId, isRemoving, onUndo }: P
     return (
       <button
         className="flex gap-1 w-full h-full items-center justify-center"
-        onClick={() => addProductToCart(productId)}
+        onClick={handleIncreaseQuantity}
       >
         <Icon variant="cart" size="sm" />
         {t('cart.buttons.addToCart.title')}
@@ -74,7 +104,7 @@ export const ProductQuantityInCartButton = ({ productId, isRemoving, onUndo }: P
   }
 
   return (
-    <div className="shadow bg-green6 text-white text-xs h-10 rounded-lg px-2 relative">
+    <div className="shadow bg-green6 flex items-center justify-center text-white text-xs h-10 rounded-lg px-2 relative">
       {renderButtonContent()}
     </div>
   )

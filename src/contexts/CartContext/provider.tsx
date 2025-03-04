@@ -46,6 +46,7 @@ export const CartContextProvider = ({ children }: { children: Children }) => {
         setCartSummary(updatedCart)
       } catch (error) {
         logger.error(`Error in CartContextProvider.handleAddProductToCart -> ${error}`)
+        throw error
       } finally {
         setIsLoading(false)
       }
@@ -66,6 +67,7 @@ export const CartContextProvider = ({ children }: { children: Children }) => {
         setCartSummary(updatedCart)
       } catch (error) {
         logger.error(`Error in CartContextProvider.handleDeleteProductFromCart -> ${error}`)
+        throw error
       } finally {
         setIsLoading(false)
       }
@@ -81,6 +83,7 @@ export const CartContextProvider = ({ children }: { children: Children }) => {
       setCartSummary(updatedCart)
     } catch (error) {
       logger.error(`Error in CartContextProvider.handleClearCart -> ${error}`)
+      throw error
     } finally {
       setIsLoading(false)
     }
@@ -102,21 +105,13 @@ export const CartContextProvider = ({ children }: { children: Children }) => {
     const obj: CartContext.Value = {
       cartSummary,
       loading: isLoading,
-      getCart: handleGetCart,
       clearCart: handleClearCart,
       addProductToCart: handleAddProductToCart,
       deleteProductFromCart: handleDeleteProductFromCart,
     }
 
     return obj
-  }, [
-    isLoading,
-    cartSummary,
-    handleGetCart,
-    handleClearCart,
-    handleAddProductToCart,
-    handleDeleteProductFromCart,
-  ])
+  }, [isLoading, cartSummary, handleClearCart, handleAddProductToCart, handleDeleteProductFromCart])
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
