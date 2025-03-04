@@ -16,8 +16,4 @@ describe('formatPrice', () => {
   it('should format a small positive number correctly', () => {
     expect(formatPrice(84)).toEqual('0,84 €')
   })
-
-  it('should return undefined if price is not an integer', () => {
-    expect(formatPrice(125.34)).toBeUndefined()
-  })
 })

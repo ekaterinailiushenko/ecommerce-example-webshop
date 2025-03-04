@@ -8,6 +8,8 @@ import { useModalContext } from '../../../../../contexts/ModalContext/hook'
 import { useProductContext } from '../../../../../contexts/ProductContext/hook'
 import { Badge, Button, Container, Icon, ImageWithPlaceholder, Text } from '../../../../../uikit'
 
+const MODAL_PRODUCT_IMAGE_SIZE = 140
+
 export const ProductCardModal = ({ product }: { product: Product }) => {
   const { t } = useTranslation()
 
@@ -33,6 +35,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
   }, [getProductDetails, product.product_id])
 
   useEffect(() => {
+    // Reset the scroll position of description section when the modal opens
     if (isOpen && scrollDescriptionSectionRef.current) {
       scrollDescriptionSectionRef.current.scrollTop = 0
     }
@@ -65,9 +68,9 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
     <Container className="grid grid-rows-2 grid-cols-1 gap-4 md:max-h-[500px]">
       <Container className="grid grid-cols-2 gap-4">
         <Container className="grid grid-rows-3">
-          <Container className="relative row-span-2 bg-grey1 rounded-lg">
+          <Container className="relative row-span-2 bg-grey1 rounded-lg overflow-hidden">
             <ImageWithPlaceholder
-              size={140}
+              size={MODAL_PRODUCT_IMAGE_SIZE}
               key={productDetails.image}
               src={productDetails.image}
               alt={t('products.modal.productImageAltText')}
@@ -104,7 +107,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
                 <>
                   <Badge
                     variant="priceTagNewProduct"
-                    label={priceText ?? ''}
+                    label={priceText}
                     textSize="xxl"
                     className="font-semibold"
                   />
@@ -113,7 +116,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
               ) : (
                 <Badge
                   variant="priceTagProduct"
-                  label={priceText ?? ''}
+                  label={priceText}
                   textSize="xxl"
                   className="font-semibold"
                 />
