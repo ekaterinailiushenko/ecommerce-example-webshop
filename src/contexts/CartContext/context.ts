@@ -6,7 +6,6 @@ export namespace CartContext {
   export interface Value {
     loading: boolean
     cartSummary: Cart
-    getCart: () => Promise<void>
     clearCart: () => Promise<void>
     deleteProductFromCart: (args: {
       removeAll?: boolean

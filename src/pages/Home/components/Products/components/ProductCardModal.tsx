@@ -57,7 +57,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
             <h3 className="text-xl font-bold">{productDetails.name}</h3>
             <p className="text-2xl font-bold">{formatPrice(productDetails.price)}</p>
           </div>
-          <ProductQuantityInCartButton product={product} />
+          <ProductQuantityInCartButton productId={product.product_id} />
         </div>
       </div>
       <div className="col-span-2 overflow-y-auto max-h-64">

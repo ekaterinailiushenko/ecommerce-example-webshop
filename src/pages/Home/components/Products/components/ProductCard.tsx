@@ -69,7 +69,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           </Container>
         </Container>
         <Container>
-          <ProductQuantityInCartButton product={product} />
+          <ProductQuantityInCartButton productId={product.product_id} />
           <Text text={stockText} size="xs" className="text-green1 my-2 justify-self-center" />
         </Container>
       </Container>

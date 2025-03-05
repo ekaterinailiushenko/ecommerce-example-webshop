@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useRef, useState } from 'react'
 
@@ -39,6 +40,7 @@ export const CartItem = ({ item }: { item: Product }) => {
       try {
         await deleteProductFromCart({ productId: item.product_id, removeAll: true })
       } catch (error) {
+        toast.error(t('cart.errors.deleteProductFromCart'))
         logger.error('Error deleting product from cart:', error)
       } finally {
         setIsRemoving(false)
@@ -68,7 +70,7 @@ export const CartItem = ({ item }: { item: Product }) => {
           {t('cart.deliveryTime')}
         </p>
         <ProductQuantityInCartButton
-          product={item}
+          productId={item.product_id}
           isRemoving={isRemoving}
           onUndo={handleUndoDeleteClick}
         />
