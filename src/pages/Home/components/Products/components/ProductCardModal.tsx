@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { Product } from '../../../../../api/types'
@@ -13,10 +13,7 @@ const MODAL_PRODUCT_IMAGE_SIZE = 140
 export const ProductCardModal = ({ product }: { product: Product }) => {
   const { t } = useTranslation()
 
-  const {
-    config: { isOpen },
-    closeModal,
-  } = useModalContext()
+  const { closeModal } = useModalContext()
 
   const { isNewProduct, priceText, stockText } = useFormattedProductDetails({
     weight: product.weight,
@@ -28,18 +25,9 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
   const { getProductDetails, productDetails, isProductDetailsError, isProductDetailsLoading } =
     useProductContext()
 
-  const scrollDescriptionSectionRef = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
     void getProductDetails(product.product_id)
   }, [getProductDetails, product.product_id])
-
-  useEffect(() => {
-    // Reset the scroll position of description section when the modal opens
-    if (isOpen && scrollDescriptionSectionRef.current) {
-      scrollDescriptionSectionRef.current.scrollTop = 0
-    }
-  }, [isOpen])
 
   if (isProductDetailsError) {
     return (
@@ -126,7 +114,7 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
           </Container>
         </Container>
       </Container>
-      <div className="col-span-2 overflow-y-auto max-h-64" ref={scrollDescriptionSectionRef}>
+      <div className="col-span-2 overflow-y-auto max-h-64">
         <p className="font-semibold text-gray-500 text-base">{t('products.modal.description')}</p>
         <p className="text-sm mb-3">{productDetails.description}</p>
         <p className="font-semibold text-gray-500 text-base">

@@ -26,6 +26,10 @@ export const ModalContextProvider = ({ children }: { children: Children }) => {
 
   const closeModal = useCallback(() => {
     setConfig(prev => ({ ...prev, isOpen: false }))
+
+    setTimeout(() => {
+      setConfig(initialConfig)
+    }, DEFAULT_FADE_DURATION)
   }, [])
 
   const value = useMemo(() => {
