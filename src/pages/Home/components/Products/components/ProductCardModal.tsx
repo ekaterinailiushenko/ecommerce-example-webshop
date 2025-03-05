@@ -1,17 +1,26 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { formatPrice } from '../../../../../utilities'
 import type { Product } from '../../../../../api/types'
+import { useFormattedProductDetails } from '../../../../../hooks'
 import { ProductQuantityInCartButton } from '../../../../Cart/components'
 import { useModalContext } from '../../../../../contexts/ModalContext/hook'
 import { useProductContext } from '../../../../../contexts/ProductContext/hook'
-import { Button, Container, Icon, ImageWithPlaceholder, Text } from '../../../../../uikit'
+import { Badge, Button, Container, Icon, ImageWithPlaceholder, Text } from '../../../../../uikit'
+
+const MODAL_PRODUCT_IMAGE_SIZE = 140
 
 export const ProductCardModal = ({ product }: { product: Product }) => {
   const { t } = useTranslation()
 
   const { closeModal } = useModalContext()
+
+  const { isNewProduct, priceText, stockText } = useFormattedProductDetails({
+    weight: product.weight,
+    stock: product.stock,
+    rating: product.rating,
+    pricePerProduct: product.pricePerProduct,
+  })
 
   const { getProductDetails, productDetails, isProductDetailsError, isProductDetailsLoading } =
     useProductContext()
@@ -36,30 +45,75 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
 
   if (isProductDetailsLoading || !productDetails) {
     return (
-      <div className="flex flex-col items-center justify-center h-full p-5 gap-5">
+      <Container className="flex flex-col items-center justify-center h-full p-5 gap-5">
         <Icon variant="spinner" size="lg" />
-        <p>{t('global.loading')}</p>
-      </div>
+        <Text text={t('global.loading')} />
+      </Container>
     )
   }
 
   return (
-    <div className="grid grid-cols-2 h-full gap-4">
-      <div className="col-span-2 grid grid-cols-2 gap-4">
-        <ImageWithPlaceholder
-          size={160}
-          key={productDetails.image}
-          src={productDetails.image}
-          alt={t('products.modal.productImageAltText')}
-        />
-        <div className="flex flex-col justify-between mr-5">
-          <div>
-            <h3 className="text-xl font-bold">{productDetails.name}</h3>
-            <p className="text-2xl font-bold">{formatPrice(productDetails.price)}</p>
-          </div>
-          <ProductQuantityInCartButton product={product} />
-        </div>
-      </div>
+    <Container className="grid grid-rows-2 grid-cols-1 gap-4 md:max-h-[500px]">
+      <Container className="grid grid-cols-2 gap-4">
+        <Container className="grid grid-rows-3">
+          <Container className="relative row-span-2 bg-grey1 rounded-lg overflow-hidden">
+            <ImageWithPlaceholder
+              size={MODAL_PRODUCT_IMAGE_SIZE}
+              key={productDetails.image}
+              src={productDetails.image}
+              alt={t('products.modal.productImageAltText')}
+            />
+            <Badge
+              variant="rating"
+              label={isNewProduct ? t('products.newProduct.badge') : product.rating.toString()}
+              textSize="s"
+              className="absolute -bottom-0.5 left-4 font-semibold"
+            />
+          </Container>
+        </Container>
+        <Container className="grid grid-rows-3">
+          <Container className="row-span-3 flex flex-col gap-5">
+            <Text text={productDetails.name} size="xl" className="font-bold leading-none" />
+            <Container className="flex gap-1">
+              {product.weight && (
+                <>
+                  <Text
+                    text={t('products.weightPerPiece', { weight: product.weight })}
+                    size="s"
+                    className="text-grey3 leading-none"
+                  />
+                  <Text
+                    text={t('global.dividerSymbol')}
+                    className="font-semibold text-grey3 leading-none"
+                  />
+                </>
+              )}
+              <Text text={stockText} size="s" className="text-green1 leading-none" />
+            </Container>
+            <Container>
+              {isNewProduct ? (
+                <>
+                  <Badge
+                    variant="priceTagNewProduct"
+                    label={priceText}
+                    textSize="xxl"
+                    className="font-semibold"
+                  />
+                  <Text text={t('products.newProduct.label')} size="xs" className="text-blue1" />
+                </>
+              ) : (
+                <Badge
+                  variant="priceTagProduct"
+                  label={priceText}
+                  textSize="xxl"
+                  className="font-semibold"
+                />
+              )}
+            </Container>
+            <ProductQuantityInCartButton product={product} />
+          </Container>
+        </Container>
+      </Container>
       <div className="col-span-2 overflow-y-auto max-h-64">
         <p className="font-semibold text-gray-500 text-base">{t('products.modal.description')}</p>
         <p className="text-sm mb-3">{productDetails.description}</p>
@@ -89,6 +143,6 @@ export const ProductCardModal = ({ product }: { product: Product }) => {
           <li>{t('products.modal.features.bullet4')}</li>
         </ul>
       </div>
-    </div>
+    </Container>
   )
 }
