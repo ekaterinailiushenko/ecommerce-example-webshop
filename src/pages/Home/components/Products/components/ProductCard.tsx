@@ -12,7 +12,12 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
   const { openModal } = useModalContext()
 
-  const { isNewProduct, priceText, stockText } = useFormattedProductDetails(product)
+  const { isNewProduct, priceText, stockText } = useFormattedProductDetails({
+    weight: product.weight,
+    stock: product.stock,
+    rating: product.rating,
+    pricePerProduct: product.pricePerProduct,
+  })
 
   const handleOpenModalClick = () => {
     openModal({
@@ -55,11 +60,11 @@ export const ProductCard = ({ product }: { product: Product }) => {
           <Container className="">
             {isNewProduct ? (
               <>
-                <Badge variant="priceTagNewProduct" label={priceText ?? ''} />
+                <Badge variant="priceTagNewProduct" label={priceText} />
                 <Text text={t('products.newProduct.label')} size="xs" className="text-blue1" />
               </>
             ) : (
-              <Badge variant="priceTagProduct" label={priceText ?? ''} />
+              <Badge variant="priceTagProduct" label={priceText} />
             )}
           </Container>
         </Container>
